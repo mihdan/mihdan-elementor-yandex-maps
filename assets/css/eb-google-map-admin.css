@@ -1,0 +1,15 @@
+.panel-elements-category-title-eb-elementor-extended {
+    background-color: #9b0a46;
+    color: #fff;
+    margin: 5px 10px;
+    border-radius: 3px;
+}
+.eb-map-find-address {
+	    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#eb-output-result {
+	margin-bottom: 10px;
+    line-height: 1.3;
+    font-size: 12px;
+}
