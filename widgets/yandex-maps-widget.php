@@ -150,15 +150,14 @@ class Yandex_Maps extends Widget_Base {
 		$this->add_control(
 			'map_type',
 			[
-				'label' => __( 'Map Type', 'elementor' ),
-				'type' => Controls_Manager::SELECT,
+				'label'   => __( 'Map Type', 'elementor' ),
+				'type'    => Controls_Manager::SELECT,
 				'options' => [
-					'roadmap' => __( 'Road Map', 'elementor' ),
+					'map'       => __( 'Road Map', 'elementor' ),
 					'satellite' => __( 'Satellite', 'elementor' ),
-					'hybrid' => __( 'Hybrid', 'elementor' ),
-					'terrain' => __( 'Terrain', 'elementor' ),
+					'hybrid'    => __( 'Hybrid', 'elementor' ),
 				],
-				'default' => 'roadmap',
+				'default' => 'map',
 			]
 		);
 
@@ -574,7 +573,8 @@ class Yandex_Maps extends Widget_Base {
 		     class="eb-map"
 		     data-eb-map-lat="<?php echo $settings['map_lat']; ?>"
 		     data-eb-map-lng="<?php echo $settings['map_lng']; ?>"
-		     data-eb-map-zoom="<?php echo $settings['zoom']['size']; ?>"></div>
+		     data-eb-map-zoom="<?php echo $settings['zoom']['size']; ?>"
+		     data-eb-map-type="<?php echo $settings['map_type']; ?>"></div>
 
 	<?php }
 }

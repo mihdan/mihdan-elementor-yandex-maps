@@ -95,7 +95,8 @@
 
 	        var map = new ymaps.Map( mapid.attr('id'), {
 		        center: [ parseFloat( map_lat ), parseFloat( map_lng ) ],
-		        zoom: zoom
+		        zoom: zoom,
+                type: 'yandex#' + maptype
 	        });
 
             return;
