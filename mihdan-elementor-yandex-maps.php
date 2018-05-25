@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Elementor Google Map Extended
+ * Plugin Name: Mihdan: Elementor Yandex Map
  * Description: An Extended of Elementor Google Map Widget - Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard Elementor text editor. And many more custom map options.
  * Plugin URI:  https://internetcss.com/
- * Version:     1.0.8
+ * Version:     1.0.1
  * Author:      InternetCSS
  * Author URI:  https://internetcss.com/about-us
  * Text Domain: eb-google-map-extended
@@ -47,7 +47,7 @@ function eb_google_map_extended() {
 
 	// Require the main plugin file
 	function add_eb_google_map(){
-		require_once __DIR__ . '/widgets/eb-google-map-extended-widget.php';
+		require_once __DIR__ . '/widgets/yandex-maps-widget.php';
 	}
 	add_action('elementor/widgets/widgets_registered','add_eb_google_map');
 }

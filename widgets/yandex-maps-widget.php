@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-class EB_Google_Map_Extended extends Widget_Base {
+class Yandex_Maps extends Widget_Base {
 
 	/**
 	 * Retrieve heading widget name.
@@ -28,7 +28,7 @@ class EB_Google_Map_Extended extends Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Google Map Extended', 'elementor' );
+		return __( 'Yandex Maps', 'elementor' );
 	}
 
 	/**
@@ -58,7 +58,7 @@ class EB_Google_Map_Extended extends Widget_Base {
 	 * @return array Widget categories.
 	 */
 	public function get_categories() {
-		return [ 'eb-elementor-extended' ];
+		return [ 'mihdan' ];
 	}
 
 	public function get_script_depends() {
@@ -585,4 +585,4 @@ class EB_Google_Map_Extended extends Widget_Base {
 	<?php }
 }
 
-Plugin::instance()->widgets_manager->register_widget_type( new EB_Google_Map_Extended() );
+Plugin::instance()->widgets_manager->register_widget_type( new Yandex_Maps() );

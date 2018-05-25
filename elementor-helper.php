@@ -2,10 +2,10 @@
 namespace Elementor;
 
 add_action( 'elementor/init', function() {
-	\Elementor\Plugin::$instance->elements_manager->add_category( 
-   	'eb-elementor-extended',
+	\Elementor\Plugin::$instance->elements_manager->add_category(
+   	'mihdan',
         [
-            'title'  => 'Elementor Extended',
+            'title'  => 'Mihdan Widgets',
             'icon' => 'font'
         ],
         1
