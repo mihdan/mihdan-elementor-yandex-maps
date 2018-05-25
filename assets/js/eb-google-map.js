@@ -20,7 +20,7 @@
             active_info,
             infowindow,
             map;
-
+        /*
         if (maptypecontrolstyle == 'DROPDOWN_MENU') {
             maptypecontrolstyle = google.maps.MapTypeControlStyle.DROPDOWN_MENU;
         } else if (maptypecontrolstyle == 'HORIZONTAL_BAR') {
@@ -86,89 +86,97 @@
         } else {
             streetviewposition = google.maps.ControlPosition.RIGHT_BOTTOM;
         }
-
+*/
         function initMap() {
+
+	        var map = new ymaps.Map( mapid.attr('id'), {
+		        center: [55.76, 37.64],
+		        zoom: 7
+	        });
+
+            return;
+
             var myLatLng = { lat: parseFloat(map_lat), lng: parseFloat(map_lng) };
 
-            var map = new google.maps.Map(mapid[0], {
-                center: myLatLng,
-                zoom: zoom,
-                disableDefaultUI: defaultui,
-                zoomControl: zoomcontrol,
-                zoomControlOptions: {
-                    position: zoomcontrolposition
-                },
-                mapTypeId: maptype,
-                mapTypeControl: maptypecontrol,
-                mapTypeControlOptions: {
-                    style: maptypecontrolstyle,
-                    position: maptypecontrolposition
-                },
-                streetViewControl: streetview,
-                streetViewControlOptions: {
-                    position: streetviewposition
-                },
-                styles: styles,
-                gestureHandling: gesture_handling,
-            });
+//            var map = new google.maps.Map(mapid[0], {
+//                center: myLatLng,
+//                zoom: zoom,
+//                disableDefaultUI: defaultui,
+//                zoomControl: zoomcontrol,
+//                zoomControlOptions: {
+//                    position: zoomcontrolposition
+//                },
+//                mapTypeId: maptype,
+//                mapTypeControl: maptypecontrol,
+//                mapTypeControlOptions: {
+//                    style: maptypecontrolstyle,
+//                    position: maptypecontrolposition
+//                },
+//                streetViewControl: streetview,
+//                streetViewControlOptions: {
+//                    position: streetviewposition
+//                },
+//                styles: styles,
+//                gestureHandling: gesture_handling,
+//            });
 
-            var markersLocations = $(mapid).data('eb-locations');
-
-            $.each(markersLocations, function(index, Element, content) {
-                var content = '<div class="eb-map-container"><h6>' + Element.title + '</h6>' + Element.content + '</div>';
-                var icon = '';
-                if (Element.pin_icon !== '') {
-                    if (Element.pin_icon == 'red') {
-                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_red.png';
-                    } else if (Element.pin_icon == 'yellow') {
-                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_yellow.png';
-                    } else if (Element.pin_icon == 'blue') {
-                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_blue.png';
-                    } else if (Element.pin_icon == 'black') {
-                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_black.png';
-                    } else if (Element.pin_icon == 'white') {
-                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_white.png';
-                    } else if (Element.pin_icon == 'purple') {
-                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_purple.png';
-                    } else if (Element.pin_icon == 'green') {
-                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_green.png';
-                    } else if (Element.pin_icon == 'orange') {
-                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_orange.png';
-                    } else if (Element.pin_icon == 'grey') {
-                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_grey.png';
-                    } else {
-                        icon = '';
-                    }
-                }
-
-                marker = new google.maps.Marker({
-                    map: map,
-                    position: new google.maps.LatLng(parseFloat(Element.lat), parseFloat(Element.lng)),
-                    icon: icon,
-                });
-
-                if (Element.title !== '') {
-                    addInfoWindow(marker, content)
-                } else if (Element.content !== '') {
-                    addInfoWindow(marker, content)
-                }
-                
-            });
+//            var markersLocations = $(mapid).data('eb-locations');
+//
+//            $.each(markersLocations, function(index, Element, content) {
+//                var content = '<div class="eb-map-container"><h6>' + Element.title + '</h6>' + Element.content + '</div>';
+//                var icon = '';
+//                if (Element.pin_icon !== '') {
+//                    if (Element.pin_icon == 'red') {
+//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_red.png';
+//                    } else if (Element.pin_icon == 'yellow') {
+//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_yellow.png';
+//                    } else if (Element.pin_icon == 'blue') {
+//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_blue.png';
+//                    } else if (Element.pin_icon == 'black') {
+//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_black.png';
+//                    } else if (Element.pin_icon == 'white') {
+//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_white.png';
+//                    } else if (Element.pin_icon == 'purple') {
+//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_purple.png';
+//                    } else if (Element.pin_icon == 'green') {
+//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_green.png';
+//                    } else if (Element.pin_icon == 'orange') {
+//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_orange.png';
+//                    } else if (Element.pin_icon == 'grey') {
+//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_grey.png';
+//                    } else {
+//                        icon = '';
+//                    }
+//                }
+//
+//                marker = new google.maps.Marker({
+//                    map: map,
+//                    position: new google.maps.LatLng(parseFloat(Element.lat), parseFloat(Element.lng)),
+//                    icon: icon,
+//                });
+//
+//                if (Element.title !== '') {
+//                    addInfoWindow(marker, content)
+//                } else if (Element.content !== '') {
+//                    addInfoWindow(marker, content)
+//                }
+//
+//            });
         }
         
         function addInfoWindow(marker, content) {
-            google.maps.event.addListener(marker, 'click', function() {
-                if (!infowindow) {
-                    infowindow = new google.maps.InfoWindow({
-                        maxWidth: infowindow_max_width
-                    });
-                }
-                infowindow.setContent(content);
-                infowindow.open(map, marker);
-            });
+//            google.maps.event.addListener(marker, 'click', function() {
+//                if (!infowindow) {
+//                    infowindow = new google.maps.InfoWindow({
+//                        maxWidth: infowindow_max_width
+//                    });
+//                }
+//                infowindow.setContent(content);
+//                infowindow.open(map, marker);
+//            });
         }
 
-        initMap();
+	    ymaps.ready( initMap );
 
     };
 
