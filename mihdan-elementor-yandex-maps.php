@@ -7,6 +7,7 @@
  * Author:      InternetCSS
  * Author URI:  https://internetcss.com/about-us
  * Text Domain: eb-google-map-extended
+ * GitHub Plugin URI: https://github.com/mihdan/mihdan-elementor-yandex-maps
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

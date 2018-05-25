@@ -161,21 +161,21 @@ class Yandex_Maps extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
-			'gesture_handling',
-			[
-				'label' => __( 'Gesture Handling', 'elementor' ),
-				'type' => Controls_Manager::SELECT,
-				'options' => [
-					'auto' => __( 'Auto (Default)', 'elementor' ),
-					'cooperative' => __( 'Cooperative', 'elementor' ),
-					'greedy' => __( 'Greedy', 'elementor' ),
-					'none' => __( 'None', 'elementor' ),
-				],
-				'default' => 'auto',
-				'description' => __('Understand more about Gesture Handling by reading it <a href="https://developers.google.com/maps/documentation/javascript/reference/3/#MapOptions" target="_blank">here.</a> Basically it control how it handles gestures on the map. Used to be draggable and scroll wheel function which is deprecated.'),
-			]
-		);
+//		$this->add_control(
+//			'gesture_handling',
+//			[
+//				'label' => __( 'Gesture Handling', 'elementor' ),
+//				'type' => Controls_Manager::SELECT,
+//				'options' => [
+//					'auto' => __( 'Auto (Default)', 'elementor' ),
+//					'cooperative' => __( 'Cooperative', 'elementor' ),
+//					'greedy' => __( 'Greedy', 'elementor' ),
+//					'none' => __( 'None', 'elementor' ),
+//				],
+//				'default' => 'auto',
+//				'description' => __('Understand more about Gesture Handling by reading it <a href="https://developers.google.com/maps/documentation/javascript/reference/3/#MapOptions" target="_blank">here.</a> Basically it control how it handles gestures on the map. Used to be draggable and scroll wheel function which is deprecated.'),
+//			]
+//		);
 
 
 		/*$this->add_control(
@@ -187,130 +187,130 @@ class Yandex_Maps extends Widget_Base {
 			]
 		);*/
 
-		$this->add_control(
-			'zoom_control',
-			[
-				'label' => __( 'Show Zoom Control', 'elementor' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes'
-			]
-		);
+//		$this->add_control(
+//			'zoom_control',
+//			[
+//				'label' => __( 'Show Zoom Control', 'elementor' ),
+//				'type' => Controls_Manager::SWITCHER,
+//				'default' => 'yes'
+//			]
+//		);
 
-		$this->add_control(
-			'zoom_control_position',
-			[
-				'label' => __( 'Control Position', 'elementor' ),
-				'type' => Controls_Manager::SELECT,
-				'options' => [
-					'RIGHT_BOTTOM' => __( 'Bottom Right (Default)', 'elementor' ),
-					'TOP_LEFT' => __( 'Top Left', 'elementor' ),
-					'TOP_CENTER' => __( 'Top Center', 'elementor' ),
-					'TOP_RIGHT' => __( 'Top Right', 'elementor' ),
-					'LEFT_CENTER' => __( 'Left Center', 'elementor' ),
-					'RIGHT_CENTER' => __( 'Right Center', 'elementor' ),
-					'BOTTOM_LEFT' => __( 'Bottom Left', 'elementor' ),
-					'BOTTOM_CENTER' => __( 'Bottom Center', 'elementor' ),
-					'BOTTOM_RIGHT' => __( 'Bottom Right', 'elementor' ),
-				],
-				'default' => 'RIGHT_BOTTOM',
-				'condition' => [
-					'zoom_control' => 'yes',
-				],
-				'separator' => false,
-			]
-		);
-
-		$this->add_control(
-			'default_ui',
-			[
-				'label' => __( 'Show Default UI', 'elementor' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes'
-			]
-		);
-
-		$this->add_control(
-			'map_type_control',
-			[
-				'label' => __( 'Map Type Control', 'elementor' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes'
-			]
-		);
-
-		$this->add_control(
-			'map_type_control_style',
-			[
-				'label' => __( 'Control Styles', 'elementor' ),
-				'type' => Controls_Manager::SELECT,
-				'options' => [
-					'DEFAULT' => __( 'Default', 'elementor' ),
-					'HORIZONTAL_BAR' => __( 'Horizontal Bar', 'elementor' ),
-					'DROPDOWN_MENU' => __( 'Dropdown Menu', 'elementor' ),
-				],
-				'default' => 'DEFAULT',
-				'condition' => [
-					'map_type_control' => 'yes',
-				],
-				'separator' => false,
-			]
-		);
-
-		$this->add_control(
-			'map_type_control_position',
-			[
-				'label' => __( 'Control Position', 'elementor' ),
-				'type' => Controls_Manager::SELECT,
-				'options' => [
-					'TOP_LEFT' => __( 'Top Left (Default)', 'elementor' ),
-					'TOP_CENTER' => __( 'Top Center', 'elementor' ),
-					'TOP_RIGHT' => __( 'Top Right', 'elementor' ),
-					'LEFT_CENTER' => __( 'Left Center', 'elementor' ),
-					'RIGHT_CENTER' => __( 'Right Center', 'elementor' ),
-					'BOTTOM_LEFT' => __( 'Bottom Left', 'elementor' ),
-					'BOTTOM_CENTER' => __( 'Bottom Center', 'elementor' ),
-					'BOTTOM_RIGHT' => __( 'Bottom Right', 'elementor' ),
-				],
-				'default' => 'TOP_LEFT',
-				'condition' => [
-					'map_type_control' => 'yes',
-				],
-				'separator' => false,
-			]
-		);
-
-		$this->add_control(
-			'streetview_control',
-			[
-				'label' => __( 'Show Streetview Control', 'elementor' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'no'
-			]
-		);
-
-		$this->add_control(
-			'streetview_control_position',
-			[
-				'label' => __( 'Streetview Position', 'elementor' ),
-				'type' => Controls_Manager::SELECT,
-				'options' => [
-					'RIGHT_BOTTOM' => __( 'Bottom Right (Default)', 'elementor' ),
-					'TOP_LEFT' => __( 'Top Left', 'elementor' ),
-					'TOP_CENTER' => __( 'Top Center', 'elementor' ),
-					'TOP_RIGHT' => __( 'Top Right', 'elementor' ),
-					'LEFT_CENTER' => __( 'Left Center', 'elementor' ),
-					'RIGHT_CENTER' => __( 'Right Center', 'elementor' ),
-					'BOTTOM_LEFT' => __( 'Bottom Left', 'elementor' ),
-					'BOTTOM_CENTER' => __( 'Bottom Center', 'elementor' ),
-					'BOTTOM_RIGHT' => __( 'Bottom Right', 'elementor' ),
-				],
-				'default' => 'RIGHT_BOTTOM',
-				'condition' => [
-					'streetview_control' => 'yes',
-				],
-				'separator' => false,
-			]
-		);
+//		$this->add_control(
+//			'zoom_control_position',
+//			[
+//				'label' => __( 'Control Position', 'elementor' ),
+//				'type' => Controls_Manager::SELECT,
+//				'options' => [
+//					'RIGHT_BOTTOM' => __( 'Bottom Right (Default)', 'elementor' ),
+//					'TOP_LEFT' => __( 'Top Left', 'elementor' ),
+//					'TOP_CENTER' => __( 'Top Center', 'elementor' ),
+//					'TOP_RIGHT' => __( 'Top Right', 'elementor' ),
+//					'LEFT_CENTER' => __( 'Left Center', 'elementor' ),
+//					'RIGHT_CENTER' => __( 'Right Center', 'elementor' ),
+//					'BOTTOM_LEFT' => __( 'Bottom Left', 'elementor' ),
+//					'BOTTOM_CENTER' => __( 'Bottom Center', 'elementor' ),
+//					'BOTTOM_RIGHT' => __( 'Bottom Right', 'elementor' ),
+//				],
+//				'default' => 'RIGHT_BOTTOM',
+//				'condition' => [
+//					'zoom_control' => 'yes',
+//				],
+//				'separator' => false,
+//			]
+//		);
+//
+//		$this->add_control(
+//			'default_ui',
+//			[
+//				'label' => __( 'Show Default UI', 'elementor' ),
+//				'type' => Controls_Manager::SWITCHER,
+//				'default' => 'yes'
+//			]
+//		);
+//
+//		$this->add_control(
+//			'map_type_control',
+//			[
+//				'label' => __( 'Map Type Control', 'elementor' ),
+//				'type' => Controls_Manager::SWITCHER,
+//				'default' => 'yes'
+//			]
+//		);
+//
+//		$this->add_control(
+//			'map_type_control_style',
+//			[
+//				'label' => __( 'Control Styles', 'elementor' ),
+//				'type' => Controls_Manager::SELECT,
+//				'options' => [
+//					'DEFAULT' => __( 'Default', 'elementor' ),
+//					'HORIZONTAL_BAR' => __( 'Horizontal Bar', 'elementor' ),
+//					'DROPDOWN_MENU' => __( 'Dropdown Menu', 'elementor' ),
+//				],
+//				'default' => 'DEFAULT',
+//				'condition' => [
+//					'map_type_control' => 'yes',
+//				],
+//				'separator' => false,
+//			]
+//		);
+//
+//		$this->add_control(
+//			'map_type_control_position',
+//			[
+//				'label' => __( 'Control Position', 'elementor' ),
+//				'type' => Controls_Manager::SELECT,
+//				'options' => [
+//					'TOP_LEFT' => __( 'Top Left (Default)', 'elementor' ),
+//					'TOP_CENTER' => __( 'Top Center', 'elementor' ),
+//					'TOP_RIGHT' => __( 'Top Right', 'elementor' ),
+//					'LEFT_CENTER' => __( 'Left Center', 'elementor' ),
+//					'RIGHT_CENTER' => __( 'Right Center', 'elementor' ),
+//					'BOTTOM_LEFT' => __( 'Bottom Left', 'elementor' ),
+//					'BOTTOM_CENTER' => __( 'Bottom Center', 'elementor' ),
+//					'BOTTOM_RIGHT' => __( 'Bottom Right', 'elementor' ),
+//				],
+//				'default' => 'TOP_LEFT',
+//				'condition' => [
+//					'map_type_control' => 'yes',
+//				],
+//				'separator' => false,
+//			]
+//		);
+//
+//		$this->add_control(
+//			'streetview_control',
+//			[
+//				'label' => __( 'Show Streetview Control', 'elementor' ),
+//				'type' => Controls_Manager::SWITCHER,
+//				'default' => 'no'
+//			]
+//		);
+//
+//		$this->add_control(
+//			'streetview_control_position',
+//			[
+//				'label' => __( 'Streetview Position', 'elementor' ),
+//				'type' => Controls_Manager::SELECT,
+//				'options' => [
+//					'RIGHT_BOTTOM' => __( 'Bottom Right (Default)', 'elementor' ),
+//					'TOP_LEFT' => __( 'Top Left', 'elementor' ),
+//					'TOP_CENTER' => __( 'Top Center', 'elementor' ),
+//					'TOP_RIGHT' => __( 'Top Right', 'elementor' ),
+//					'LEFT_CENTER' => __( 'Left Center', 'elementor' ),
+//					'RIGHT_CENTER' => __( 'Right Center', 'elementor' ),
+//					'BOTTOM_LEFT' => __( 'Bottom Left', 'elementor' ),
+//					'BOTTOM_CENTER' => __( 'Bottom Center', 'elementor' ),
+//					'BOTTOM_RIGHT' => __( 'Bottom Right', 'elementor' ),
+//				],
+//				'default' => 'RIGHT_BOTTOM',
+//				'condition' => [
+//					'streetview_control' => 'yes',
+//				],
+//				'separator' => false,
+//			]
+//		);
 
 //		$this->add_control(
 //			'custom_map_style',
