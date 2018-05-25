@@ -1,4 +1,7 @@
 <?php
+/**
+ * Виджет карты
+ */
 namespace Elementor;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -83,45 +86,45 @@ class Yandex_Maps extends Widget_Base {
 		);
 
 		$this->add_control(
-		    'map_notice',
-		    [
-			    'label' => __( 'Find Latitude & Longitude', 'elementor' ),
-			    'type'  => Controls_Manager::RAW_HTML,
-			    'raw'   => '<form onsubmit="ebMapFindAddress(this);" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;"><input type="submit" value="Search" class="elementor-button elementor-button-default" onclick="ebMapFindAddress(this)"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
-			    'label_block' => true,
-		    ]
-	    );
+			'map_notice',
+			[
+				'label'       => __( 'Find Latitude & Longitude', 'elementor' ),
+				'type'        => Controls_Manager::RAW_HTML,
+				'raw'         => '<form onsubmit="ebMapFindAddress(this);" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;"><input type="submit" value="Search" class="elementor-button elementor-button-default" onclick="ebMapFindAddress(this)"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
+				'label_block' => true,
+			]
+		);
 
 		$this->add_control(
 			'map_lat',
 			[
-				'label' => __( 'Latitude', 'elementor' ),
-				'type' => Controls_Manager::TEXT,
+				'label'       => __( 'Latitude', 'elementor' ),
+				'type'        => Controls_Manager::TEXT,
 				'placeholder' => '1.2833754',
-				'default' => '1.2833754',
+				'default'     => '1.2833754',
 			]
 		);
 
 		$this->add_control(
 			'map_lng',
 			[
-				'label' => __( 'Longitude', 'elementor' ),
-				'type' => Controls_Manager::TEXT,
+				'label'       => __( 'Longitude', 'elementor' ),
+				'type'        => Controls_Manager::TEXT,
 				'placeholder' => '103.86072639999998',
-				'default' => '103.86072639999998',
-				'separator' => true,
+				'default'     => '103.86072639999998',
+				'separator'   => true,
 			]
 		);
 
 		$this->add_control(
 			'zoom',
 			[
-				'label' => __( 'Zoom Level', 'elementor' ),
-				'type' => Controls_Manager::SLIDER,
+				'label'   => __( 'Zoom Level', 'elementor' ),
+				'type'    => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 10,
 				],
-				'range' => [
+				'range'   => [
 					'px' => [
 						'min' => 1,
 						'max' => 19,
@@ -133,9 +136,9 @@ class Yandex_Maps extends Widget_Base {
 		$this->add_responsive_control(
 			'height',
 			[
-				'label' => __( 'Height', 'elementor' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [
+				'label'     => __( 'Height', 'elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
 					'px' => [
 						'min' => 40,
 						'max' => 1440,
