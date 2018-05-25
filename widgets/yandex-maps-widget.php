@@ -82,17 +82,6 @@ class Yandex_Maps extends Widget_Base {
 			]
 		);
 
-		if (empty(eb_map_get_option( 'eb_google_map_api_key', 'eb_map_general_settings' ))) {
-			$this->add_control(
-			    'api_notice',
-			    [
-				    'type'  => Controls_Manager::RAW_HTML,
-				    'raw'   => 'Please enter your Google Map API <a target="_blank" href="'.admin_url('admin.php?page=eb_google_map_setting').'">here</a>',
-				    'label_block' => true,
-			    ]
-		    );
-		}
-
 		$this->add_control(
 		    'map_notice',
 		    [
@@ -130,12 +119,12 @@ class Yandex_Maps extends Widget_Base {
 				'label' => __( 'Zoom Level', 'elementor' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
-					'size' => 15,
+					'size' => 10,
 				],
 				'range' => [
 					'px' => [
 						'min' => 1,
-						'max' => 25,
+						'max' => 19,
 					],
 				],
 			]
@@ -324,17 +313,17 @@ class Yandex_Maps extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
-			'custom_map_style',
-			[
-				'label' => __( 'Custom Map Style', 'elementor' ),
-				'type' => Controls_Manager::TEXTAREA,
-				'description' => __('Add style from <a href="https://mapstyle.withgoogle.com/" target="_blank">Google Map Styling Wizard</a> or <a href="https://snazzymaps.com/explore" target="_blank">Snazzy Maps</a>. Copy and Paste the style in the textarea.'),
-				'condition' => [
-					'map_type' => 'roadmap',
-				],
-			]
-		);
+//		$this->add_control(
+//			'custom_map_style',
+//			[
+//				'label' => __( 'Custom Map Style', 'elementor' ),
+//				'type' => Controls_Manager::TEXTAREA,
+//				'description' => __('Add style from <a href="https://mapstyle.withgoogle.com/" target="_blank">Google Map Styling Wizard</a> or <a href="https://snazzymaps.com/explore" target="_blank">Snazzy Maps</a>. Copy and Paste the style in the textarea.'),
+//				'condition' => [
+//					'map_type' => 'roadmap',
+//				],
+//			]
+//		);
 
 		$this->add_control(
 			'view',
@@ -562,15 +551,15 @@ class Yandex_Maps extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings();
 
-		$eb_map_styles = $settings['custom_map_style'];
-		$eb_replace_code_content = strip_tags($eb_map_styles);
-        $eb_new_replace_code_content = preg_replace('/\s/', '', $eb_replace_code_content);
+		//$eb_map_styles = $settings['custom_map_style'];
+		//$eb_replace_code_content = strip_tags($eb_map_styles);
+        //$eb_new_replace_code_content = preg_replace('/\s/', '', $eb_replace_code_content);
 
 		if ( 0 === absint( $settings['zoom']['size'] ) ) {
 			$settings['zoom']['size'] = 10;
 		}
 
-		$this->add_render_attribute('eb-google-map-extended', 'data-eb-map-style', $eb_new_replace_code_content);
+		//$this->add_render_attribute('eb-google-map-extended', 'data-eb-map-style', $eb_new_replace_code_content);
 
 		$mapmarkers = array();
 
@@ -581,7 +570,11 @@ class Yandex_Maps extends Widget_Base {
 
 		?>
 		<!--div id="eb-map-<?php echo esc_attr($this->get_id()); ?>" class="eb-map" data-eb-map-gesture-handling="<?php echo $settings['gesture_handling'] ?>" <?php if ( 'yes' == $settings['zoom_control'] ) { ?> data-eb-map-zoom-control="true" data-eb-map-zoom-control-position="<?php echo $settings['zoom_control_position']; ?>" <?php } else { ?> data-eb-map-zoom-control="false"<?php } ?> data-eb-map-defaultui="<?php if ( 'yes' == $settings['default_ui'] ) { ?>false<?php } else { ?>true<?php } ?>" <?php echo $this->get_render_attribute_string('eb-google-map-extended'); ?> data-eb-map-type="<?php echo $settings['map_type']; ?>" <?php if ( 'yes' == $settings['map_type_control'] ) { ?> data-eb-map-type-control="true" data-eb-map-type-control-style="<?php echo $settings['map_type_control_style']; ?>" data-eb-map-type-control-position="<?php echo $settings['map_type_control_position']; ?>"<?php } else { ?> data-eb-map-type-control="false"<?php } ?> <?php if ( 'yes' == $settings['streetview_control'] ) { ?> data-eb-map-streetview-control="true" data-eb-map-streetview-position="<?php echo $settings['streetview_control_position']; ?>"<?php } else {?> data-eb-map-streetview-control="false"<?php } ?> data-eb-map-lat="<?php echo $settings['map_lat']; ?>" data-eb-map-lng="<?php echo $settings['map_lng']; ?>" data-eb-map-zoom="<?php echo $settings['zoom']['size']; ?>" data-eb-map-infowindow-width="<?php echo $settings['infowindow_max_width']; ?>" data-eb-locations='<?php echo json_encode($mapmarkers);?>'></div-->
-		<div id="eb-map-<?php echo esc_attr($this->get_id()); ?>" class="eb-map"></div>
+		<div id="eb-map-<?php echo esc_attr($this->get_id()); ?>"
+		     class="eb-map"
+		     data-eb-map-lat="<?php echo $settings['map_lat']; ?>"
+		     data-eb-map-lng="<?php echo $settings['map_lng']; ?>"
+		     data-eb-map-zoom="<?php echo $settings['zoom']['size']; ?>"></div>
 
 	<?php }
 }

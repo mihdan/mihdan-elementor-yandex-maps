@@ -12,7 +12,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 define( 'EB_GOOGLE_MAP_EXTENDED__FILE__', __FILE__ );
-define( 'eb_google_map_version', '1.0.8' );
+define( 'eb_google_map_version', '1.0.1' );
 
 require_once __DIR__ . '/elementor-helper.php';
 

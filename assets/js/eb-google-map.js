@@ -89,14 +89,18 @@
 */
         function initMap() {
 
+//	        var suggestView = new ymaps.SuggestView('eb-map-find-address'),
+//		        map,
+//		        placemark;
+
 	        var map = new ymaps.Map( mapid.attr('id'), {
-		        center: [55.76, 37.64],
-		        zoom: 7
+		        center: [ parseFloat( map_lat ), parseFloat( map_lng ) ],
+		        zoom: zoom
 	        });
 
             return;
 
-            var myLatLng = { lat: parseFloat(map_lat), lng: parseFloat(map_lng) };
+            //var myLatLng = { lat: parseFloat(map_lat), lng: parseFloat(map_lng) };
 
 //            var map = new google.maps.Map(mapid[0], {
 //                center: myLatLng,
