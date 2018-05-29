@@ -371,6 +371,16 @@ class Yandex_Maps extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'disable_ruler',
+			[
+				'label'       => __( 'Disable Ruler', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Отключить линейку', 'elementor' ),
+			]
+		);
+
 		$this->end_controls_section();
 
 		/*Pins Option*/
@@ -536,6 +546,7 @@ class Yandex_Maps extends Widget_Base {
 		     data-eb-disable-right-mouse-button-magnifier="<?php echo $settings['disable_right_mouse_button_magnifier']; ?>"
 		     data-eb-disable-multi-touch="<?php echo $settings['disable_multi_touch']; ?>"
 		     data-eb-disable-route-editor="<?php echo $settings['disable_route_editor']; ?>"
+		     data-eb-disable-ruler="<?php echo $settings['disable_ruler']; ?>"
 		     data-eb-locations='<?php echo json_encode( $mapmarkers ); ?>'
 		     style="height: <?php echo $settings['height']['size']; ?><?php echo $settings['height']['unit']; ?>;"></div>
 	<?php

@@ -22,6 +22,7 @@
 	        disable_right_mouse_button_magnifier = $(mapid).data("eb-disable-right-mouse-button-magnifier"),
 	        disable_multi_touch = $(mapid).data("eb-disable-disable-multi-touch"),
 	        disable_route_editor = $(mapid).data("eb-disable-route-editor"),
+	        disable_ruler = $(mapid).data("eb-disable-ruler"),
 
             infowindow_max_width = $(mapid).data("eb-map-infowindow-width"),
             active_info,
@@ -114,6 +115,11 @@
 	        // Отключить редактор маршрутов
 	        if ( 'yes' === disable_route_editor ) {
 		        map.behaviors.disable('routeEditor');
+	        }
+
+	        // Отключить линейку
+	        if ( 'yes' === disable_ruler ) {
+		        map.behaviors.disable('ruler');
 	        }
 
             var markersLocations = $( mapid ).data('eb-locations');
