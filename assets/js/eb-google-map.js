@@ -15,6 +15,7 @@
 	        fullscreen_control = $(mapid).data("eb-fullscreen-control"),
 	        route_button_control = $(mapid).data("eb-route-button-control"),
 	        route_panel_control = $(mapid).data("eb-route-panel-control"),
+	        disable_scroll_zoom = $(mapid).data("eb-disable-scroll-zoom"),
 
 
             infowindow_max_width = $(mapid).data("eb-map-infowindow-width"),
@@ -74,6 +75,11 @@
 	        }, {
 		        searchControlProvider: 'yandex#search'
 	        } );
+
+	        // Отключить прокрутку колесом мыши
+	        if ( 'yes' === disable_scroll_zoom ) {
+		        map.behaviors.disable('scrollZoom');
+	        }
 
             var markersLocations = $( mapid ).data('eb-locations');
 

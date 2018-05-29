@@ -215,6 +215,16 @@ class Yandex_Maps extends Widget_Base {
 		);
 
 		$this->add_control(
+			'disable_scroll_zoom',
+			[
+				'label'       => __( 'Disable Scroll Zoom', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Отключить прокрутку карты колесом мыши', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
 			'geolocation_control',
 			[
 				'label'       => __( 'Geolocation Control', 'elementor' ),
@@ -431,6 +441,7 @@ class Yandex_Maps extends Widget_Base {
 		     data-eb-fullscreen-control="<?php echo $settings['fullscreen_control']; ?>"
 		     data-eb-route-button-control="<?php echo $settings['route_button_control']; ?>"
 		     data-eb-route-panel-control="<?php echo $settings['route_panel_control']; ?>"
+		     data-eb-disable-scroll-zoom="<?php echo $settings['disable_scroll_zoom']; ?>"
 		     data-eb-locations='<?php echo json_encode( $mapmarkers ); ?>'
 		     style="height: <?php echo $settings['height']['size']; ?><?php echo $settings['height']['unit']; ?>;"></div>
 	<?php
