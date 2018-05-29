@@ -23,14 +23,12 @@
 	        disable_multi_touch = $(mapid).data("eb-disable-disable-multi-touch"),
 	        disable_route_editor = $(mapid).data("eb-disable-route-editor"),
 	        disable_ruler = $(mapid).data("eb-disable-ruler"),
-            infowindow_max_width = $(mapid).data("eb-map-infowindow-width"),
+            infowindow_max_width = parseInt( $(mapid).data("eb-infowindow-max-width") ),
             active_info,
             infowindow,
             map,
 	        // @link https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/control.storage-docpage/
             controls = [];
-
-        infowindow_max_width = 300;
 
         function initMap() {
 
