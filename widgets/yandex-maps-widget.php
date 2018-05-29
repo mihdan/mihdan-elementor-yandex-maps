@@ -78,6 +78,10 @@ class Yandex_Maps extends Widget_Base {
 	 * @access protected
 	 */
 	protected function _register_controls() {
+
+		/**
+		 * Настройки карты
+		 */
 		$this->start_controls_section(
 			'section_map',
 			[
@@ -165,6 +169,27 @@ class Yandex_Maps extends Widget_Base {
 		);
 
 		$this->add_control(
+			'view',
+			[
+				'label'   => __( 'View', 'elementor' ),
+				'type'    => Controls_Manager::HIDDEN,
+				'default' => 'traditional',
+			]
+		);
+
+		$this->end_controls_section();
+
+		/**
+		 * Контроллы карты
+		 */
+		$this->start_controls_section(
+			'map_controls',
+			[
+				'label' => __( 'Map Controls', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
 			'ruler_control',
 			[
 				'label'       => __( 'Ruler Control', 'elementor' ),
@@ -211,16 +236,6 @@ class Yandex_Maps extends Widget_Base {
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'yes',
 				'description' => __( 'Ползунок масштаба', 'elementor' ),
-			]
-		);
-
-		$this->add_control(
-			'disable_scroll_zoom',
-			[
-				'label'       => __( 'Disable Scroll Zoom', 'elementor' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'default'     => 'no',
-				'description' => __( 'Отключить прокрутку карты колесом мыши', 'elementor' ),
 			]
 		);
 
@@ -274,12 +289,25 @@ class Yandex_Maps extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
-			'view',
+		$this->end_controls_section();
+
+		/**
+		 * Поведение карты
+		 */
+		$this->start_controls_section(
+			'map_behavior',
 			[
-				'label'   => __( 'View', 'elementor' ),
-				'type'    => Controls_Manager::HIDDEN,
-				'default' => 'traditional',
+				'label' => __( 'Map Behavior', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'disable_scroll_zoom',
+			[
+				'label'       => __( 'Disable Scroll Zoom', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Отключить прокрутку карты колесом мыши', 'elementor' ),
 			]
 		);
 
