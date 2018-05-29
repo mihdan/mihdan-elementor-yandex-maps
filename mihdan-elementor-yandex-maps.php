@@ -1,19 +1,19 @@
 <?php
 /**
  * Plugin Name: Mihdan: Elementor Yandex Maps
- * Description: An Extended of Elementor Google Map Widget - Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard Elementor text editor. And many more custom map options.
- * Plugin URI:  https://internetcss.com/
- * Version:     1.0.1
- * Author:      InternetCSS
- * Author URI:  https://internetcss.com/about-us
- * Text Domain: eb-google-map-extended
+ * Description: Elementor Yandex Maps Widget - Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard Elementor text editor. And many more custom map options.
+ * Plugin URI:  https://www.kobzarev.com/
+ * Version:     1.1.0
+ * Author:      Mikhail Kobzarev
+ * Author URI:  https://www.kobzarev.com/
+ * Text Domain: mihdan-elementor-yandex-maps
  * GitHub Plugin URI: https://github.com/mihdan/mihdan-elementor-yandex-maps
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-define( 'EB_GOOGLE_MAP_EXTENDED__FILE__', __FILE__ );
-define( 'eb_google_map_version', '1.0.1' );
+define( 'EB_YANDEX_MAPS_FILE', __FILE__ );
+define( 'EB_YANDEX_MAPS_VERSION', '1.1.0' );
 
 require_once __DIR__ . '/elementor-helper.php';
 
@@ -96,20 +96,22 @@ function eb_map_get_option( $option, $section, $default = '' ) {
  * Register and enqueue a custom stylesheet in the Elementor.
  */
 add_action('elementor/editor/before_enqueue_scripts', function(){
-	wp_enqueue_style( 'eb-google-map-admin', plugins_url( '/assets/css/eb-google-map-admin.css', EB_GOOGLE_MAP_EXTENDED__FILE__ ) );
+	wp_enqueue_style( 'eb-google-map-admin', plugins_url( '/assets/css/eb-google-map-admin.css', EB_YANDEX_MAPS_FILE ) );
 	//wp_enqueue_script( 'eb-google-maps-api-admin', 'https://maps.googleapis.com/maps/api/js?key=' . eb_map_get_option( 'eb_google_map_api_key', 'eb_map_general_settings' ) . '', ['jquery'], eb_google_map_version, true  );
-	wp_enqueue_script( 'eb-google-maps-api-admin', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=debug', ['jquery'], eb_google_map_version, true  );
+	wp_enqueue_script( 'eb-google-maps-api-admin', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=debug', ['jquery'], EB_YANDEX_MAPS_VERSION, true  );
 	wp_localize_script( 'eb-google-maps-api-admin', 'EB_WP_URL', array( 'plugin_url' => plugin_dir_url(__FILE__) ));
-	wp_enqueue_script( 'eb-google-map-admin', plugins_url( '/assets/js/eb-google-map-admin.js', EB_GOOGLE_MAP_EXTENDED__FILE__ ), ['eb-google-maps-api-admin'], eb_google_map_version, true );
+	wp_enqueue_script( 'eb-google-map-admin', plugins_url( '/assets/js/eb-google-map-admin.js', EB_YANDEX_MAPS_FILE ), ['eb-google-maps-api-admin'], EB_YANDEX_MAPS_VERSION, true );
 });
 
 add_action('elementor/frontend/after_enqueue_styles', function(){
-	wp_enqueue_style( 'eb-google-map', plugins_url( '/assets/css/eb-google-map.css', EB_GOOGLE_MAP_EXTENDED__FILE__ ) );
+	wp_enqueue_style( 'eb-google-map', plugins_url( '/assets/css/eb-google-map.css', EB_YANDEX_MAPS_FILE ) );
 });
 
 add_action('elementor/frontend/after_register_scripts', function(){
 	//wp_register_script( 'eb-google-maps-api', 'https://maps.googleapis.com/maps/api/js?key=' . eb_map_get_option( 'eb_google_map_api_key', 'eb_map_general_settings' ) . '', [], eb_google_map_version, true  );
-	wp_register_script( 'eb-google-maps-api', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=debug', [], eb_google_map_version, true  );
+	wp_register_script( 'eb-google-maps-api', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=debug', [], EB_YANDEX_MAPS_VERSION, true  );
 	wp_localize_script( 'eb-google-maps-api', 'EB_WP_URL', array( 'plugin_url' => plugin_dir_url(__FILE__) ));
-	wp_register_script( 'eb-google-map', plugins_url( '/assets/js/eb-google-map.js', EB_GOOGLE_MAP_EXTENDED__FILE__ ), [ 'eb-google-maps-api' ], eb_google_map_version, true );
+	wp_register_script( 'eb-google-map', plugins_url( '/assets/js/eb-google-map.js', EB_YANDEX_MAPS_FILE ), [ 'eb-google-maps-api' ], EB_YANDEX_MAPS_VERSION, true );
 });
+
+// eof;
