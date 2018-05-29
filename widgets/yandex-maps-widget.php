@@ -396,8 +396,8 @@ class Yandex_Maps extends Widget_Base {
 			[
 				'label'       => __( 'InfoWindow Max Width', 'elementor' ),
 				'type'        => Controls_Manager::TEXT,
-				'placeholder' => '250',
-				'default'     => '250',
+				'placeholder' => '300',
+				'default'     => '300',
 			]
 		);
 
@@ -547,6 +547,7 @@ class Yandex_Maps extends Widget_Base {
 		     data-eb-disable-multi-touch="<?php echo $settings['disable_multi_touch']; ?>"
 		     data-eb-disable-route-editor="<?php echo $settings['disable_route_editor']; ?>"
 		     data-eb-disable-ruler="<?php echo $settings['disable_ruler']; ?>"
+		     data-eb-infowindow-max-width="<?php echo $settings['infowindow_max_width']; ?>"
 		     data-eb-locations='<?php echo json_encode( $mapmarkers ); ?>'
 		     style="height: <?php echo $settings['height']['size']; ?><?php echo $settings['height']['unit']; ?>;"></div>
 	<?php

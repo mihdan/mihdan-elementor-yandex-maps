@@ -3,7 +3,7 @@
  * Plugin Name: Mihdan: Elementor Yandex Maps
  * Description: Elementor Yandex Maps Widget - Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard Elementor text editor. And many more custom map options.
  * Plugin URI:  https://www.kobzarev.com/
- * Version:     1.1.4
+ * Version:     1.1.5
  * Author:      Mikhail Kobzarev
  * Author URI:  https://www.kobzarev.com/
  * Text Domain: mihdan-elementor-yandex-maps
@@ -13,7 +13,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 define( 'EB_YANDEX_MAPS_FILE', __FILE__ );
-define( 'EB_YANDEX_MAPS_VERSION', '1.1.4' );
+define( 'EB_YANDEX_MAPS_VERSION', '1.1.5' );
 
 require_once __DIR__ . '/elementor-helper.php';
 
