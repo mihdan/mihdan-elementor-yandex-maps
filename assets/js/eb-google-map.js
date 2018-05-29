@@ -1,5 +1,5 @@
-(function($) {
-    var EBGoogleMapHandler = function($scope, $) { console.log('map init');
+( function( $, ymaps ) {
+    var EBGoogleMapHandler = function( $scope, $ ) {
         var mapid = $scope.find('.eb-map'),
             maptype = $(mapid).data("eb-map-type"),
             zoom = $(mapid).data("eb-map-zoom"),
@@ -20,94 +20,14 @@
             active_info,
             infowindow,
             map;
-        /*
-        if (maptypecontrolstyle == 'DROPDOWN_MENU') {
-            maptypecontrolstyle = google.maps.MapTypeControlStyle.DROPDOWN_MENU;
-        } else if (maptypecontrolstyle == 'HORIZONTAL_BAR') {
-            maptypecontrolstyle = google.maps.MapTypeControlStyle.HORIZONTAL_BAR;
-        } else {
-            maptypecontrolstyle = google.maps.MapTypeControlStyle.DEFAULT;
-        }
 
-        if (maptypecontrolposition == 'TOP_CENTER') {
-            maptypecontrolposition = google.maps.ControlPosition.TOP_CENTER;
-        } else if (maptypecontrolposition == 'TOP_RIGHT') {
-            maptypecontrolposition = google.maps.ControlPosition.TOP_RIGHT;
-        } else if (maptypecontrolposition == 'LEFT_CENTER') {
-            maptypecontrolposition = google.maps.ControlPosition.LEFT_CENTER;
-        } else if (maptypecontrolposition == 'RIGHT_CENTER') {
-            maptypecontrolposition = google.maps.ControlPosition.RIGHT_CENTER;
-        } else if (maptypecontrolposition == 'BOTTOM_CENTER') {
-            maptypecontrolposition = google.maps.ControlPosition.BOTTOM_CENTER;
-        } else if (maptypecontrolposition == 'BOTTOM_RIGHT') {
-            maptypecontrolposition = google.maps.ControlPosition.BOTTOM_RIGHT;
-        } else if (maptypecontrolposition == 'BOTTOM_LEFT') {
-            maptypecontrolposition = google.maps.ControlPosition.BOTTOM_LEFT;
-        } else {
-            maptypecontrolposition = google.maps.ControlPosition.TOP_LEFT;
-        }
-
-        if (zoomcontrolposition == 'TOP_CENTER') {
-            zoomcontrolposition = google.maps.ControlPosition.TOP_CENTER;
-        } else if (zoomcontrolposition == 'TOP_RIGHT') {
-            zoomcontrolposition = google.maps.ControlPosition.TOP_RIGHT;
-        } else if (zoomcontrolposition == 'LEFT_CENTER') {
-            zoomcontrolposition = google.maps.ControlPosition.LEFT_CENTER;
-        } else if (zoomcontrolposition == 'RIGHT_CENTER') {
-            zoomcontrolposition = google.maps.ControlPosition.RIGHT_CENTER;
-        } else if (zoomcontrolposition == 'BOTTOM_CENTER') {
-            zoomcontrolposition = google.maps.ControlPosition.BOTTOM_CENTER;
-        } else if (zoomcontrolposition == 'BOTTOM_RIGHT') {
-            zoomcontrolposition = google.maps.ControlPosition.BOTTOM_RIGHT;
-        } else if (zoomcontrolposition == 'BOTTOM_LEFT') {
-            zoomcontrolposition = google.maps.ControlPosition.BOTTOM_LEFT;
-        } else if (zoomcontrolposition == 'TOP_LEFT') {
-            zoomcontrolposition = google.maps.ControlPosition.TOP_LEFT;
-        } else {
-            zoomcontrolposition = google.maps.ControlPosition.RIGHT_BOTTOM;
-        }
-
-        if (streetviewposition == 'TOP_CENTER') {
-            streetviewposition = google.maps.ControlPosition.TOP_CENTER;
-        } else if (streetviewposition == 'TOP_RIGHT') {
-            streetviewposition = google.maps.ControlPosition.TOP_RIGHT;
-        } else if (streetviewposition == 'LEFT_CENTER') {
-            streetviewposition = google.maps.ControlPosition.LEFT_CENTER;
-        } else if (streetviewposition == 'RIGHT_CENTER') {
-            streetviewposition = google.maps.ControlPosition.RIGHT_CENTER;
-        } else if (streetviewposition == 'BOTTOM_CENTER') {
-            streetviewposition = google.maps.ControlPosition.BOTTOM_CENTER;
-        } else if (streetviewposition == 'BOTTOM_RIGHT') {
-            streetviewposition = google.maps.ControlPosition.BOTTOM_RIGHT;
-        } else if (streetviewposition == 'BOTTOM_LEFT') {
-            streetviewposition = google.maps.ControlPosition.BOTTOM_LEFT;
-        } else if (streetviewposition == 'TOP_LEFT') {
-            streetviewposition = google.maps.ControlPosition.TOP_LEFT;
-        } else {
-            streetviewposition = google.maps.ControlPosition.RIGHT_BOTTOM;
-        }
-*/
         function initMap() {
-
-//	        var suggestView = new ymaps.SuggestView('eb-map-find-address'),
-//		        map,
-//		        placemark;
 
 	        var map = new ymaps.Map( mapid.attr('id'), {
 		        center: [ parseFloat( map_lat ), parseFloat( map_lng ) ],
 		        zoom: zoom,
                 type: 'yandex#' + maptype
 	        });
-
-
-
-//	        ymaps.domEvent.manager.add( mapid.attr('id'), 'sizechange', function (event) {
-//	        	console.log(event);
-//	        });
-
-	        //map.container.fitToViewport();
-
-
 
             //var myLatLng = { lat: parseFloat(map_lat), lng: parseFloat(map_lng) };
 
@@ -133,69 +53,29 @@
 //                gestureHandling: gesture_handling,
 //            });
 
-            var markersLocations = $(mapid).data('eb-locations');
+            var markersLocations = $( mapid ).data('eb-locations');
 //
-            $.each(markersLocations, function(index, Element, content) {
-//                var content = '<div class="eb-map-container"><h6>' + Element.title + '</h6>' + Element.content + '</div>';
-//                var icon = '';
-//                if (Element.pin_icon !== '') {
-//                    if (Element.pin_icon == 'red') {
-//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_red.png';
-//                    } else if (Element.pin_icon == 'yellow') {
-//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_yellow.png';
-//                    } else if (Element.pin_icon == 'blue') {
-//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_blue.png';
-//                    } else if (Element.pin_icon == 'black') {
-//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_black.png';
-//                    } else if (Element.pin_icon == 'white') {
-//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_white.png';
-//                    } else if (Element.pin_icon == 'purple') {
-//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_purple.png';
-//                    } else if (Element.pin_icon == 'green') {
-//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_green.png';
-//                    } else if (Element.pin_icon == 'orange') {
-//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_orange.png';
-//                    } else if (Element.pin_icon == 'grey') {
-//                        icon = EB_WP_URL.plugin_url + 'assets/images/marker_grey.png';
-//                    } else {
-//                        icon = '';
-//                    }
-//                }
-//
-//                marker = new google.maps.Marker({
-//                    map: map,
-//                    position: new google.maps.LatLng(parseFloat(Element.lat), parseFloat(Element.lng)),
-//                    icon: icon,
-//                });
+            $.each( markersLocations, function( index, Element, content ) {
+                var icon_color = '';
+                if ( Element.pin_icon !== '' ) {
+	                icon_color = Element.pin_icon;
+                }
 
 	            var placemark = new ymaps.Placemark( [ Element.lat, Element.lng ], {
 		            //iconCaption: 'dfwefwe',
 		            hintContent: 'Нажмите, чтобы увидеть описание',
-		            balloonContent: 'red',
+		            balloonContentHeader: Element.title,
+		            balloonContentBody: Element.content,
+		            balloonContentFooter: ''
 	            }, {
-		            iconColor: 'red',
+		            iconColor: icon_color,
+		            balloonContentMaxWidth: 50
 	            } );
 	            map.geoObjects.add( placemark );
-//
-//                if (Element.title !== '') {
-//                    addInfoWindow(marker, content)
-//                } else if (Element.content !== '') {
-//                    addInfoWindow(marker, content)
-//                }
-//
+
+
+
             });
-        }
-        
-        function addInfoWindow(marker, content) {
-//            google.maps.event.addListener(marker, 'click', function() {
-//                if (!infowindow) {
-//                    infowindow = new google.maps.InfoWindow({
-//                        maxWidth: infowindow_max_width
-//                    });
-//                }
-//                infowindow.setContent(content);
-//                infowindow.open(map, marker);
-//            });
         }
 
 	    ymaps.ready( initMap );
@@ -210,8 +90,4 @@
 //	    });
     });
 
-//	$( window ).on( 'slide', '#elementor-control-default-c354', function (  ) {
-//		console.log( 'change' );
-//	} );
-
-} )( window.jQuery );
+} )( window.jQuery, window.ymaps );
