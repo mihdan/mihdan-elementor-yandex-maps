@@ -136,9 +136,9 @@ class Yandex_Maps extends Widget_Base {
 		$this->add_control(
 			'height',
 			[
-				'label' => __( 'Height', 'elementor' ),
-				'type'  => Controls_Manager::SLIDER,
-				'range' => [
+				'label'   => __( 'Height', 'elementor' ),
+				'type'    => Controls_Manager::SLIDER,
+				'range'   => [
 					'px' => [
 						'min' => 100,
 						'max' => 1440,
@@ -147,23 +147,6 @@ class Yandex_Maps extends Widget_Base {
 				'default' => [
 					'size' => 300,
 				],
-				//'size_units' => [ 'px', 'em', '%' ],
-//				'devices'         => [ 'desktop', 'tablet', 'mobile' ],
-//				'desktop_default' => [
-//					'size' => 500,
-//					'unit' => 'px',
-//				],
-//				'tablet_default'  => [
-//					'size' => 400,
-//					'unit' => 'px',
-//				],
-//				'mobile_default'  => [
-//					'size' => 300,
-//					'unit' => 'px',
-//				],
-//				'selectors'       => [
-//					'{{WRAPPER}} .eb-map' => 'height: {{SIZE}}{{UNIT}};',
-//				],
 			]
 		);
 
@@ -303,85 +286,85 @@ class Yandex_Maps extends Widget_Base {
 		$this->add_control(
 			'infowindow_max_width',
 			[
-				'label' => __( 'InfoWindow Max Width', 'elementor' ),
-				'type' => Controls_Manager::TEXT,
+				'label'       => __( 'InfoWindow Max Width', 'elementor' ),
+				'type'        => Controls_Manager::TEXT,
 				'placeholder' => '250',
-				'default' => '250',
+				'default'     => '250',
 			]
 		);
 
 		$this->add_control(
 			'tabs',
 			[
-				'label' => __( 'Pin Item', 'elementor' ),
-				'type' => Controls_Manager::REPEATER,
-				'default' => [
+				'label'       => __( 'Pin Item', 'elementor' ),
+				'type'        => Controls_Manager::REPEATER,
+				'default'     => [
 					[
-						'pin_title' => __( 'Pin #1', 'elementor' ),
-						'pin_notice' => __( 'Find Latitude & Longitude', 'elementor' ),
-						'pin_lat' => __( '55.7522200', 'elementor' ),
-						'pin_lng' => __( '37.6155600', 'elementor' ),
+						'pin_title'   => __( 'Pin #1', 'elementor' ),
+						'pin_notice'  => __( 'Find Latitude & Longitude', 'elementor' ),
+						'pin_lat'     => __( '55.7522200', 'elementor' ),
+						'pin_lng'     => __( '37.6155600', 'elementor' ),
 						'pin_content' => __( 'I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'elementor' ),
 					],
-				], 
-				'fields' => [
-				    [
-				    	'name' => 'pin_notice',
-				    	'label' => __( 'Find Latitude & Longitude', 'elementor' ),
-					    'type'  => Controls_Manager::RAW_HTML,
-					    'raw'   => '<form onsubmit="ebMapFindPinAddress(this);" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;"><input type="submit" value="Search" class="elementor-button elementor-button-default" onclick="ebMapFindPinAddress(this)"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
-					    'label_block' => true,
-				    ],
+				],
+				'fields'      => [
 					[
-						'name' => 'pin_lat',
-						'label' => __( 'Latitude', 'elementor' ),
-						'type' => Controls_Manager::TEXT,
-						'default' => '55.7522200',
+						'name'        => 'pin_notice',
+						'label'       => __( 'Find Latitude & Longitude', 'elementor' ),
+						'type'        => Controls_Manager::RAW_HTML,
+						'raw'         => '<form onsubmit="ebMapFindPinAddress(this);" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;"><input type="submit" value="Search" class="elementor-button elementor-button-default" onclick="ebMapFindPinAddress(this)"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
+						'label_block' => true,
+					],
+					[
+						'name'        => 'pin_lat',
+						'label'       => __( 'Latitude', 'elementor' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => '55.7522200',
 						'placeholder' => '55.7522200',
 					],
 					[
-						'name' => 'pin_lng',
-						'label' => __( 'Longitude', 'elementor' ),
-						'type' => Controls_Manager::TEXT,
-						'default' => '37.6155600',
+						'name'        => 'pin_lng',
+						'label'       => __( 'Longitude', 'elementor' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => '37.6155600',
 						'placeholder' => '37.6155600',
 					],
 					[
-						'name' => 'pin_icon',
-						'label' => __( 'Marker Icon', 'elementor' ),
-						'type' => Controls_Manager::SELECT,
+						'name'    => 'pin_icon',
+						'label'   => __( 'Marker Icon', 'elementor' ),
+						'type'    => Controls_Manager::SELECT,
 						'options' => [
 							// @link https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/option.presetStorage-docpage/
-							'blue' => __( 'Blue', 'elementor' ),
-							'red' => __( 'Red', 'elementor' ),
+							'blue'       => __( 'Blue', 'elementor' ),
+							'red'        => __( 'Red', 'elementor' ),
 							'darkOrange' => __( 'Dark Orange', 'elementor' ),
-							'darkBlue' => __( 'Dark Blue', 'elementor' ),
-							'pink' => __( 'Pink', 'elementor' ),
-							'grey' => __( 'Grey', 'elementor' ),
-							'brown' => __( 'Brown', 'elementor' ),
-							'purple' => __( 'Purple', 'elementor' ),
-							'darkGreen' => __( 'Dark Green', 'elementor' ),
-							'violet' => __( 'Violet', 'elementor' ),
-							'black' => __( 'Black', 'elementor' ),
-							'yellow' => __( 'Yellow', 'elementor' ),
-							'green' => __( 'Green', 'elementor' ),
-							'orange' => __( 'Orange', 'elementor' ),
-							'lightBlue' => __( 'Light Blue', 'elementor' ),
-							'olive' => __( 'Olive', 'elementor' ),
+							'darkBlue'   => __( 'Dark Blue', 'elementor' ),
+							'pink'       => __( 'Pink', 'elementor' ),
+							'grey'       => __( 'Grey', 'elementor' ),
+							'brown'      => __( 'Brown', 'elementor' ),
+							'purple'     => __( 'Purple', 'elementor' ),
+							'darkGreen'  => __( 'Dark Green', 'elementor' ),
+							'violet'     => __( 'Violet', 'elementor' ),
+							'black'      => __( 'Black', 'elementor' ),
+							'yellow'     => __( 'Yellow', 'elementor' ),
+							'green'      => __( 'Green', 'elementor' ),
+							'orange'     => __( 'Orange', 'elementor' ),
+							'lightBlue'  => __( 'Light Blue', 'elementor' ),
+							'olive'      => __( 'Olive', 'elementor' ),
 						],
 						'default' => 'blue',
 					],
 					[
-						'name' => 'pin_title',
-						'label' => __( 'Title', 'elementor' ),
-						'type' => Controls_Manager::TEXT,
-						'default' => __( 'Pin Title' , 'elementor' ),
+						'name'        => 'pin_title',
+						'label'       => __( 'Title', 'elementor' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => __( 'Pin Title', 'elementor' ),
 						'label_block' => true,
 					],
 					[
-						'name' => 'pin_content',
-						'label' => __( 'Content', 'elementor' ),
-						'type' => Controls_Manager::WYSIWYG,
+						'name'    => 'pin_content',
+						'label'   => __( 'Content', 'elementor' ),
+						'type'    => Controls_Manager::WYSIWYG,
 						'default' => __( 'Pin Content', 'elementor' ),
 					],
 				],
@@ -390,110 +373,6 @@ class Yandex_Maps extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
-		/*Main Style*/
-//		$this->start_controls_section(
-//			'section_main_style',
-//			[
-//				'label' => __( 'Pin Global Styles', 'elementor' ),
-//				'tab' => Controls_Manager::TAB_STYLE,
-//			]
-//		);
-//
-//		$this->add_control(
-//			'pin_header_color',
-//			[
-//				'label' => __( 'Title Color', 'elementor' ),
-//				'type' => Controls_Manager::COLOR,
-//				'selectors' => [
-//					'{{WRAPPER}} .eb-map-container h6' => 'color: {{VALUE}};',
-//				],
-//			]
-//		);
-//
-//		$this->add_group_control(
-//			Group_Control_Typography::get_type(),
-//			[
-//				'label' => __( 'Title Typography', 'elementor' ),
-//				'name' => 'pin_header_typography',
-//				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-//				'selector' => '{{WRAPPER}} .eb-map-container h6',
-//			]
-//		);
-//
-//		$this->add_group_control(
-//			Group_Control_Text_Shadow::get_type(),
-//			[
-//				'label' => __( 'Title Text Shadow', 'elementor' ),
-//				'name' => 'pin_header_text_shadow',
-//				'selector' => '{{WRAPPER}} .eb-map-container h6',
-//				'separator' => true,
-//			]
-//		);
-//
-//
-//		$this->add_control(
-//			'pin_content_color',
-//			[
-//				'label' => __( 'Content Color', 'elementor' ),
-//				'type' => Controls_Manager::COLOR,
-//				'selectors' => [
-//					'{{WRAPPER}} .eb-map-container p' => 'color: {{VALUE}};',
-//				],
-//			]
-//		);
-//
-//		$this->add_group_control(
-//			Group_Control_Typography::get_type(),
-//			[
-//				'label' => __( 'Content Typography', 'elementor' ),
-//				'name' => 'pin_content_typography',
-//				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-//				'selector' => '{{WRAPPER}} .eb-map-container p',
-//			]
-//		);
-//
-//		$this->add_group_control(
-//			Group_Control_Text_Shadow::get_type(),
-//			[
-//				'label' => __( 'Content Text Shadow', 'elementor' ),
-//				'name' => 'pin_content_text_shadow',
-//				'selector' => '{{WRAPPER}} .eb-map-container p',
-//				'separator' => true,
-//			]
-//		);
-//
-//		$this->add_responsive_control(
-//			'align',
-//			[
-//				'label' => __( 'Alignment', 'elementor' ),
-//				'type' => Controls_Manager::CHOOSE,
-//				'options' => [
-//					'left' => [
-//						'title' => __( 'Left', 'elementor' ),
-//						'icon' => 'fa fa-align-left',
-//					],
-//					'center' => [
-//						'title' => __( 'Center', 'elementor' ),
-//						'icon' => 'fa fa-align-center',
-//					],
-//					'right' => [
-//						'title' => __( 'Right', 'elementor' ),
-//						'icon' => 'fa fa-align-right',
-//					],
-//					'justify' => [
-//						'title' => __( 'Justified', 'elementor' ),
-//						'icon' => 'fa fa-align-justify',
-//					],
-//				],
-//				'default' => '',
-//				'selectors' => [
-//					'{{WRAPPER}} .eb-map-container' => 'text-align: {{VALUE}};',
-//				],
-//			]
-//		);
-//
-//		$this->end_controls_section();
 	}
 
 	/**
@@ -522,18 +401,21 @@ class Yandex_Maps extends Widget_Base {
 			$settings['zoom']['size'] = 10;
 		}
 
-		//$this->add_render_attribute('eb-google-map-extended', 'data-eb-map-style', $eb_new_replace_code_content);
-
 		$mapmarkers = array();
 
 		foreach ( $settings['tabs'] as $index => $item ) :
-			$tab_count = $index + 1;
-			$mapmarkers[] = array('lat' => $item['pin_lat'], 'lng' => $item['pin_lng'],'title' => $item['pin_title'], 'content' => htmlspecialchars($item['pin_content'], ENT_QUOTES & ~ENT_COMPAT ), 'pin_icon' => $item['pin_icon'] );
-		endforeach; 
-
+			$tab_count    = $index + 1;
+			$mapmarkers[] = array(
+				'lat'      => $item['pin_lat'],
+				'lng'      => $item['pin_lng'],
+				'title'    => $item['pin_title'],
+				'content'  => htmlspecialchars( $item['pin_content'], ENT_QUOTES & ~ENT_COMPAT ),
+				'pin_icon' => $item['pin_icon'],
+			);
+		endforeach;
 		?>
 
-		<div id="eb-map-<?php echo esc_attr($this->get_id()); ?>"
+		<div id="eb-map-<?php echo esc_attr( $this->get_id() ); ?>"
 		     class="eb-map"
 		     data-eb-map-lat="<?php echo $settings['map_lat']; ?>"
 		     data-eb-map-lng="<?php echo $settings['map_lng']; ?>"
@@ -549,9 +431,12 @@ class Yandex_Maps extends Widget_Base {
 		     data-eb-fullscreen-control="<?php echo $settings['fullscreen_control']; ?>"
 		     data-eb-route-button-control="<?php echo $settings['route_button_control']; ?>"
 		     data-eb-route-panel-control="<?php echo $settings['route_panel_control']; ?>"
-		     data-eb-locations='<?php echo json_encode( $mapmarkers );?>' style="height: <?php echo $settings['height']['size']; ?><?php echo $settings['height']['unit']; ?>;"></div>
-
-	<?php }
+		     data-eb-locations='<?php echo json_encode( $mapmarkers ); ?>'
+		     style="height: <?php echo $settings['height']['size']; ?><?php echo $settings['height']['unit']; ?>;"></div>
+	<?php
+	}
 }
 
 Plugin::instance()->widgets_manager->register_widget_type( new Yandex_Maps() );
+
+// eof;
