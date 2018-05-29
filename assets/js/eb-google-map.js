@@ -5,56 +5,78 @@
             zoom = $(mapid).data("eb-map-zoom"),
             map_lat = $(mapid).data("eb-map-lat"),
             map_lng = $(mapid).data("eb-map-lng"),
-            //scrollwheel = $(mapid).data("eb-map-scrollwheel"),
-            gesture_handling = $(mapid).data("eb-map-gesture-handling"),
-            defaultui = $(mapid).data("eb-map-defaultui"),
-            zoomcontrol = $(mapid).data("eb-map-zoom-control"),
-            zoomcontrolposition = $(mapid).data("eb-map-zoom-control-position"),
-            maptypecontrol = $(mapid).data("eb-map-type-control"),
-            maptypecontrolstyle = $(mapid).data("eb-map-type-control-style"),
-            maptypecontrolposition = $(mapid).data("eb-map-type-control-position"),
-            streetview = $(mapid).data("eb-map-streetview-control"),
-            streetviewposition = $(mapid).data("eb-map-streetview-position"),
-            styles = ($(mapid).data("eb-map-style") != '') ? $(mapid).data("eb-map-style") : '',
+	        ruler_control = $(mapid).data("eb-ruler-control"),
+	        search_control = $(mapid).data("eb-search-control"),
+	        traffic_control = $(mapid).data("eb-traffic-control"),
+	        type_selector = $(mapid).data("eb-type-selector"),
+	        zoom_control = $(mapid).data("eb-zoom-control"),
+	        geolocation_control = $(mapid).data("eb-geolocation-control"),
+	        route_editor = $(mapid).data("eb-route-editor"),
+	        fullscreen_control = $(mapid).data("eb-fullscreen-control"),
+	        route_button_control = $(mapid).data("eb-route-button-control"),
+	        route_panel_control = $(mapid).data("eb-route-panel-control"),
+
+
             infowindow_max_width = $(mapid).data("eb-map-infowindow-width"),
             active_info,
             infowindow,
-            map;
+            map,
+	        // @link https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/control.storage-docpage/
+            controls = [];
 
         function initMap() {
+
+	        if ( 'yes' === ruler_control ) {
+		        controls.push( 'rulerControl' );
+	        }
+
+	        if ( 'yes' === search_control ) {
+		        controls.push( 'searchControl' );
+	        }
+
+	        if ( 'yes' === traffic_control ) {
+		        controls.push( 'trafficControl' );
+	        }
+
+	        if ( 'yes' === type_selector ) {
+		        controls.push( 'typeSelector' );
+	        }
+
+	        if ( 'yes' === zoom_control ) {
+		        controls.push( 'zoomControl' );
+	        }
+
+	        if ( 'yes' === geolocation_control ) {
+		        controls.push( 'geolocationControl' );
+	        }
+
+	        if ( 'yes' === route_editor ) {
+		        controls.push( 'routeEditor' );
+	        }
+
+	        if ( 'yes' === fullscreen_control ) {
+		        controls.push( 'fullscreenControl' );
+	        }
+
+	        if ( 'yes' === route_button_control ) {
+		        controls.push( 'routeButtonControl' );
+	        }
+
+	        if ( 'yes' === route_panel_control ) {
+		        controls.push( 'routePanelControl' );
+	        }
 
 	        var map = new ymaps.Map( mapid.attr('id'), {
 		        center: [ parseFloat( map_lat ), parseFloat( map_lng ) ],
 		        zoom: zoom,
-                type: 'yandex#' + maptype
-	        });
-
-            //var myLatLng = { lat: parseFloat(map_lat), lng: parseFloat(map_lng) };
-
-//            var map = new google.maps.Map(mapid[0], {
-//                center: myLatLng,
-//                zoom: zoom,
-//                disableDefaultUI: defaultui,
-//                zoomControl: zoomcontrol,
-//                zoomControlOptions: {
-//                    position: zoomcontrolposition
-//                },
-//                mapTypeId: maptype,
-//                mapTypeControl: maptypecontrol,
-//                mapTypeControlOptions: {
-//                    style: maptypecontrolstyle,
-//                    position: maptypecontrolposition
-//                },
-//                streetViewControl: streetview,
-//                streetViewControlOptions: {
-//                    position: streetviewposition
-//                },
-//                styles: styles,
-//                gestureHandling: gesture_handling,
-//            });
+                type: 'yandex#' + maptype,
+		        controls: controls
+	        }, {
+		        searchControlProvider: 'yandex#search'
+	        } );
 
             var markersLocations = $( mapid ).data('eb-locations');
-//
+
             $.each( markersLocations, function( index, Element, content ) {
                 var icon_color = '';
                 if ( Element.pin_icon !== '' ) {
@@ -69,7 +91,7 @@
 		            balloonContentFooter: ''
 	            }, {
 		            iconColor: icon_color,
-		            balloonContentMaxWidth: 50
+		            balloonMaxWidth: 300
 	            } );
 	            map.geoObjects.add( placemark );
 

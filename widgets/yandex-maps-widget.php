@@ -100,8 +100,8 @@ class Yandex_Maps extends Widget_Base {
 			[
 				'label'       => __( 'Latitude', 'elementor' ),
 				'type'        => Controls_Manager::TEXT,
-				'placeholder' => '1.2833754',
-				'default'     => '1.2833754',
+				'placeholder' => '55.7522200',
+				'default'     => '55.7522200',
 			]
 		);
 
@@ -110,8 +110,8 @@ class Yandex_Maps extends Widget_Base {
 			[
 				'label'       => __( 'Longitude', 'elementor' ),
 				'type'        => Controls_Manager::TEXT,
-				'placeholder' => '103.86072639999998',
-				'default'     => '103.86072639999998',
+				'placeholder' => '37.6155600',
+				'default'     => '37.6155600',
 				'separator'   => true,
 			]
 		);
@@ -181,174 +181,111 @@ class Yandex_Maps extends Widget_Base {
 			]
 		);
 
-//		$this->add_control(
-//			'gesture_handling',
-//			[
-//				'label' => __( 'Gesture Handling', 'elementor' ),
-//				'type' => Controls_Manager::SELECT,
-//				'options' => [
-//					'auto' => __( 'Auto (Default)', 'elementor' ),
-//					'cooperative' => __( 'Cooperative', 'elementor' ),
-//					'greedy' => __( 'Greedy', 'elementor' ),
-//					'none' => __( 'None', 'elementor' ),
-//				],
-//				'default' => 'auto',
-//				'description' => __('Understand more about Gesture Handling by reading it <a href="https://developers.google.com/maps/documentation/javascript/reference/3/#MapOptions" target="_blank">here.</a> Basically it control how it handles gestures on the map. Used to be draggable and scroll wheel function which is deprecated.'),
-//			]
-//		);
-
-
-		/*$this->add_control(
-			'scroll_wheel',
+		$this->add_control(
+			'ruler_control',
 			[
-				'label' => __( 'Scroll Wheel', 'elementor' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'no'
+				'label'       => __( 'Ruler Control', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Линейка и масштабный отрезок', 'elementor' ),
 			]
-		);*/
+		);
 
-//		$this->add_control(
-//			'zoom_control',
-//			[
-//				'label' => __( 'Show Zoom Control', 'elementor' ),
-//				'type' => Controls_Manager::SWITCHER,
-//				'default' => 'yes'
-//			]
-//		);
+		$this->add_control(
+			'search_control',
+			[
+				'label'       => __( 'Search Control', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Поиск на карте', 'elementor' ),
+			]
+		);
 
-//		$this->add_control(
-//			'zoom_control_position',
-//			[
-//				'label' => __( 'Control Position', 'elementor' ),
-//				'type' => Controls_Manager::SELECT,
-//				'options' => [
-//					'RIGHT_BOTTOM' => __( 'Bottom Right (Default)', 'elementor' ),
-//					'TOP_LEFT' => __( 'Top Left', 'elementor' ),
-//					'TOP_CENTER' => __( 'Top Center', 'elementor' ),
-//					'TOP_RIGHT' => __( 'Top Right', 'elementor' ),
-//					'LEFT_CENTER' => __( 'Left Center', 'elementor' ),
-//					'RIGHT_CENTER' => __( 'Right Center', 'elementor' ),
-//					'BOTTOM_LEFT' => __( 'Bottom Left', 'elementor' ),
-//					'BOTTOM_CENTER' => __( 'Bottom Center', 'elementor' ),
-//					'BOTTOM_RIGHT' => __( 'Bottom Right', 'elementor' ),
-//				],
-//				'default' => 'RIGHT_BOTTOM',
-//				'condition' => [
-//					'zoom_control' => 'yes',
-//				],
-//				'separator' => false,
-//			]
-//		);
-//
-//		$this->add_control(
-//			'default_ui',
-//			[
-//				'label' => __( 'Show Default UI', 'elementor' ),
-//				'type' => Controls_Manager::SWITCHER,
-//				'default' => 'yes'
-//			]
-//		);
-//
-//		$this->add_control(
-//			'map_type_control',
-//			[
-//				'label' => __( 'Map Type Control', 'elementor' ),
-//				'type' => Controls_Manager::SWITCHER,
-//				'default' => 'yes'
-//			]
-//		);
-//
-//		$this->add_control(
-//			'map_type_control_style',
-//			[
-//				'label' => __( 'Control Styles', 'elementor' ),
-//				'type' => Controls_Manager::SELECT,
-//				'options' => [
-//					'DEFAULT' => __( 'Default', 'elementor' ),
-//					'HORIZONTAL_BAR' => __( 'Horizontal Bar', 'elementor' ),
-//					'DROPDOWN_MENU' => __( 'Dropdown Menu', 'elementor' ),
-//				],
-//				'default' => 'DEFAULT',
-//				'condition' => [
-//					'map_type_control' => 'yes',
-//				],
-//				'separator' => false,
-//			]
-//		);
-//
-//		$this->add_control(
-//			'map_type_control_position',
-//			[
-//				'label' => __( 'Control Position', 'elementor' ),
-//				'type' => Controls_Manager::SELECT,
-//				'options' => [
-//					'TOP_LEFT' => __( 'Top Left (Default)', 'elementor' ),
-//					'TOP_CENTER' => __( 'Top Center', 'elementor' ),
-//					'TOP_RIGHT' => __( 'Top Right', 'elementor' ),
-//					'LEFT_CENTER' => __( 'Left Center', 'elementor' ),
-//					'RIGHT_CENTER' => __( 'Right Center', 'elementor' ),
-//					'BOTTOM_LEFT' => __( 'Bottom Left', 'elementor' ),
-//					'BOTTOM_CENTER' => __( 'Bottom Center', 'elementor' ),
-//					'BOTTOM_RIGHT' => __( 'Bottom Right', 'elementor' ),
-//				],
-//				'default' => 'TOP_LEFT',
-//				'condition' => [
-//					'map_type_control' => 'yes',
-//				],
-//				'separator' => false,
-//			]
-//		);
-//
-//		$this->add_control(
-//			'streetview_control',
-//			[
-//				'label' => __( 'Show Streetview Control', 'elementor' ),
-//				'type' => Controls_Manager::SWITCHER,
-//				'default' => 'no'
-//			]
-//		);
-//
-//		$this->add_control(
-//			'streetview_control_position',
-//			[
-//				'label' => __( 'Streetview Position', 'elementor' ),
-//				'type' => Controls_Manager::SELECT,
-//				'options' => [
-//					'RIGHT_BOTTOM' => __( 'Bottom Right (Default)', 'elementor' ),
-//					'TOP_LEFT' => __( 'Top Left', 'elementor' ),
-//					'TOP_CENTER' => __( 'Top Center', 'elementor' ),
-//					'TOP_RIGHT' => __( 'Top Right', 'elementor' ),
-//					'LEFT_CENTER' => __( 'Left Center', 'elementor' ),
-//					'RIGHT_CENTER' => __( 'Right Center', 'elementor' ),
-//					'BOTTOM_LEFT' => __( 'Bottom Left', 'elementor' ),
-//					'BOTTOM_CENTER' => __( 'Bottom Center', 'elementor' ),
-//					'BOTTOM_RIGHT' => __( 'Bottom Right', 'elementor' ),
-//				],
-//				'default' => 'RIGHT_BOTTOM',
-//				'condition' => [
-//					'streetview_control' => 'yes',
-//				],
-//				'separator' => false,
-//			]
-//		);
+		$this->add_control(
+			'traffic_control',
+			[
+				'label'       => __( 'Traffic Control', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Панель пробок', 'elementor' ),
+			]
+		);
 
-//		$this->add_control(
-//			'custom_map_style',
-//			[
-//				'label' => __( 'Custom Map Style', 'elementor' ),
-//				'type' => Controls_Manager::TEXTAREA,
-//				'description' => __('Add style from <a href="https://mapstyle.withgoogle.com/" target="_blank">Google Map Styling Wizard</a> or <a href="https://snazzymaps.com/explore" target="_blank">Snazzy Maps</a>. Copy and Paste the style in the textarea.'),
-//				'condition' => [
-//					'map_type' => 'roadmap',
-//				],
-//			]
-//		);
+		$this->add_control(
+			'type_selector',
+			[
+				'label'       => __( 'Type Selector', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'yes',
+				'description' => __( 'Панель переключения типа карт', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'zoom_control',
+			[
+				'label'       => __( 'Zoom Control', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'yes',
+				'description' => __( 'Ползунок масштаба', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'geolocation_control',
+			[
+				'label'       => __( 'Geolocation Control', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Элемент управления геолокацией', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'route_editor',
+			[
+				'label'       => __( 'Route Editor', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Редактор маршрутов', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'fullscreen_control',
+			[
+				'label'       => __( 'Fullscreen Control', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Элемент управления «полноэкранным режимом»', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'route_button_control',
+			[
+				'label'       => __( 'Route Button Control', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Панель для построения маршрутов', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'route_panel_control',
+			[
+				'label'       => __( 'Route Panel Control', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Панель маршрутизации', 'elementor' ),
+			]
+		);
 
 		$this->add_control(
 			'view',
 			[
-				'label' => __( 'View', 'elementor' ),
-				'type' => Controls_Manager::HIDDEN,
+				'label'   => __( 'View', 'elementor' ),
+				'type'    => Controls_Manager::HIDDEN,
 				'default' => 'traditional',
 			]
 		);
@@ -382,8 +319,8 @@ class Yandex_Maps extends Widget_Base {
 					[
 						'pin_title' => __( 'Pin #1', 'elementor' ),
 						'pin_notice' => __( 'Find Latitude & Longitude', 'elementor' ),
-						'pin_lat' => __( '1.2833754', 'elementor' ),
-						'pin_lng' => __( '103.86072639999998', 'elementor' ),
+						'pin_lat' => __( '55.7522200', 'elementor' ),
+						'pin_lng' => __( '37.6155600', 'elementor' ),
 						'pin_content' => __( 'I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'elementor' ),
 					],
 				], 
@@ -399,11 +336,15 @@ class Yandex_Maps extends Widget_Base {
 						'name' => 'pin_lat',
 						'label' => __( 'Latitude', 'elementor' ),
 						'type' => Controls_Manager::TEXT,
+						'default' => '55.7522200',
+						'placeholder' => '55.7522200',
 					],
 					[
 						'name' => 'pin_lng',
 						'label' => __( 'Longitude', 'elementor' ),
 						'type' => Controls_Manager::TEXT,
+						'default' => '37.6155600',
+						'placeholder' => '37.6155600',
 					],
 					[
 						'name' => 'pin_icon',
@@ -451,108 +392,108 @@ class Yandex_Maps extends Widget_Base {
 		$this->end_controls_section();
 
 		/*Main Style*/
-		$this->start_controls_section(
-			'section_main_style',
-			[
-				'label' => __( 'Pin Global Styles', 'elementor' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-			]
-		);
-
-		$this->add_control(
-			'pin_header_color',
-			[
-				'label' => __( 'Title Color', 'elementor' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .eb-map-container h6' => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'label' => __( 'Title Typography', 'elementor' ),
-				'name' => 'pin_header_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}} .eb-map-container h6',
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'label' => __( 'Title Text Shadow', 'elementor' ),
-				'name' => 'pin_header_text_shadow',
-				'selector' => '{{WRAPPER}} .eb-map-container h6',
-				'separator' => true,
-			]
-		);
-
-
-		$this->add_control(
-			'pin_content_color',
-			[
-				'label' => __( 'Content Color', 'elementor' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .eb-map-container p' => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'label' => __( 'Content Typography', 'elementor' ),
-				'name' => 'pin_content_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}} .eb-map-container p',
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'label' => __( 'Content Text Shadow', 'elementor' ),
-				'name' => 'pin_content_text_shadow',
-				'selector' => '{{WRAPPER}} .eb-map-container p',
-				'separator' => true,
-			]
-		);
-
-		$this->add_responsive_control(
-			'align',
-			[
-				'label' => __( 'Alignment', 'elementor' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [
-					'left' => [
-						'title' => __( 'Left', 'elementor' ),
-						'icon' => 'fa fa-align-left',
-					],
-					'center' => [
-						'title' => __( 'Center', 'elementor' ),
-						'icon' => 'fa fa-align-center',
-					],
-					'right' => [
-						'title' => __( 'Right', 'elementor' ),
-						'icon' => 'fa fa-align-right',
-					],
-					'justify' => [
-						'title' => __( 'Justified', 'elementor' ),
-						'icon' => 'fa fa-align-justify',
-					],
-				],
-				'default' => '',
-				'selectors' => [
-					'{{WRAPPER}} .eb-map-container' => 'text-align: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->end_controls_section();
+//		$this->start_controls_section(
+//			'section_main_style',
+//			[
+//				'label' => __( 'Pin Global Styles', 'elementor' ),
+//				'tab' => Controls_Manager::TAB_STYLE,
+//			]
+//		);
+//
+//		$this->add_control(
+//			'pin_header_color',
+//			[
+//				'label' => __( 'Title Color', 'elementor' ),
+//				'type' => Controls_Manager::COLOR,
+//				'selectors' => [
+//					'{{WRAPPER}} .eb-map-container h6' => 'color: {{VALUE}};',
+//				],
+//			]
+//		);
+//
+//		$this->add_group_control(
+//			Group_Control_Typography::get_type(),
+//			[
+//				'label' => __( 'Title Typography', 'elementor' ),
+//				'name' => 'pin_header_typography',
+//				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+//				'selector' => '{{WRAPPER}} .eb-map-container h6',
+//			]
+//		);
+//
+//		$this->add_group_control(
+//			Group_Control_Text_Shadow::get_type(),
+//			[
+//				'label' => __( 'Title Text Shadow', 'elementor' ),
+//				'name' => 'pin_header_text_shadow',
+//				'selector' => '{{WRAPPER}} .eb-map-container h6',
+//				'separator' => true,
+//			]
+//		);
+//
+//
+//		$this->add_control(
+//			'pin_content_color',
+//			[
+//				'label' => __( 'Content Color', 'elementor' ),
+//				'type' => Controls_Manager::COLOR,
+//				'selectors' => [
+//					'{{WRAPPER}} .eb-map-container p' => 'color: {{VALUE}};',
+//				],
+//			]
+//		);
+//
+//		$this->add_group_control(
+//			Group_Control_Typography::get_type(),
+//			[
+//				'label' => __( 'Content Typography', 'elementor' ),
+//				'name' => 'pin_content_typography',
+//				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+//				'selector' => '{{WRAPPER}} .eb-map-container p',
+//			]
+//		);
+//
+//		$this->add_group_control(
+//			Group_Control_Text_Shadow::get_type(),
+//			[
+//				'label' => __( 'Content Text Shadow', 'elementor' ),
+//				'name' => 'pin_content_text_shadow',
+//				'selector' => '{{WRAPPER}} .eb-map-container p',
+//				'separator' => true,
+//			]
+//		);
+//
+//		$this->add_responsive_control(
+//			'align',
+//			[
+//				'label' => __( 'Alignment', 'elementor' ),
+//				'type' => Controls_Manager::CHOOSE,
+//				'options' => [
+//					'left' => [
+//						'title' => __( 'Left', 'elementor' ),
+//						'icon' => 'fa fa-align-left',
+//					],
+//					'center' => [
+//						'title' => __( 'Center', 'elementor' ),
+//						'icon' => 'fa fa-align-center',
+//					],
+//					'right' => [
+//						'title' => __( 'Right', 'elementor' ),
+//						'icon' => 'fa fa-align-right',
+//					],
+//					'justify' => [
+//						'title' => __( 'Justified', 'elementor' ),
+//						'icon' => 'fa fa-align-justify',
+//					],
+//				],
+//				'default' => '',
+//				'selectors' => [
+//					'{{WRAPPER}} .eb-map-container' => 'text-align: {{VALUE}};',
+//				],
+//			]
+//		);
+//
+//		$this->end_controls_section();
 	}
 
 	/**
@@ -577,10 +518,6 @@ class Yandex_Maps extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings();// print_r($settings);
 
-		//$eb_map_styles = $settings['custom_map_style'];
-		//$eb_replace_code_content = strip_tags($eb_map_styles);
-        //$eb_new_replace_code_content = preg_replace('/\s/', '', $eb_replace_code_content);
-
 		if ( 0 === absint( $settings['zoom']['size'] ) ) {
 			$settings['zoom']['size'] = 10;
 		}
@@ -595,31 +532,24 @@ class Yandex_Maps extends Widget_Base {
 		endforeach; 
 
 		?>
-		<!--div id="eb-map-<?php echo esc_attr($this->get_id()); ?>"
-		     class="eb-map"
-		     data-eb-map-gesture-handling="<?php echo $settings['gesture_handling'] ?>" <?php if ( 'yes' == $settings['zoom_control'] ) { ?>
-			    data-eb-map-zoom-control="true"
-				data-eb-map-zoom-control-position="<?php echo $settings['zoom_control_position']; ?>" <?php } else { ?>
-				data-eb-map-zoom-control="false"<?php } ?>
-		        data-eb-map-defaultui="<?php if ( 'yes' == $settings['default_ui'] ) { ?>false<?php } else { ?>true<?php } ?>" <?php echo $this->get_render_attribute_string('eb-google-map-extended'); ?>
-		        data-eb-map-type="<?php echo $settings['map_type']; ?>" <?php if ( 'yes' == $settings['map_type_control'] ) { ?>
-				data-eb-map-type-control="true" data-eb-map-type-control-style="<?php echo $settings['map_type_control_style']; ?>"
-				data-eb-map-type-control-position="<?php echo $settings['map_type_control_position']; ?>"<?php } else { ?>
-				data-eb-map-type-control="false"<?php } ?> <?php if ( 'yes' == $settings['streetview_control'] ) { ?>
-				data-eb-map-streetview-control="true"
-				data-eb-map-streetview-position="<?php echo $settings['streetview_control_position']; ?>"<?php } else {?>
-				data-eb-map-streetview-control="false"<?php } ?>
-		        data-eb-map-lat="<?php echo $settings['map_lat']; ?>"
-		        data-eb-map-lng="<?php echo $settings['map_lng']; ?>"
-		        data-eb-map-zoom="<?php echo $settings['zoom']['size']; ?>"
-		        data-eb-map-infowindow-width="<?php echo $settings['infowindow_max_width']; ?>" data-eb-locations='<?php echo json_encode($mapmarkers);?>'></div-->
+
 		<div id="eb-map-<?php echo esc_attr($this->get_id()); ?>"
 		     class="eb-map"
 		     data-eb-map-lat="<?php echo $settings['map_lat']; ?>"
 		     data-eb-map-lng="<?php echo $settings['map_lng']; ?>"
 		     data-eb-map-zoom="<?php echo $settings['zoom']['size']; ?>"
 		     data-eb-map-type="<?php echo $settings['map_type']; ?>"
-		     data-eb-locations='<?php echo json_encode($mapmarkers);?>' style="height: <?php echo $settings['height']['size']; ?><?php echo $settings['height']['unit']; ?>;"></div>
+		     data-eb-ruler-control="<?php echo $settings['ruler_control']; ?>"
+		     data-eb-search-control="<?php echo $settings['search_control']; ?>"
+		     data-eb-traffic-control="<?php echo $settings['traffic_control']; ?>"
+		     data-eb-type-selector="<?php echo $settings['type_selector']; ?>"
+		     data-eb-zoom-control="<?php echo $settings['zoom_control']; ?>"
+		     data-eb-geolocation-control="<?php echo $settings['geolocation_control']; ?>"
+		     data-eb-route-editor="<?php echo $settings['route_editor']; ?>"
+		     data-eb-fullscreen-control="<?php echo $settings['fullscreen_control']; ?>"
+		     data-eb-route-button-control="<?php echo $settings['route_button_control']; ?>"
+		     data-eb-route-panel-control="<?php echo $settings['route_panel_control']; ?>"
+		     data-eb-locations='<?php echo json_encode( $mapmarkers );?>' style="height: <?php echo $settings['height']['size']; ?><?php echo $settings['height']['unit']; ?>;"></div>
 
 	<?php }
 }
