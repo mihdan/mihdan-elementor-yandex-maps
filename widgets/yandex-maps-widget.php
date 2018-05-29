@@ -19,7 +19,7 @@ class Yandex_Maps extends Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'eb-google-map-extended';
+		return 'yandex-maps';
 	}
 
 	/**
@@ -133,20 +133,37 @@ class Yandex_Maps extends Widget_Base {
 			]
 		);
 
-		$this->add_responsive_control(
+		$this->add_control(
 			'height',
 			[
-				'label'     => __( 'Height', 'elementor' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => __( 'Height', 'elementor' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
-						'min' => 40,
+						'min' => 100,
 						'max' => 1440,
 					],
 				],
-				'selectors' => [
-					'{{WRAPPER}} .eb-map' => 'height: {{SIZE}}{{UNIT}};',
+				'default' => [
+					'size' => 300,
 				],
+				//'size_units' => [ 'px', 'em', '%' ],
+//				'devices'         => [ 'desktop', 'tablet', 'mobile' ],
+//				'desktop_default' => [
+//					'size' => 500,
+//					'unit' => 'px',
+//				],
+//				'tablet_default'  => [
+//					'size' => 400,
+//					'unit' => 'px',
+//				],
+//				'mobile_default'  => [
+//					'size' => 300,
+//					'unit' => 'px',
+//				],
+//				'selectors'       => [
+//					'{{WRAPPER}} .eb-map' => 'height: {{SIZE}}{{UNIT}};',
+//				],
 			]
 		);
 
@@ -551,7 +568,7 @@ class Yandex_Maps extends Widget_Base {
 	 * @access protected
 	 */
 	protected function render() {
-		$settings = $this->get_settings();
+		$settings = $this->get_settings();// print_r($settings);
 
 		//$eb_map_styles = $settings['custom_map_style'];
 		//$eb_replace_code_content = strip_tags($eb_map_styles);
@@ -571,13 +588,31 @@ class Yandex_Maps extends Widget_Base {
 		endforeach; 
 
 		?>
-		<!--div id="eb-map-<?php echo esc_attr($this->get_id()); ?>" class="eb-map" data-eb-map-gesture-handling="<?php echo $settings['gesture_handling'] ?>" <?php if ( 'yes' == $settings['zoom_control'] ) { ?> data-eb-map-zoom-control="true" data-eb-map-zoom-control-position="<?php echo $settings['zoom_control_position']; ?>" <?php } else { ?> data-eb-map-zoom-control="false"<?php } ?> data-eb-map-defaultui="<?php if ( 'yes' == $settings['default_ui'] ) { ?>false<?php } else { ?>true<?php } ?>" <?php echo $this->get_render_attribute_string('eb-google-map-extended'); ?> data-eb-map-type="<?php echo $settings['map_type']; ?>" <?php if ( 'yes' == $settings['map_type_control'] ) { ?> data-eb-map-type-control="true" data-eb-map-type-control-style="<?php echo $settings['map_type_control_style']; ?>" data-eb-map-type-control-position="<?php echo $settings['map_type_control_position']; ?>"<?php } else { ?> data-eb-map-type-control="false"<?php } ?> <?php if ( 'yes' == $settings['streetview_control'] ) { ?> data-eb-map-streetview-control="true" data-eb-map-streetview-position="<?php echo $settings['streetview_control_position']; ?>"<?php } else {?> data-eb-map-streetview-control="false"<?php } ?> data-eb-map-lat="<?php echo $settings['map_lat']; ?>" data-eb-map-lng="<?php echo $settings['map_lng']; ?>" data-eb-map-zoom="<?php echo $settings['zoom']['size']; ?>" data-eb-map-infowindow-width="<?php echo $settings['infowindow_max_width']; ?>" data-eb-locations='<?php echo json_encode($mapmarkers);?>'></div-->
+		<!--div id="eb-map-<?php echo esc_attr($this->get_id()); ?>"
+		     class="eb-map"
+		     data-eb-map-gesture-handling="<?php echo $settings['gesture_handling'] ?>" <?php if ( 'yes' == $settings['zoom_control'] ) { ?>
+			    data-eb-map-zoom-control="true"
+				data-eb-map-zoom-control-position="<?php echo $settings['zoom_control_position']; ?>" <?php } else { ?>
+				data-eb-map-zoom-control="false"<?php } ?>
+		        data-eb-map-defaultui="<?php if ( 'yes' == $settings['default_ui'] ) { ?>false<?php } else { ?>true<?php } ?>" <?php echo $this->get_render_attribute_string('eb-google-map-extended'); ?>
+		        data-eb-map-type="<?php echo $settings['map_type']; ?>" <?php if ( 'yes' == $settings['map_type_control'] ) { ?>
+				data-eb-map-type-control="true" data-eb-map-type-control-style="<?php echo $settings['map_type_control_style']; ?>"
+				data-eb-map-type-control-position="<?php echo $settings['map_type_control_position']; ?>"<?php } else { ?>
+				data-eb-map-type-control="false"<?php } ?> <?php if ( 'yes' == $settings['streetview_control'] ) { ?>
+				data-eb-map-streetview-control="true"
+				data-eb-map-streetview-position="<?php echo $settings['streetview_control_position']; ?>"<?php } else {?>
+				data-eb-map-streetview-control="false"<?php } ?>
+		        data-eb-map-lat="<?php echo $settings['map_lat']; ?>"
+		        data-eb-map-lng="<?php echo $settings['map_lng']; ?>"
+		        data-eb-map-zoom="<?php echo $settings['zoom']['size']; ?>"
+		        data-eb-map-infowindow-width="<?php echo $settings['infowindow_max_width']; ?>" data-eb-locations='<?php echo json_encode($mapmarkers);?>'></div-->
 		<div id="eb-map-<?php echo esc_attr($this->get_id()); ?>"
 		     class="eb-map"
 		     data-eb-map-lat="<?php echo $settings['map_lat']; ?>"
 		     data-eb-map-lng="<?php echo $settings['map_lng']; ?>"
 		     data-eb-map-zoom="<?php echo $settings['zoom']['size']; ?>"
-		     data-eb-map-type="<?php echo $settings['map_type']; ?>"></div>
+		     data-eb-map-type="<?php echo $settings['map_type']; ?>"
+		     data-eb-locations='<?php echo json_encode($mapmarkers);?>' style="height: <?php echo $settings['height']['size']; ?><?php echo $settings['height']['unit']; ?>;"></div>
 
 	<?php }
 }

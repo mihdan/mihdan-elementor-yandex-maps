@@ -1,5 +1,5 @@
 (function($) {
-    var EBGoogleMapHandler = function($scope, $) {
+    var EBGoogleMapHandler = function($scope, $) { console.log('map init');
         var mapid = $scope.find('.eb-map'),
             maptype = $(mapid).data("eb-map-type"),
             zoom = $(mapid).data("eb-map-zoom"),
@@ -99,7 +99,15 @@
                 type: 'yandex#' + maptype
 	        });
 
-            return;
+
+
+//	        ymaps.domEvent.manager.add( mapid.attr('id'), 'sizechange', function (event) {
+//	        	console.log(event);
+//	        });
+
+	        //map.container.fitToViewport();
+
+
 
             //var myLatLng = { lat: parseFloat(map_lat), lng: parseFloat(map_lng) };
 
@@ -125,9 +133,9 @@
 //                gestureHandling: gesture_handling,
 //            });
 
-//            var markersLocations = $(mapid).data('eb-locations');
+            var markersLocations = $(mapid).data('eb-locations');
 //
-//            $.each(markersLocations, function(index, Element, content) {
+            $.each(markersLocations, function(index, Element, content) {
 //                var content = '<div class="eb-map-container"><h6>' + Element.title + '</h6>' + Element.content + '</div>';
 //                var icon = '';
 //                if (Element.pin_icon !== '') {
@@ -159,6 +167,15 @@
 //                    position: new google.maps.LatLng(parseFloat(Element.lat), parseFloat(Element.lng)),
 //                    icon: icon,
 //                });
+
+	            var placemark = new ymaps.Placemark( [ Element.lat, Element.lng ], {
+		            //iconCaption: 'dfwefwe',
+		            hintContent: 'Нажмите, чтобы увидеть описание',
+		            balloonContent: 'red',
+	            }, {
+		            iconColor: 'red',
+	            } );
+	            map.geoObjects.add( placemark );
 //
 //                if (Element.title !== '') {
 //                    addInfoWindow(marker, content)
@@ -166,7 +183,7 @@
 //                    addInfoWindow(marker, content)
 //                }
 //
-//            });
+            });
         }
         
         function addInfoWindow(marker, content) {
@@ -187,7 +204,14 @@
 
     // Make sure you run this code under Elementor..
     $(window).on('elementor/frontend/init', function() {
-        elementorFrontend.hooks.addAction('frontend/element_ready/eb-google-map-extended.default', EBGoogleMapHandler);
+        elementorFrontend.hooks.addAction('frontend/element_ready/yandex-maps.default', EBGoogleMapHandler);
+//	    elementorFrontend.hooks.addAction('frontend/element_ready/widget', function (  ) {
+//		    console.log( 'widget.init');
+//	    });
     });
 
-})(jQuery);
+//	$( window ).on( 'slide', '#elementor-control-default-c354', function (  ) {
+//		console.log( 'change' );
+//	} );
+
+} )( window.jQuery );
