@@ -311,6 +311,66 @@ class Yandex_Maps extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'disable_dbl_click_zoom',
+			[
+				'label'       => __( 'Disable Dbl Click Zoom', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Отключить масштабирование карты двойным щелчком кнопки мыши', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'disable_drag',
+			[
+				'label'       => __( 'Disable Drag', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Отключить перетаскивание карты с помощью мыши либо одиночного касания', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'disable_left_mouse_button_magnifier',
+			[
+				'label'       => __( 'Disable Left Mouse Button Magnifier', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Отключить масштабирование карты при выделении области левой кнопкой мыши', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'disable_right_mouse_button_magnifier',
+			[
+				'label'       => __( 'Disable Right Mouse Button Magnifier', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Отключить масштабирование карты при выделении области правой кнопкой мыши', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'disable_multi_touch',
+			[
+				'label'       => __( 'Disable Multi Touch', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Отключить масштабирование карты мультисенсорным касанием', 'elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'disable_route_editor',
+			[
+				'label'       => __( 'Disable Route Editor', 'elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Отключить редактор маршрутов', 'elementor' ),
+			]
+		);
+
 		$this->end_controls_section();
 
 		/*Pins Option*/
@@ -470,6 +530,12 @@ class Yandex_Maps extends Widget_Base {
 		     data-eb-route-button-control="<?php echo $settings['route_button_control']; ?>"
 		     data-eb-route-panel-control="<?php echo $settings['route_panel_control']; ?>"
 		     data-eb-disable-scroll-zoom="<?php echo $settings['disable_scroll_zoom']; ?>"
+		     data-eb-disable-dbl-click-zoom="<?php echo $settings['disable_dbl_click_zoom']; ?>"
+		     data-eb-disable-drag="<?php echo $settings['disable_drag']; ?>"
+		     data-eb-disable-left-mouse-button-magnifier="<?php echo $settings['disable_left_mouse_button_magnifier']; ?>"
+		     data-eb-disable-right-mouse-button-magnifier="<?php echo $settings['disable_right_mouse_button_magnifier']; ?>"
+		     data-eb-disable-multi-touch="<?php echo $settings['disable_multi_touch']; ?>"
+		     data-eb-disable-route-editor="<?php echo $settings['disable_route_editor']; ?>"
 		     data-eb-locations='<?php echo json_encode( $mapmarkers ); ?>'
 		     style="height: <?php echo $settings['height']['size']; ?><?php echo $settings['height']['unit']; ?>;"></div>
 	<?php

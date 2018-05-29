@@ -16,7 +16,12 @@
 	        route_button_control = $(mapid).data("eb-route-button-control"),
 	        route_panel_control = $(mapid).data("eb-route-panel-control"),
 	        disable_scroll_zoom = $(mapid).data("eb-disable-scroll-zoom"),
-
+	        disable_dbl_click_zoom = $(mapid).data("eb-disable-dbl-click-zoom"),
+	        disable_drag = $(mapid).data("eb-disable-drag"),
+	        disable_left_mouse_button_magnifier = $(mapid).data("eb-disable-left-mouse-button-magnifier"),
+	        disable_right_mouse_button_magnifier = $(mapid).data("eb-disable-right-mouse-button-magnifier"),
+	        disable_multi_touch = $(mapid).data("eb-disable-disable-multi-touch"),
+	        disable_route_editor = $(mapid).data("eb-disable-route-editor"),
 
             infowindow_max_width = $(mapid).data("eb-map-infowindow-width"),
             active_info,
@@ -79,6 +84,36 @@
 	        // Отключить прокрутку колесом мыши
 	        if ( 'yes' === disable_scroll_zoom ) {
 		        map.behaviors.disable('scrollZoom');
+	        }
+
+	        // Отключить масштабирование карты двойным щелчком кнопки мыши
+	        if ( 'yes' === disable_dbl_click_zoom ) {
+		        map.behaviors.disable('dblClickZoom');
+	        }
+
+			// Отключить перетаскивание карты с помощью мыши либо одиночного касания
+	        if ( 'yes' === disable_drag ) {
+		        map.behaviors.disable('drag');
+	        }
+
+	        // Отключить масштабирование карты при выделении области левой кнопкой мыши
+	        if ( 'yes' === disable_left_mouse_button_magnifier ) {
+		        map.behaviors.disable('leftMouseButtonMagnifier');
+	        }
+
+	        // Отключить масштабирование карты при выделении области правой кнопкой мыши
+	        if ( 'yes' === disable_right_mouse_button_magnifier ) {
+		        map.behaviors.disable('rightMouseButtonMagnifier');
+	        }
+
+	        // Отключить масштабирование карты мультисенсорным касанием
+	        if ( 'yes' === disable_multi_touch ) {
+		        map.behaviors.disable('multiTouch');
+	        }
+
+	        // Отключить редактор маршрутов
+	        if ( 'yes' === disable_route_editor ) {
+		        map.behaviors.disable('routeEditor');
 	        }
 
             var markersLocations = $( mapid ).data('eb-locations');
