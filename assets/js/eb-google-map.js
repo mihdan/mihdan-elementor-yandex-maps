@@ -83,7 +83,7 @@
 	                icon_color = Element.pin_icon;
                 }
 
-	            var placemark = new ymaps.Placemark( [ Element.lat, Element.lng ], {
+	            var placemark = new ymaps.Placemark( [ parseFloat( Element.lat ), parseFloat( Element.lng ) ], {
 		            //iconCaption: 'dfwefwe',
 		            hintContent: 'Нажмите, чтобы увидеть описание',
 		            balloonContentHeader: Element.title,
