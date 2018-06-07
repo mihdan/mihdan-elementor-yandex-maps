@@ -4,7 +4,7 @@ WordPress плагин, расширяющий пейджбилдер Elementor 
 ## Внешний вид
 
 ### Как выглядит на сайте
-![Map appearance](screenshot1.png)
+![Map appearance](screenshot-1.png)
 
 ### Как выглядят настройки
-![Admin map settings appearance](screenshot2.png)
+![Admin map settings appearance](screenshot-2.png)
