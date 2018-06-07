@@ -65,12 +65,12 @@ class Yandex_Maps extends Widget_Base {
 	}
 
 	public function get_script_depends() {
-		return [ 'eb-google-maps-api', 'eb-google-map' ];
+		return [ 'mihdan-elementor-yandex-maps-api', 'mihdan-elementor-yandex-maps' ];
 	}
 
 
 	/**
-	 * Register google maps widget controls.
+	 * Register yandex maps widget controls.
 	 *
 	 * Adds different input fields to allow the user to change and customize the widget settings.
 	 *
@@ -94,7 +94,7 @@ class Yandex_Maps extends Widget_Base {
 			[
 				'label'       => __( 'Find Latitude & Longitude', 'elementor' ),
 				'type'        => Controls_Manager::RAW_HTML,
-				'raw'         => '<form onsubmit="ebMapFindAddress(this);" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;"><input type="submit" value="Search" class="elementor-button elementor-button-default" onclick="ebMapFindAddress(this)"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
+				'raw'         => '<form onsubmit="mihdan_elementor_yandex_maps_find_address( this );" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;"><input type="submit" value="Search" class="elementor-button elementor-button-default" onclick="mihdan_elementor_yandex_maps_find_address( this )"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
 				'label_block' => true,
 			]
 		);
@@ -420,7 +420,7 @@ class Yandex_Maps extends Widget_Base {
 						'name'        => 'pin_notice',
 						'label'       => __( 'Find Latitude & Longitude', 'elementor' ),
 						'type'        => Controls_Manager::RAW_HTML,
-						'raw'         => '<form onsubmit="ebMapFindPinAddress(this);" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;"><input type="submit" value="Search" class="elementor-button elementor-button-default" onclick="ebMapFindPinAddress(this)"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
+						'raw'         => '<form onsubmit="mihdan_elementor_yandex_maps_find_pin_address( this );" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;"><input type="submit" value="Search" class="elementor-button elementor-button-default" onclick="mihdan_elementor_yandex_maps_find_pin_address( this )"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
 						'label_block' => true,
 					],
 					[
@@ -484,7 +484,7 @@ class Yandex_Maps extends Widget_Base {
 	}
 
 	/**
-	 * Render google maps widget output in the editor.
+	 * Render yandex maps widget output in the editor.
 	 *
 	 * Written as a Backbone JavaScript template and used to generate the live preview.
 	 *
@@ -495,7 +495,7 @@ class Yandex_Maps extends Widget_Base {
 	}
 
 	/**
-	 * Render google maps widget output on the frontend.
+	 * Render yandex maps widget output on the frontend.
 	 *
 	 * Written in PHP and used to generate the final HTML.
 	 *

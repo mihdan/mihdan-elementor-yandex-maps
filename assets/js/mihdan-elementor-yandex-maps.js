@@ -1,5 +1,5 @@
 ( function( $, ymaps ) {
-    var EBGoogleMapHandler = function( $scope, $ ) {
+    var mihdan_elementor_yandex_maps = function( $scope, $ ) {
         var mapid = $scope.find('.eb-map'),
             maptype = $(mapid).data("eb-map-type"),
             zoom = $(mapid).data("eb-map-zoom"),
@@ -30,7 +30,7 @@
 	        // @link https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/control.storage-docpage/
             controls = [];
 
-        function initMap() {
+        function init_map() {
 
 	        if ( 'yes' === ruler_control ) {
 		        controls.push( 'rulerControl' );
@@ -138,22 +138,23 @@
 	            }, {
 		            iconColor: icon_color,
 		            //preset: 'islands#circleIcon',
+		            // Запретить сворачивать балун в панель на маленьком экране
+		            //balloonPanelMaxMapArea: 0,
 		            balloonMaxWidth: parseInt( infowindow_max_width )
 	            } );
 	            map.geoObjects.add( placemark );
             } );
         }
 
-	    ymaps.ready( initMap );
+	    ymaps.ready( init_map );
 
     };
 
     // Make sure you run this code under Elementor..
-    $(window).on('elementor/frontend/init', function() {
-        elementorFrontend.hooks.addAction('frontend/element_ready/yandex-maps.default', EBGoogleMapHandler);
-//	    elementorFrontend.hooks.addAction('frontend/element_ready/widget', function (  ) {
-//		    console.log( 'widget.init');
-//	    });
-    });
+    $( window ).on( 'elementor/frontend/init', function() {
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/yandex-maps.default', mihdan_elementor_yandex_maps );
+    } );
 
 } )( window.jQuery, window.ymaps );
+
+// eof;

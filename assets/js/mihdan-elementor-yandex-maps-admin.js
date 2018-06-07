@@ -1,4 +1,4 @@
-function ebMapFindAddress( ob ) {
+function mihdan_elementor_yandex_maps_find_address( ob ) {
     var address = $( ob ).parent().find('input').attr('value');
     if( address !== '' ) {
 	    ymaps.geocode( address, {
@@ -22,7 +22,7 @@ function ebMapFindAddress( ob ) {
         alert( 'Не указан адрес для поиска' );
     }
 }
-function ebMapFindPinAddress( ob ) {
+function mihdan_elementor_yandex_maps_find_pin_address( ob ) {
 
 	var address = $( ob ).parent().find('input').attr('value');
 	if( address !== '' ) {
