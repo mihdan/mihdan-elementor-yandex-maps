@@ -1,4 +1,5 @@
 === Mihdan: Elementor Yandex Maps ===
+
 Contributors: mihdan
 Tags: elementor, yandex, maps, api, mihdan
 Donate link: https://www.kobzarev.com/donate/
@@ -10,7 +11,7 @@ Stable tag: 1.1.9
 Elementor Yandex Maps Widget
 
 == Description ==
-Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard Elementor text editor. And many more custom map options.
+Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard [Elementor](https://www.kobzarev.com/r/elementor/) text editor. And many more custom map options.
 
 == Installation ==
 1. Visit ‘Plugins > Add New’
