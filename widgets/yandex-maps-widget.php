@@ -31,7 +31,7 @@ class Yandex_Maps extends Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Yandex Maps', 'elementor' );
+		return __( 'Yandex Maps', 'mihdan-elementor-yandex-maps' );
 	}
 
 	/**
@@ -85,14 +85,14 @@ class Yandex_Maps extends Widget_Base {
 		$this->start_controls_section(
 			'section_map',
 			[
-				'label' => __( 'Map', 'elementor' ),
+				'label' => __( 'Map', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'map_notice',
 			[
-				'label'       => __( 'Find Latitude & Longitude', 'elementor' ),
+				'label'       => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::RAW_HTML,
 				'raw'         => '<form onsubmit="mihdan_elementor_yandex_maps_find_address( this );" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;"><input type="submit" value="Search" class="elementor-button elementor-button-default" onclick="mihdan_elementor_yandex_maps_find_address( this )"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
 				'label_block' => true,
@@ -102,7 +102,7 @@ class Yandex_Maps extends Widget_Base {
 		$this->add_control(
 			'map_lat',
 			[
-				'label'       => __( 'Latitude', 'elementor' ),
+				'label'       => __( 'Latitude', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::TEXT,
 				'placeholder' => '55.7522200',
 				'default'     => '55.7522200',
@@ -112,7 +112,7 @@ class Yandex_Maps extends Widget_Base {
 		$this->add_control(
 			'map_lng',
 			[
-				'label'       => __( 'Longitude', 'elementor' ),
+				'label'       => __( 'Longitude', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::TEXT,
 				'placeholder' => '37.6155600',
 				'default'     => '37.6155600',
@@ -123,7 +123,7 @@ class Yandex_Maps extends Widget_Base {
 		$this->add_control(
 			'zoom',
 			[
-				'label'   => __( 'Zoom Level', 'elementor' ),
+				'label'   => __( 'Zoom Level', 'mihdan-elementor-yandex-maps' ),
 				'type'    => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 10,
@@ -140,7 +140,7 @@ class Yandex_Maps extends Widget_Base {
 		$this->add_control(
 			'height',
 			[
-				'label'   => __( 'Height', 'elementor' ),
+				'label'   => __( 'Height', 'mihdan-elementor-yandex-maps' ),
 				'type'    => Controls_Manager::SLIDER,
 				'range'   => [
 					'px' => [
@@ -157,12 +157,12 @@ class Yandex_Maps extends Widget_Base {
 		$this->add_control(
 			'map_type',
 			[
-				'label'   => __( 'Map Type', 'elementor' ),
+				'label'   => __( 'Map Type', 'mihdan-elementor-yandex-maps' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => [
-					'map'       => __( 'Road Map', 'elementor' ),
-					'satellite' => __( 'Satellite', 'elementor' ),
-					'hybrid'    => __( 'Hybrid', 'elementor' ),
+					'map'       => __( 'Road Map', 'mihdan-elementor-yandex-maps' ),
+					'satellite' => __( 'Satellite', 'mihdan-elementor-yandex-maps' ),
+					'hybrid'    => __( 'Hybrid', 'mihdan-elementor-yandex-maps' ),
 				],
 				'default' => 'map',
 			]
@@ -171,7 +171,7 @@ class Yandex_Maps extends Widget_Base {
 		$this->add_control(
 			'view',
 			[
-				'label'   => __( 'View', 'elementor' ),
+				'label'   => __( 'View', 'mihdan-elementor-yandex-maps' ),
 				'type'    => Controls_Manager::HIDDEN,
 				'default' => 'traditional',
 			]
@@ -185,107 +185,107 @@ class Yandex_Maps extends Widget_Base {
 		$this->start_controls_section(
 			'map_controls',
 			[
-				'label' => __( 'Map Controls', 'elementor' ),
+				'label' => __( 'Map Controls', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'ruler_control',
 			[
-				'label'       => __( 'Ruler Control', 'elementor' ),
+				'label'       => __( 'Ruler Control', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Линейка и масштабный отрезок', 'elementor' ),
+				'description' => __( 'Линейка и масштабный отрезок', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'search_control',
 			[
-				'label'       => __( 'Search Control', 'elementor' ),
+				'label'       => __( 'Search Control', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Поиск на карте', 'elementor' ),
+				'description' => __( 'Поиск на карте', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'traffic_control',
 			[
-				'label'       => __( 'Traffic Control', 'elementor' ),
+				'label'       => __( 'Traffic Control', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Панель пробок', 'elementor' ),
+				'description' => __( 'Панель пробок', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'type_selector',
 			[
-				'label'       => __( 'Type Selector', 'elementor' ),
+				'label'       => __( 'Type Selector', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'yes',
-				'description' => __( 'Панель переключения типа карт', 'elementor' ),
+				'description' => __( 'Панель переключения типа карт', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'zoom_control',
 			[
-				'label'       => __( 'Zoom Control', 'elementor' ),
+				'label'       => __( 'Zoom Control', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'yes',
-				'description' => __( 'Ползунок масштаба', 'elementor' ),
+				'description' => __( 'Ползунок масштаба', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'geolocation_control',
 			[
-				'label'       => __( 'Geolocation Control', 'elementor' ),
+				'label'       => __( 'Geolocation Control', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Элемент управления геолокацией', 'elementor' ),
+				'description' => __( 'Элемент управления геолокацией', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'route_editor',
 			[
-				'label'       => __( 'Route Editor', 'elementor' ),
+				'label'       => __( 'Route Editor', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Редактор маршрутов', 'elementor' ),
+				'description' => __( 'Редактор маршрутов', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'fullscreen_control',
 			[
-				'label'       => __( 'Fullscreen Control', 'elementor' ),
+				'label'       => __( 'Fullscreen Control', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Элемент управления «полноэкранным режимом»', 'elementor' ),
+				'description' => __( 'Элемент управления «полноэкранным режимом»', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'route_button_control',
 			[
-				'label'       => __( 'Route Button Control', 'elementor' ),
+				'label'       => __( 'Route Button Control', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Панель для построения маршрутов', 'elementor' ),
+				'description' => __( 'Панель для построения маршрутов', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'route_panel_control',
 			[
-				'label'       => __( 'Route Panel Control', 'elementor' ),
+				'label'       => __( 'Route Panel Control', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Панель маршрутизации', 'elementor' ),
+				'description' => __( 'Панель маршрутизации', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
@@ -297,87 +297,87 @@ class Yandex_Maps extends Widget_Base {
 		$this->start_controls_section(
 			'map_behavior',
 			[
-				'label' => __( 'Map Behavior', 'elementor' ),
+				'label' => __( 'Map Behavior', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'disable_scroll_zoom',
 			[
-				'label'       => __( 'Disable Scroll Zoom', 'elementor' ),
+				'label'       => __( 'Disable Scroll Zoom', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Отключить прокрутку карты колесом мыши', 'elementor' ),
+				'description' => __( 'Отключить прокрутку карты колесом мыши', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'disable_dbl_click_zoom',
 			[
-				'label'       => __( 'Disable Dbl Click Zoom', 'elementor' ),
+				'label'       => __( 'Disable Dbl Click Zoom', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Отключить масштабирование карты двойным щелчком кнопки мыши', 'elementor' ),
+				'description' => __( 'Отключить масштабирование карты двойным щелчком кнопки мыши', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'disable_drag',
 			[
-				'label'       => __( 'Disable Drag', 'elementor' ),
+				'label'       => __( 'Disable Drag', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Отключить перетаскивание карты с помощью мыши либо одиночного касания', 'elementor' ),
+				'description' => __( 'Отключить перетаскивание карты с помощью мыши либо одиночного касания', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'disable_left_mouse_button_magnifier',
 			[
-				'label'       => __( 'Disable Left Mouse Button Magnifier', 'elementor' ),
+				'label'       => __( 'Disable Left Mouse Button Magnifier', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Отключить масштабирование карты при выделении области левой кнопкой мыши', 'elementor' ),
+				'description' => __( 'Отключить масштабирование карты при выделении области левой кнопкой мыши', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'disable_right_mouse_button_magnifier',
 			[
-				'label'       => __( 'Disable Right Mouse Button Magnifier', 'elementor' ),
+				'label'       => __( 'Disable Right Mouse Button Magnifier', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Отключить масштабирование карты при выделении области правой кнопкой мыши', 'elementor' ),
+				'description' => __( 'Отключить масштабирование карты при выделении области правой кнопкой мыши', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'disable_multi_touch',
 			[
-				'label'       => __( 'Disable Multi Touch', 'elementor' ),
+				'label'       => __( 'Disable Multi Touch', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Отключить масштабирование карты мультисенсорным касанием', 'elementor' ),
+				'description' => __( 'Отключить масштабирование карты мультисенсорным касанием', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'disable_route_editor',
 			[
-				'label'       => __( 'Disable Route Editor', 'elementor' ),
+				'label'       => __( 'Disable Route Editor', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Отключить редактор маршрутов', 'elementor' ),
+				'description' => __( 'Отключить редактор маршрутов', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'disable_ruler',
 			[
-				'label'       => __( 'Disable Ruler', 'elementor' ),
+				'label'       => __( 'Disable Ruler', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'description' => __( 'Отключить линейку', 'elementor' ),
+				'description' => __( 'Отключить линейку', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
@@ -387,14 +387,14 @@ class Yandex_Maps extends Widget_Base {
 		$this->start_controls_section(
 			'map_marker_pin',
 			[
-				'label' => __( 'Marker Pins', 'elementor' ),
+				'label' => __( 'Marker Pins', 'mihdan-elementor-yandex-maps' ),
 			]
 		);
 
 		$this->add_control(
 			'infowindow_max_width',
 			[
-				'label'       => __( 'InfoWindow Max Width', 'elementor' ),
+				'label'       => __( 'InfoWindow Max Width', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::TEXT,
 				'placeholder' => '300',
 				'default'     => '300',
@@ -404,76 +404,76 @@ class Yandex_Maps extends Widget_Base {
 		$this->add_control(
 			'tabs',
 			[
-				'label'       => __( 'Pin Item', 'elementor' ),
+				'label'       => __( 'Pin Item', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::REPEATER,
 				'default'     => [
 					[
-						'pin_title'   => __( 'Pin #1', 'elementor' ),
-						'pin_notice'  => __( 'Find Latitude & Longitude', 'elementor' ),
-						'pin_lat'     => __( '55.7522200', 'elementor' ),
-						'pin_lng'     => __( '37.6155600', 'elementor' ),
-						'pin_content' => __( 'I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'elementor' ),
+						'pin_title'   => __( 'Pin #1', 'mihdan-elementor-yandex-maps' ),
+						'pin_notice'  => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
+						'pin_lat'     => __( '55.7522200', 'mihdan-elementor-yandex-maps' ),
+						'pin_lng'     => __( '37.6155600', 'mihdan-elementor-yandex-maps' ),
+						'pin_content' => __( 'I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'mihdan-elementor-yandex-maps' ),
 					],
 				],
 				'fields'      => [
 					[
 						'name'        => 'pin_notice',
-						'label'       => __( 'Find Latitude & Longitude', 'elementor' ),
+						'label'       => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::RAW_HTML,
 						'raw'         => '<form onsubmit="mihdan_elementor_yandex_maps_find_pin_address( this );" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;"><input type="submit" value="Search" class="elementor-button elementor-button-default" onclick="mihdan_elementor_yandex_maps_find_pin_address( this )"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
 						'label_block' => true,
 					],
 					[
 						'name'        => 'pin_lat',
-						'label'       => __( 'Latitude', 'elementor' ),
+						'label'       => __( 'Latitude', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '55.7522200',
 						'placeholder' => '55.7522200',
 					],
 					[
 						'name'        => 'pin_lng',
-						'label'       => __( 'Longitude', 'elementor' ),
+						'label'       => __( 'Longitude', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '37.6155600',
 						'placeholder' => '37.6155600',
 					],
 					[
 						'name'    => 'pin_icon',
-						'label'   => __( 'Marker Icon', 'elementor' ),
+						'label'   => __( 'Marker Icon', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::SELECT,
 						'options' => [
 							// @link https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/option.presetStorage-docpage/
-							'blue'       => __( 'Blue', 'elementor' ),
-							'red'        => __( 'Red', 'elementor' ),
-							'darkOrange' => __( 'Dark Orange', 'elementor' ),
-							'darkBlue'   => __( 'Dark Blue', 'elementor' ),
-							'pink'       => __( 'Pink', 'elementor' ),
-							'grey'       => __( 'Grey', 'elementor' ),
-							'brown'      => __( 'Brown', 'elementor' ),
-							'purple'     => __( 'Purple', 'elementor' ),
-							'darkGreen'  => __( 'Dark Green', 'elementor' ),
-							'violet'     => __( 'Violet', 'elementor' ),
-							'black'      => __( 'Black', 'elementor' ),
-							'yellow'     => __( 'Yellow', 'elementor' ),
-							'green'      => __( 'Green', 'elementor' ),
-							'orange'     => __( 'Orange', 'elementor' ),
-							'lightBlue'  => __( 'Light Blue', 'elementor' ),
-							'olive'      => __( 'Olive', 'elementor' ),
+							'blue'       => __( 'Blue', 'mihdan-elementor-yandex-maps' ),
+							'red'        => __( 'Red', 'mihdan-elementor-yandex-maps' ),
+							'darkOrange' => __( 'Dark Orange', 'mihdan-elementor-yandex-maps' ),
+							'darkBlue'   => __( 'Dark Blue', 'mihdan-elementor-yandex-maps' ),
+							'pink'       => __( 'Pink', 'mihdan-elementor-yandex-maps' ),
+							'grey'       => __( 'Grey', 'mihdan-elementor-yandex-maps' ),
+							'brown'      => __( 'Brown', 'mihdan-elementor-yandex-maps' ),
+							'purple'     => __( 'Purple', 'mihdan-elementor-yandex-maps' ),
+							'darkGreen'  => __( 'Dark Green', 'mihdan-elementor-yandex-maps' ),
+							'violet'     => __( 'Violet', 'mihdan-elementor-yandex-maps' ),
+							'black'      => __( 'Black', 'mihdan-elementor-yandex-maps' ),
+							'yellow'     => __( 'Yellow', 'mihdan-elementor-yandex-maps' ),
+							'green'      => __( 'Green', 'mihdan-elementor-yandex-maps' ),
+							'orange'     => __( 'Orange', 'mihdan-elementor-yandex-maps' ),
+							'lightBlue'  => __( 'Light Blue', 'mihdan-elementor-yandex-maps' ),
+							'olive'      => __( 'Olive', 'mihdan-elementor-yandex-maps' ),
 						],
 						'default' => 'blue',
 					],
 					[
 						'name'        => 'pin_title',
-						'label'       => __( 'Title', 'elementor' ),
+						'label'       => __( 'Title', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::TEXT,
-						'default'     => __( 'Pin Title', 'elementor' ),
+						'default'     => __( 'Pin Title', 'mihdan-elementor-yandex-maps' ),
 						'label_block' => true,
 					],
 					[
 						'name'    => 'pin_content',
-						'label'   => __( 'Content', 'elementor' ),
+						'label'   => __( 'Content', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::WYSIWYG,
-						'default' => __( 'Pin Content', 'elementor' ),
+						'default' => __( 'Pin Content', 'mihdan-elementor-yandex-maps' ),
 					],
 				],
 				'title_field' => '{{{ pin_title }}}',
