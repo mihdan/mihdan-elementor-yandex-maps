@@ -141,7 +141,7 @@ add_action( "elementor/admin/after_create_settings/elementor", function ( Settin
 	$settings->add_section( Settings::TAB_INTEGRATIONS, 'mihdan-elementor-yandex-maps', [
 		'label'    => __( 'Yandex Maps', 'mihdan-elementor-yandex-maps' ),
 		'callback' => function() {
-			echo __( '<p>Go to the <a href="https://developer.tech.yandex.ru/" target="_blank">Developer\'s Dashboard</a> and press “Get key”. In the popup window, select the “JavaScript API, Geocoding API” option.</p><p>After you select the service, the form appears. In this form, you need to provide your contact information. After you fill in the form, the “Service successfully connected” text appears. The created key is now available in the “Keys” section. Use it when you enable the API.</p>', 'elementor-pro' );
+			echo __( '<p>Go to the <a href="https://developer.tech.yandex.ru/" target="_blank">Developer\'s Dashboard</a> and press “Get key”. In the popup window, select the “JavaScript API, Geocoding API” option.</p><p>After you select the service, the form appears. In this form, you need to provide your contact information. After you fill in the form, the “Service successfully connected” text appears. The created key is now available in the “Keys” section. Use it when you enable the API.</p>', 'mihdan-elementor-yandex-maps' );
 		},
 		'fields'   => [
 			'mihdan_elementor_yandex_maps_key' => [
