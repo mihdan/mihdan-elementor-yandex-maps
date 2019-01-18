@@ -5,7 +5,7 @@ Donate link: https://www.kobzarev.com/donate/
 Requires at least: 4.6
 Tested up to: 4.9.6
 Requires PHP: 5.6
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 
 Elementor Yandex Maps Widget
 
@@ -17,6 +17,11 @@ Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map
 2. Search for ‘Mihdan: Elementor Yandex Maps’
 3. Activate Mihdan: Elementor Yandex Maps from your Plugins page.
 4. [Optional] Configure Mihdan: Elementor Yandex Maps settings.
+
+== Changelog ==
+= 1.2.2 (18.01.2019) =
+* Added settings page
+* Fixed bugs
 
 == Screenshots ==
 1. Map appearance
