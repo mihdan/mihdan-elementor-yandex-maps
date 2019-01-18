@@ -57,9 +57,10 @@ function mihdan_elementor_yandex_maps() {
 add_action( 'plugins_loaded', 'mihdan_elementor_yandex_maps' );
 
 function mihdan_elementor_yandex_maps_api_key_filed() {
-	$message = '<p>' . __( sprintf( 'To complete the work plugin must be Mihdan: Elementor Yandex Maps, you must specify the API key for Yandex.Maps. <a href="%s">Specified key</a>.', admin_url( 'admin.php?page=elementor#tab-' . Settings::TAB_INTEGRATIONS ) ), 'mihdan-elementor-yandex-maps' ) . '</p>';
+	// translators: %s ссылка на страницу настроек
+	$message = sprintf( __( 'To complete the work plugin must be Mihdan: Elementor Yandex Maps, you must specify the API key for Yandex.Maps. <a href="%s">Specified key</a>.', 'mihdan-elementor-yandex-maps' ), admin_url( 'admin.php?page=elementor#tab-' . Settings::TAB_INTEGRATIONS ) );
 
-	echo '<div class="error">' . $message . '</div>';
+	echo '<div class="error"><p>' . $message . '</p></div>';
 }
 
 /**
@@ -67,9 +68,9 @@ function mihdan_elementor_yandex_maps_api_key_filed() {
  */
 function mihdan_elementor_yandex_maps_fail_load() {
 
-	$message = '<p>' . __( 'You do not have Elementor Page Builder on your WordPress. Mihdan: Elementor Yandex Maps require Elementor in order to work.', 'mihdan-elementor-yandex-maps' ) . '</p>';
+	$message = __( 'You do not have Elementor Page Builder on your WordPress. Mihdan: Elementor Yandex Maps require Elementor in order to work.', 'mihdan-elementor-yandex-maps' );
 
-	echo '<div class="error">' . $message . '</div>';
+	echo '<div class="error"><p>' . $message . '</p></div>';
 }
 
 /**
