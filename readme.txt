@@ -5,7 +5,7 @@ Donate link: https://www.kobzarev.com/donate/
 Requires at least: 4.6
 Tested up to: 4.9.6
 Requires PHP: 5.6
-Stable tag: 1.2
+Stable tag: 1.2.1
 
 Elementor Yandex Maps Widget
 
@@ -20,4 +20,4 @@ Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map
 
 == Screenshots ==
 1. Map appearance
-2. Admin settingd appearance
+2. Admin settings appearance
