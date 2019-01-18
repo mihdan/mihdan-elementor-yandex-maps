@@ -3,7 +3,7 @@
  * Plugin Name: Mihdan: Elementor Yandex Maps
  * Description: Elementor Yandex Maps Widget - Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard Elementor text editor. And many more custom map options.
  * Plugin URI:  https://github.com/mihdan/mihdan-elementor-yandex-maps
- * Version:     1.2.2
+ * Version:     1.2.3
  * Author:      Mikhail Kobzarev
  * Author URI:  https://www.kobzarev.com/
  * Text Domain: mihdan-elementor-yandex-maps
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'EB_YANDEX_MAPS_FILE', __FILE__ );
-define( 'EB_YANDEX_MAPS_VERSION', '1.2.2' );
+define( 'EB_YANDEX_MAPS_VERSION', '1.2.3' );
 
 require_once __DIR__ . '/elementor-helper.php';
 
@@ -57,7 +57,7 @@ function mihdan_elementor_yandex_maps() {
 add_action( 'plugins_loaded', 'mihdan_elementor_yandex_maps' );
 
 function mihdan_elementor_yandex_maps_api_key_filed() {
-	$message = '<p>' . __( 'To complete the work plugin must be Mihdan: Elementor Yandex Maps, you must specify the API key for Yandex.Maps. <a href="' . admin_url( 'admin.php?page=elementor#tab-' . Settings::TAB_INTEGRATIONS ) . '">Specified key</a>.', 'mihdan-elementor-yandex-maps' ) . '</p>';
+	$message = '<p>' . __( sprintf( 'To complete the work plugin must be Mihdan: Elementor Yandex Maps, you must specify the API key for Yandex.Maps. <a href="%s">Specified key</a>.', admin_url( 'admin.php?page=elementor#tab-' . Settings::TAB_INTEGRATIONS ) ), 'mihdan-elementor-yandex-maps' ) . '</p>';
 
 	echo '<div class="error">' . $message . '</div>';
 }
