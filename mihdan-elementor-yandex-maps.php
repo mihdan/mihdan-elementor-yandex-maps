@@ -117,21 +117,21 @@ function mihdan_elementor_yandex_maps_get_option( $option, $section, $default = 
  */
 add_action( 'elementor/editor/before_enqueue_scripts', function() {
 	$api_key = get_option( 'elementor_mihdan_elementor_yandex_maps_key' );
-	wp_enqueue_style( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/assets/css/mihdan-elementor-yandex-maps-admin.css', EB_YANDEX_MAPS_FILE ) );
+	wp_enqueue_style( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/frontend/css/mihdan-elementor-yandex-maps-admin.css', EB_YANDEX_MAPS_FILE ) );
 	wp_enqueue_script( 'mihdan-elementor-yandex-maps-api-admin', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=admin&apikey=' . $api_key, [ 'jquery' ], EB_YANDEX_MAPS_VERSION, true );
 	wp_localize_script( 'mihdan-elementor-yandex-maps-api-admin', 'EB_WP_URL', array( 'plugin_url' => plugin_dir_url( __FILE__ ) ) );
-	wp_enqueue_script( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/assets/js/mihdan-elementor-yandex-maps-admin.js', EB_YANDEX_MAPS_FILE ), [ 'mihdan-elementor-yandex-maps-api-admin' ], EB_YANDEX_MAPS_VERSION, true );
+	wp_enqueue_script( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps-admin.js', EB_YANDEX_MAPS_FILE ), [ 'mihdan-elementor-yandex-maps-api-admin' ], EB_YANDEX_MAPS_VERSION, true );
 } );
 
 add_action( 'elementor/frontend/after_enqueue_styles', function() {
-	wp_enqueue_style( 'mihdan-elementor-yandex-maps', plugins_url( '/assets/css/mihdan-elementor-yandex-maps.css', EB_YANDEX_MAPS_FILE ) );
+	wp_enqueue_style( 'mihdan-elementor-yandex-maps', plugins_url( '/frontend/css/mihdan-elementor-yandex-maps.css', EB_YANDEX_MAPS_FILE ) );
 } );
 
 add_action( 'elementor/frontend/after_register_scripts', function() {
 	$api_key = get_option( 'elementor_mihdan_elementor_yandex_maps_key' );
 	wp_register_script( 'mihdan-elementor-yandex-maps-api', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=frontend&apikey=' . $api_key, [], EB_YANDEX_MAPS_VERSION, true );
 	wp_localize_script( 'mihdan-elementor-yandex-maps-api', 'EB_WP_URL', array( 'plugin_url' => plugin_dir_url( __FILE__ ) ) );
-	wp_register_script( 'mihdan-elementor-yandex-maps', plugins_url( '/assets/js/mihdan-elementor-yandex-maps.js', EB_YANDEX_MAPS_FILE ), [ 'mihdan-elementor-yandex-maps-api' ], EB_YANDEX_MAPS_VERSION, true );
+	wp_register_script( 'mihdan-elementor-yandex-maps', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps.js', EB_YANDEX_MAPS_FILE ), [ 'mihdan-elementor-yandex-maps-api' ], EB_YANDEX_MAPS_VERSION, true );
 } );
 
 /**
