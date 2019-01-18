@@ -2,6 +2,7 @@
 /**
  * Виджет карты
  */
+
 namespace Elementor;
 
 if ( ! defined( 'ABSPATH' ) ) {
