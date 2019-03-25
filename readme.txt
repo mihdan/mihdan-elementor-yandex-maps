@@ -18,6 +18,12 @@ Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map
 3. Activate Mihdan: Elementor Yandex Maps from your Plugins page.
 4. [Optional] Configure Mihdan: Elementor Yandex Maps settings.
 
+== Frequently Asked Questions ==
+
+= Как получить ключ API =
+
+Получить API-ключ можно в [Кабинете разработчика](https://developer.tech.yandex.ru/services/). Нажмите «Получить ключ», затем выберите сервис «JavaScript API и HTTP Геокодер» и заполните анкету — ваш API-ключ будет сразу готов к использованию.
+
 == Changelog ==
 
 = 1.2.3 (18.01.2019) =
