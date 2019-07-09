@@ -26,6 +26,9 @@ Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map
 
 == Changelog ==
 
+= 1.2.4 (09.07.2019) =
+* Added dynamic tags to latitude & longitude
+
 = 1.2.3 (18.01.2019) =
 * Fixed bugs with translations
 

@@ -107,6 +107,9 @@ class Yandex_Maps extends Widget_Base {
 				'type'        => Controls_Manager::TEXT,
 				'placeholder' => '55.7522200',
 				'default'     => '55.7522200',
+				'dynamic'     => [
+					'active' => true,
+				],
 			]
 		);
 
@@ -117,6 +120,9 @@ class Yandex_Maps extends Widget_Base {
 				'type'        => Controls_Manager::TEXT,
 				'placeholder' => '37.6155600',
 				'default'     => '37.6155600',
+				'dynamic'     => [
+					'active' => true,
+				],
 				'separator'   => true,
 			]
 		);
@@ -430,6 +436,9 @@ class Yandex_Maps extends Widget_Base {
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '55.7522200',
 						'placeholder' => '55.7522200',
+						'dynamic'     => [
+							'active' => true,
+						],
 					],
 					[
 						'name'        => 'pin_lng',
@@ -437,6 +446,9 @@ class Yandex_Maps extends Widget_Base {
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '37.6155600',
 						'placeholder' => '37.6155600',
+						'dynamic'     => [
+							'active' => true,
+						],
 					],
 					[
 						'name'    => 'pin_icon',
@@ -469,12 +481,18 @@ class Yandex_Maps extends Widget_Base {
 						'type'        => Controls_Manager::TEXT,
 						'default'     => __( 'Pin Title', 'mihdan-elementor-yandex-maps' ),
 						'label_block' => true,
+						'dynamic'     => [
+							'active' => true,
+						],
 					],
 					[
 						'name'    => 'pin_content',
 						'label'   => __( 'Content', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::WYSIWYG,
 						'default' => __( 'Pin Content', 'mihdan-elementor-yandex-maps' ),
+						'dynamic' => [
+							'active' => true,
+						],
 					],
 				],
 				'title_field' => '{{{ pin_title }}}',
@@ -504,7 +522,7 @@ class Yandex_Maps extends Widget_Base {
 	 * @access protected
 	 */
 	protected function render() {
-		$settings = $this->get_settings();// print_r($settings);
+		$settings = $this->get_settings_for_display();
 
 		if ( 0 === absint( $settings['zoom']['size'] ) ) {
 			$settings['zoom']['size'] = 10;
