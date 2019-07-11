@@ -390,7 +390,31 @@ class Yandex_Maps extends Widget_Base {
 
 		$this->end_controls_section();
 
-		/*Pins Option*/
+		/**
+		 * Object Manager
+		 */
+		$this->start_controls_section(
+			'map_object_manager',
+			[
+				'label' => __( 'Object Manager', 'mihdan-elementor-yandex-maps' ),
+			]
+		);
+
+		$this->add_control(
+			'enable_object_manager',
+			[
+				'label'       => __( 'Enable Object Manager', 'mihdan-elementor-yandex-maps' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Включить кластеризацию', 'mihdan-elementor-yandex-maps' ),
+			]
+		);
+
+		$this->end_controls_section();
+
+		/**
+		 * Pins Option
+		 */
 		$this->start_controls_section(
 			'map_marker_pin',
 			[
@@ -431,39 +455,32 @@ class Yandex_Maps extends Widget_Base {
 						'label_block' => true,
 					],
 					[
-						'name'        => 'pin_lat',
+						'name'        => 'point_lat',
 						'label'       => __( 'Latitude', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '55.7522200',
 						'placeholder' => '55.7522200',
-						'dynamic'     => [
-							'active' => true,
-						],
 					],
 					[
-						'name'        => 'pin_lng',
+						'name'        => 'point_lng',
 						'label'       => __( 'Longitude', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '37.6155600',
 						'placeholder' => '37.6155600',
-						'dynamic'     => [
-							'active' => true,
-						],
 					],
 					[
-						'name'    => 'pin_icon',
-						'label'   => __( 'Marker Icon', 'mihdan-elementor-yandex-maps' ),
+						'name'    => 'icon_color',
+						'label'   => __( 'Icon Color', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::SELECT,
 						'options' => [
-							// @link https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/option.presetStorage-docpage/
 							'blue'       => __( 'Blue', 'mihdan-elementor-yandex-maps' ),
 							'red'        => __( 'Red', 'mihdan-elementor-yandex-maps' ),
 							'darkOrange' => __( 'Dark Orange', 'mihdan-elementor-yandex-maps' ),
+							'night'      => __( 'Night', 'mihdan-elementor-yandex-maps' ),
 							'darkBlue'   => __( 'Dark Blue', 'mihdan-elementor-yandex-maps' ),
 							'pink'       => __( 'Pink', 'mihdan-elementor-yandex-maps' ),
-							'grey'       => __( 'Grey', 'mihdan-elementor-yandex-maps' ),
+							'gray'       => __( 'Gray', 'mihdan-elementor-yandex-maps' ),
 							'brown'      => __( 'Brown', 'mihdan-elementor-yandex-maps' ),
-							'purple'     => __( 'Purple', 'mihdan-elementor-yandex-maps' ),
 							'darkGreen'  => __( 'Dark Green', 'mihdan-elementor-yandex-maps' ),
 							'violet'     => __( 'Violet', 'mihdan-elementor-yandex-maps' ),
 							'black'      => __( 'Black', 'mihdan-elementor-yandex-maps' ),
@@ -476,23 +493,64 @@ class Yandex_Maps extends Widget_Base {
 						'default' => 'blue',
 					],
 					[
-						'name'        => 'pin_title',
-						'label'       => __( 'Title', 'mihdan-elementor-yandex-maps' ),
-						'type'        => Controls_Manager::TEXT,
-						'default'     => __( 'Pin Title', 'mihdan-elementor-yandex-maps' ),
-						'label_block' => true,
-						'dynamic'     => [
-							'active' => true,
+						// @link https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/option.presetStorage-docpage/
+						'name'    => 'icon_type',
+						'label'   => __( 'Icon Type', 'mihdan-elementor-yandex-maps' ),
+						'type'    => Controls_Manager::SELECT,
+						'options' => [
+							''          => __( 'Default Icon', 'mihdan-elementor-yandex-maps' ),
+							'Stretchy'  => __( 'Stretchy Icon', 'mihdan-elementor-yandex-maps' ),
+							'Dot'       => __( 'Dot Icon', 'mihdan-elementor-yandex-maps' ),
+							'Circle'    => __( 'Circle Icon', 'mihdan-elementor-yandex-maps' ),
+							'CircleDot' => __( 'Circle Dot Icon', 'mihdan-elementor-yandex-maps' ),
 						],
+						'default' => 'Circle',
 					],
 					[
-						'name'    => 'pin_content',
-						'label'   => __( 'Content', 'mihdan-elementor-yandex-maps' ),
+						'name'        => 'icon_caption',
+						'label'       => __( 'Icon Caption', 'mihdan-elementor-yandex-maps' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => '',
+						'label_block' => true,
+					],
+					[
+						'name'        => 'icon_content',
+						'label'       => __( 'Icon Content', 'mihdan-elementor-yandex-maps' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => '',
+						'label_block' => true,
+					],
+					[
+						'name'        => 'hint_content',
+						'label'       => __( 'Hint Content', 'mihdan-elementor-yandex-maps' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => '',
+						'label_block' => true,
+					],
+					[
+						'name'        => 'balloon_content_header',
+						'label'       => __( 'Balloon Content Header', 'mihdan-elementor-yandex-maps' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => __( 'Balloon Content Header Default', 'mihdan-elementor-yandex-maps' ),
+						'label_block' => true,
+					],
+					[
+						'name'    => 'balloon_content_body',
+						'label'   => __( 'Balloon Content Body', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::WYSIWYG,
-						'default' => __( 'Pin Content', 'mihdan-elementor-yandex-maps' ),
-						'dynamic' => [
-							'active' => true,
-						],
+						'default' => '',
+					],
+					[
+						'name'    => 'balloon_content_footer',
+						'label'   => __( 'Balloon Content Footer', 'mihdan-elementor-yandex-maps' ),
+						'type'    => Controls_Manager::TEXTAREA,
+						'default' => '',
+					],
+					[
+						'name'    => 'balloon_is_opened',
+						'label'   => __( 'Balloon Is Opened', 'mihdan-elementor-yandex-maps' ),
+						'type'    => Controls_Manager::SWITCHER,
+						'default' => 'no',
 					],
 				],
 				'title_field' => '{{{ pin_title }}}',
@@ -528,47 +586,66 @@ class Yandex_Maps extends Widget_Base {
 			$settings['zoom']['size'] = 10;
 		}
 
-		$mapmarkers = array();
+		$geo_json = array(
+			'type'     => 'FeatureCollection',
+			'features' => array(),
+		);
 
 		foreach ( $settings['tabs'] as $index => $item ) :
-			$tab_count    = $index + 1;
-			$mapmarkers[] = array(
-				'lat'      => $item['pin_lat'],
-				'lng'      => $item['pin_lng'],
-				'title'    => $item['pin_title'],
-				'content'  => htmlspecialchars( $item['pin_content'], ENT_QUOTES & ~ENT_COMPAT ),
-				'pin_icon' => $item['pin_icon'],
+			$geo_json['features'][] = array(
+				'type'       => 'Feature',
+				'id'         => 'id_' . $index,
+				'geometry'   => array(
+					'type'        => 'Point',
+					'coordinates' => array(
+						$item['point_lat'],
+						$item['point_lng'],
+					),
+				),
+				'properties' => array(
+					'iconCaption'          => $item['icon_caption'],
+					'iconContent'          => $item['icon_content'],
+					'hintContent'          => $item['hint_content'],
+					'balloonContentHeader' => $item['balloon_content_header'],
+					'balloonContentFooter' => $item['balloon_content_footer'],
+					'balloonContentBody'   => htmlspecialchars( $item['balloon_content_body'], ENT_QUOTES & ~ENT_COMPAT ),
+				),
+				'options'    => array(
+					'preset'          => sprintf( 'islands#%s%sIcon', $item['icon_color'], $item['icon_type'] ),
+					'balloonIsOpened' => $item['balloon_is_opened'],
+				),
 			);
 		endforeach;
 		?>
 
 		<div id="eb-map-<?php echo esc_attr( $this->get_id() ); ?>"
-		     class="eb-map"
-		     data-eb-map-lat="<?php echo $settings['map_lat']; ?>"
-		     data-eb-map-lng="<?php echo $settings['map_lng']; ?>"
-		     data-eb-map-zoom="<?php echo $settings['zoom']['size']; ?>"
-		     data-eb-map-type="<?php echo $settings['map_type']; ?>"
-		     data-eb-ruler-control="<?php echo $settings['ruler_control']; ?>"
-		     data-eb-search-control="<?php echo $settings['search_control']; ?>"
-		     data-eb-traffic-control="<?php echo $settings['traffic_control']; ?>"
-		     data-eb-type-selector="<?php echo $settings['type_selector']; ?>"
-		     data-eb-zoom-control="<?php echo $settings['zoom_control']; ?>"
-		     data-eb-geolocation-control="<?php echo $settings['geolocation_control']; ?>"
-		     data-eb-route-editor="<?php echo $settings['route_editor']; ?>"
-		     data-eb-fullscreen-control="<?php echo $settings['fullscreen_control']; ?>"
-		     data-eb-route-button-control="<?php echo $settings['route_button_control']; ?>"
-		     data-eb-route-panel-control="<?php echo $settings['route_panel_control']; ?>"
-		     data-eb-disable-scroll-zoom="<?php echo $settings['disable_scroll_zoom']; ?>"
-		     data-eb-disable-dbl-click-zoom="<?php echo $settings['disable_dbl_click_zoom']; ?>"
-		     data-eb-disable-drag="<?php echo $settings['disable_drag']; ?>"
-		     data-eb-disable-left-mouse-button-magnifier="<?php echo $settings['disable_left_mouse_button_magnifier']; ?>"
-		     data-eb-disable-right-mouse-button-magnifier="<?php echo $settings['disable_right_mouse_button_magnifier']; ?>"
-		     data-eb-disable-multi-touch="<?php echo $settings['disable_multi_touch']; ?>"
-		     data-eb-disable-route-editor="<?php echo $settings['disable_route_editor']; ?>"
-		     data-eb-disable-ruler="<?php echo $settings['disable_ruler']; ?>"
-		     data-eb-infowindow-max-width="<?php echo $settings['infowindow_max_width']; ?>"
-		     data-eb-locations='<?php echo json_encode( $mapmarkers ); ?>'
-		     style="height: <?php echo $settings['height']['size']; ?><?php echo $settings['height']['unit']; ?>;"></div>
+		    class="eb-map"
+		    data-eb-map-lat="<?php echo $settings['map_lat']; ?>"
+		    data-eb-map-lng="<?php echo $settings['map_lng']; ?>"
+		    data-eb-map-zoom="<?php echo $settings['zoom']['size']; ?>"
+		    data-eb-map-type="<?php echo $settings['map_type']; ?>"
+		    data-eb-ruler-control="<?php echo $settings['ruler_control']; ?>"
+		    data-eb-search-control="<?php echo $settings['search_control']; ?>"
+		    data-eb-traffic-control="<?php echo $settings['traffic_control']; ?>"
+		    data-eb-type-selector="<?php echo $settings['type_selector']; ?>"
+		    data-eb-zoom-control="<?php echo $settings['zoom_control']; ?>"
+		    data-eb-geolocation-control="<?php echo $settings['geolocation_control']; ?>"
+		    data-eb-route-editor="<?php echo $settings['route_editor']; ?>"
+		    data-eb-fullscreen-control="<?php echo $settings['fullscreen_control']; ?>"
+		    data-eb-route-button-control="<?php echo $settings['route_button_control']; ?>"
+		    data-eb-route-panel-control="<?php echo $settings['route_panel_control']; ?>"
+		    data-eb-disable-scroll-zoom="<?php echo $settings['disable_scroll_zoom']; ?>"
+		    data-eb-disable-dbl-click-zoom="<?php echo $settings['disable_dbl_click_zoom']; ?>"
+		    data-eb-disable-drag="<?php echo $settings['disable_drag']; ?>"
+		    data-eb-disable-left-mouse-button-magnifier="<?php echo $settings['disable_left_mouse_button_magnifier']; ?>"
+		    data-eb-disable-right-mouse-button-magnifier="<?php echo $settings['disable_right_mouse_button_magnifier']; ?>"
+		    data-eb-disable-multi-touch="<?php echo $settings['disable_multi_touch']; ?>"
+		    data-eb-disable-route-editor="<?php echo $settings['disable_route_editor']; ?>"
+		    data-eb-disable-ruler="<?php echo $settings['disable_ruler']; ?>"
+		    data-eb-enable-object-manager="<?php echo $settings['enable_object_manager']; ?>"
+		    data-eb-infowindow-max-width="<?php echo $settings['infowindow_max_width']; ?>"
+		    data-eb-locations='<?php echo json_encode( $geo_json ); ?>'
+		    style="height: <?php echo $settings['height']['size']; ?><?php echo $settings['height']['unit']; ?>;"></div>
 	<?php
 	}
 }

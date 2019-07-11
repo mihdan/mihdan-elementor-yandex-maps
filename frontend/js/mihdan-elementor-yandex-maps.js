@@ -23,6 +23,7 @@
 	        disable_multi_touch = $(mapid).data("eb-disable-disable-multi-touch"),
 	        disable_route_editor = $(mapid).data("eb-disable-route-editor"),
 	        disable_ruler = $(mapid).data("eb-disable-ruler"),
+	        enable_object_manager = $(mapid).data("eb-enable-object-manager"),
             infowindow_max_width = parseInt( $(mapid).data("eb-infowindow-max-width") ),
             active_info,
             infowindow,
@@ -123,27 +124,47 @@
 
             var markersLocations = $( mapid ).data('eb-locations');
 
-            $.each( markersLocations, function( index, Element, content ) {
-                var icon_color = '';
-                if ( Element.pin_icon !== '' ) {
-	                icon_color = Element.pin_icon;
-                }
+	        // Если включена кластеризация.
+	        if ( 'yes' === enable_object_manager ) {
+				// Создание менеджера объектов.
+		        var objectManager = new ymaps.ObjectManager( {
+			        clusterize: true
+		        } );
 
-	            var placemark = new ymaps.Placemark( [ parseFloat( Element.lat ), parseFloat( Element.lng ) ], {
-		            //iconCaption: 'dfwefwe',
-		            hintContent: 'Нажмите, чтобы увидеть описание',
-		            balloonContentHeader: Element.title,
-		            balloonContentBody: Element.content,
-		            balloonContentFooter: ''
-	            }, {
-		            iconColor: icon_color,
-		            //preset: 'islands#circleIcon',
-		            // Запретить сворачивать балун в панель на маленьком экране
-		            //balloonPanelMaxMapArea: 0,
-		            balloonMaxWidth: parseInt( infowindow_max_width )
-	            } );
-	            map.geoObjects.add( placemark );
-            } );
+				// После создания менеджера ему следует передать JSON-описание объектов.
+		        objectManager.add( markersLocations );
+
+		        // Отобразим объекты на карте.
+		        map.geoObjects.add( objectManager );
+
+	        } else {
+
+		        $.each( markersLocations.features, function ( index, Element, content ) {
+			        var icon_color = '';
+			        if ( Element.options.presset !== '' ) {
+				        icon_color = Element.options.presset;
+			        }
+
+			        var placemark = new ymaps.Placemark( [ parseFloat( Element.geometry.coordinates[0] ), parseFloat( Element.geometry.coordinates[1] ) ], {
+				        hintContent: Element.properties.hintContent,
+				        balloonContentHeader: Element.properties.balloonContentHeader,
+				        balloonContentBody: Element.properties.balloonContentBody,
+				        balloonContentFooter: Element.properties.balloonContentFooter,
+				        iconContent: Element.properties.iconContent,
+				        iconCaption: Element.properties.iconCaption,
+			        }, {
+				        preset: Element.options.preset,
+				        balloonMaxWidth: parseInt( infowindow_max_width )
+			        } );
+
+			        map.geoObjects.add( placemark );
+
+			        // Показать балун при загрузке метки.
+			        if ( 'yes' === Element.options.balloonIsOpened ) {
+				        placemark.balloon.open();
+			        }
+		        } );
+	        }
         }
 
 	    ymaps.ready( init_map );
@@ -153,6 +174,7 @@
     // Make sure you run this code under Elementor..
     $( window ).on( 'elementor/frontend/init', function() {
         elementorFrontend.hooks.addAction( 'frontend/element_ready/yandex-maps.default', mihdan_elementor_yandex_maps );
+	    //elementorModules.frontend.handlers.hooks.Base.addAction( 'frontend/element_ready/yandex-maps.default', mihdan_elementor_yandex_maps );
     } );
 
 } )( window.jQuery, window.ymaps );
