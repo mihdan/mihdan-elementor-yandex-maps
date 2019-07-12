@@ -8,6 +8,8 @@
  * Author URI:  https://www.kobzarev.com/
  * Text Domain: mihdan-elementor-yandex-maps
  * GitHub Plugin URI: https://github.com/mihdan/mihdan-elementor-yandex-maps
+ *
+ * @package mihdan-elementor-yandex-maps
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,6 +30,7 @@ define( 'MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION', '1.3' );
  * Class Mihdan_Elementor_Yandex_Maps
  *
  * Main Plugin class
+ *
  * @since 1.3
  */
 final class Mihdan_Elementor_Yandex_Maps {
@@ -115,7 +118,7 @@ final class Mihdan_Elementor_Yandex_Maps {
 			return;
 		}
 
-		// Check for required PHP version
+		// Check for required PHP version.
 		if ( version_compare( PHP_VERSION, self::MINIMUM_PHP_VERSION, '<' ) ) {
 			add_action( 'admin_notices', [ $this, 'admin_notice_minimum_php_version' ] );
 			return;
@@ -142,7 +145,7 @@ final class Mihdan_Elementor_Yandex_Maps {
 			'<strong>' . esc_html__( 'Elementor', 'mihdan-elementor-yandex-maps' ) . '</strong>'
 		);
 
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses( $message, array( 'strong' => array() ) ) );
 	}
 
 	/**
@@ -164,7 +167,7 @@ final class Mihdan_Elementor_Yandex_Maps {
 			self::MINIMUM_ELEMENTOR_VERSION
 		);
 
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses( $message, array( 'strong' => array() ) ) );
 
 	}
 
@@ -187,11 +190,11 @@ final class Mihdan_Elementor_Yandex_Maps {
 			self::MINIMUM_PHP_VERSION
 		);
 
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses( $message, array( 'strong' => array() ) ) );
 
 	}
 }
-// Instantiate Plugin Class
+// Instantiate Plugin Class.
 Mihdan_Elementor_Yandex_Maps::instance();
 
-// eof;
+// eof.
