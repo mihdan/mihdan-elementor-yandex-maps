@@ -24,5 +24,8 @@ Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map
 ## Обсуждение
 Проект можно обсудить у меня в [блоге](https://www.kobzarev.com/projects/mihdan-elementor-yandex-maps/).
 
+## Благодарности
+Отдельное спасибо хочу выразить [@kagg-design](https://github.com/kagg-design) за ревью кода и помощь в организации правильной структуры плагина.
+
 ## Donate link
 Помочь в рарзработке проекта вы всегда можете по [ссылке](https://www.kobzarev.com/donate/).

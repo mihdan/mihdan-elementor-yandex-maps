@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-class Yandex_Maps extends Widget_Base {
+class Widget extends Widget_Base {
 
 	/**
 	 * Retrieve heading widget name.
