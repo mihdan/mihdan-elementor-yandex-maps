@@ -134,9 +134,9 @@ add_action( 'elementor/frontend/after_enqueue_styles', function() {
 
 add_action( 'elementor/frontend/after_register_scripts', function() {
 	$api_key = get_option( 'elementor_mihdan_elementor_yandex_maps_key' );
-	wp_register_script( 'mihdan-elementor-yandex-maps-api', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=frontend&apikey=' . $api_key, [], EB_YANDEX_MAPS_VERSION, true );
+	wp_register_script( 'mihdan-elementor-yandex-maps-api', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=frontend&apikey=' . $api_key, [ 'elementor-frontend' ], EB_YANDEX_MAPS_VERSION, true );
 	wp_localize_script( 'mihdan-elementor-yandex-maps-api', 'EB_WP_URL', array( 'plugin_url' => plugin_dir_url( __FILE__ ) ) );
-	wp_register_script( 'mihdan-elementor-yandex-maps', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps.js', EB_YANDEX_MAPS_FILE ), [ 'mihdan-elementor-yandex-maps-api' ], EB_YANDEX_MAPS_VERSION, true );
+	wp_register_script( 'mihdan-elementor-yandex-maps', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps.js', EB_YANDEX_MAPS_FILE ), [ 'elementor-frontend', 'mihdan-elementor-yandex-maps-api' ], EB_YANDEX_MAPS_VERSION, true );
 } );
 
 /**
