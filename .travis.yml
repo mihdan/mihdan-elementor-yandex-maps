@@ -1,0 +1,39 @@
+sudo: false
+
+language: php
+
+notifications:
+  email:
+    on_success: never
+    on_failure: change
+
+matrix:
+  fast_finish: true
+  include:
+    - php: '5.6'
+      env:
+        - SNIFF=1 TESTS=1
+    - php: '7.0'
+      env:
+        - SNIFF=1 TESTS=1
+    - php: '7.1'
+      env:
+        - SNIFF=1 TESTS=1
+    - php: '7.2'
+      env:
+        - SNIFF=1 TESTS=1
+    - php: '7.3'
+      env:
+        - SNIFF=1 COVERAGE=1
+
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+    - node_modules
+
+before_script:
+  - phpenv rehash
+
+script:
+  - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs -p -s --colors --standard=phpcs.xml .; fi
