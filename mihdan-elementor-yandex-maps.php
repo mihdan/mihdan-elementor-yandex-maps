@@ -256,7 +256,7 @@ class Core {
 			/* translators: 1: Plugin name 2: Elementor */
 			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'mihdan-elementor-yandex-maps' ),
 			'<strong>' . esc_html__( 'Mihdan: Elementor Yandex Maps', 'mihdan-elementor-yandex-maps' ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor Page Builder', 'mihdan-elementor-yandex-maps' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor Page Builder', 'mihdan-elementor-yandex-maps' ) . '</strong>'
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
