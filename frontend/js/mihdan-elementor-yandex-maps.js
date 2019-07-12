@@ -128,7 +128,8 @@
 	        if ( 'yes' === enable_object_manager ) {
 				// Создание менеджера объектов.
 		        var objectManager = new ymaps.ObjectManager( {
-			        clusterize: true
+			        clusterize: true,
+			        preset: markersLocations.clusterPreset
 		        } );
 
 				// После создания менеджера ему следует передать JSON-описание объектов.
