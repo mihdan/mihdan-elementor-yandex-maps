@@ -37,6 +37,9 @@ Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map
 * Added balloon footer
 * Added property `balloonIsOpen` for balloon
 * Fixed bugs
+* Code converted to OOP
+* Code refactored to conform WordPress Coding Standards
+* JS developed according to ECMA-6 script standards
 
 = 1.2.4 (09.07.2019) =
 * Added dynamic tags to latitude & longitude

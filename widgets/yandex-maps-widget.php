@@ -3,7 +3,10 @@
  * Виджет карты
  */
 
-namespace Elementor;
+namespace MihdanElementorYandexMaps\Widget;
+
+use Elementor\Widget_Base;
+use Elementor\Controls_Manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -649,7 +652,5 @@ class Yandex_Maps extends Widget_Base {
 	<?php
 	}
 }
-
-Plugin::instance()->widgets_manager->register_widget_type( new Yandex_Maps() );
 
 // eof;
