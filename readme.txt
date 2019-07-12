@@ -29,6 +29,7 @@ Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map
 = 1.3 (12.07.2019) =
 * Added clusterization feature
 * Added clusterization settings
+* Added cluster color dropdown
 * Added icon colors
 * Added icon types
 * Added hint content

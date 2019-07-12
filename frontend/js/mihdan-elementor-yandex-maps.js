@@ -141,10 +141,6 @@
 	        } else {
 
 		        $.each( markersLocations.features, function ( index, Element, content ) {
-			        var icon_color = '';
-			        if ( Element.options.presset !== '' ) {
-				        icon_color = Element.options.presset;
-			        }
 
 			        var placemark = new ymaps.Placemark( [ parseFloat( Element.geometry.coordinates[0] ), parseFloat( Element.geometry.coordinates[1] ) ], {
 				        hintContent: Element.properties.hintContent,
