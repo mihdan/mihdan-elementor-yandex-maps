@@ -173,7 +173,7 @@ class Core {
 	 */
 	public function editor_scripts() {
 		wp_enqueue_style( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/frontend/css/mihdan-elementor-yandex-maps-admin.css', MIHDAN_YANDEX_MAPS_FILE ) );
-		wp_enqueue_script( 'mihdan-elementor-yandex-maps-api-admin', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=admin&apikey=' . $$this->api_key, [ 'jquery' ], self::VERSION, true );
+		wp_enqueue_script( 'mihdan-elementor-yandex-maps-api-admin', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=admin&apikey=' . $this->api_key, [ 'jquery' ], self::VERSION, true );
 		wp_localize_script( 'mihdan-elementor-yandex-maps-api-admin', 'EB_WP_URL', array( 'plugin_url' => plugin_dir_url( __FILE__ ) ) );
 		wp_enqueue_script( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps-admin.js', MIHDAN_YANDEX_MAPS_FILE ), [ 'mihdan-elementor-yandex-maps-api-admin' ], self::VERSION, true );
 	}
