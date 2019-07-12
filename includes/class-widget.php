@@ -1,6 +1,8 @@
 <?php
 /**
  * Виджет карты
+ *
+ * @package mihdan-elementor-yandex-maps
  */
 
 namespace MihdanElementorYandexMaps\Widget;
@@ -12,6 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+/**
+ * Class Widget
+ */
 class Widget extends Widget_Base {
 
 	/**
@@ -68,6 +73,11 @@ class Widget extends Widget_Base {
 		return [ 'mihdan' ];
 	}
 
+	/**
+	 * Get script depends
+	 *
+	 * @return array
+	 */
 	public function get_script_depends() {
 		return [ 'mihdan-elementor-yandex-maps-api', 'mihdan-elementor-yandex-maps' ];
 	}
@@ -779,34 +789,34 @@ class Widget extends Widget_Base {
 
 		<div id="eb-map-<?php echo esc_attr( $this->get_id() ); ?>"
 		    class="eb-map"
-		    data-eb-map-lat="<?php echo $settings['map_lat']; ?>"
-		    data-eb-map-lng="<?php echo $settings['map_lng']; ?>"
-		    data-eb-map-zoom="<?php echo $settings['zoom']['size']; ?>"
-		    data-eb-map-type="<?php echo $settings['map_type']; ?>"
-		    data-eb-ruler-control="<?php echo $settings['ruler_control']; ?>"
-		    data-eb-search-control="<?php echo $settings['search_control']; ?>"
-		    data-eb-traffic-control="<?php echo $settings['traffic_control']; ?>"
-		    data-eb-type-selector="<?php echo $settings['type_selector']; ?>"
-		    data-eb-zoom-control="<?php echo $settings['zoom_control']; ?>"
-		    data-eb-geolocation-control="<?php echo $settings['geolocation_control']; ?>"
-		    data-eb-route-editor="<?php echo $settings['route_editor']; ?>"
-		    data-eb-fullscreen-control="<?php echo $settings['fullscreen_control']; ?>"
-		    data-eb-route-button-control="<?php echo $settings['route_button_control']; ?>"
-		    data-eb-route-panel-control="<?php echo $settings['route_panel_control']; ?>"
-		    data-eb-disable-scroll-zoom="<?php echo $settings['disable_scroll_zoom']; ?>"
-		    data-eb-disable-dbl-click-zoom="<?php echo $settings['disable_dbl_click_zoom']; ?>"
-		    data-eb-disable-drag="<?php echo $settings['disable_drag']; ?>"
-		    data-eb-disable-left-mouse-button-magnifier="<?php echo $settings['disable_left_mouse_button_magnifier']; ?>"
-		    data-eb-disable-right-mouse-button-magnifier="<?php echo $settings['disable_right_mouse_button_magnifier']; ?>"
-		    data-eb-disable-multi-touch="<?php echo $settings['disable_multi_touch']; ?>"
-		    data-eb-disable-route-editor="<?php echo $settings['disable_route_editor']; ?>"
-		    data-eb-disable-ruler="<?php echo $settings['disable_ruler']; ?>"
-		    data-eb-enable-object-manager="<?php echo $settings['enable_object_manager']; ?>"
-		    data-eb-infowindow-max-width="<?php echo $settings['infowindow_max_width']; ?>"
-		    data-eb-locations='<?php echo json_encode( $geo_json ); ?>'
-		    style="height: <?php echo $settings['height']['size']; ?><?php echo $settings['height']['unit']; ?>;"></div>
-	<?php
+		    data-eb-map-lat="<?php echo esc_attr( $settings['map_lat'] ); ?>"
+		    data-eb-map-lng="<?php echo esc_attr( $settings['map_lng'] ); ?>"
+		    data-eb-map-zoom="<?php echo esc_attr( $settings['zoom']['size'] ); ?>"
+		    data-eb-map-type="<?php echo esc_attr( $settings['map_type'] ); ?>"
+		    data-eb-ruler-control="<?php echo esc_attr( $settings['ruler_control'] ); ?>"
+		    data-eb-search-control="<?php echo esc_attr( $settings['search_control'] ); ?>"
+		    data-eb-traffic-control="<?php echo esc_attr( $settings['traffic_control'] ); ?>"
+		    data-eb-type-selector="<?php echo esc_attr( $settings['type_selector'] ); ?>"
+		    data-eb-zoom-control="<?php echo esc_attr( $settings['zoom_control'] ); ?>"
+		    data-eb-geolocation-control="<?php echo esc_attr( $settings['geolocation_control'] ); ?>"
+		    data-eb-route-editor="<?php echo esc_attr( $settings['route_editor'] ); ?>"
+		    data-eb-fullscreen-control="<?php echo esc_attr( $settings['fullscreen_control'] ); ?>"
+		    data-eb-route-button-control="<?php echo esc_attr( $settings['route_button_control'] ); ?>"
+		    data-eb-route-panel-control="<?php echo esc_attr( $settings['route_panel_control'] ); ?>"
+		    data-eb-disable-scroll-zoom="<?php echo esc_attr( $settings['disable_scroll_zoom'] ); ?>"
+		    data-eb-disable-dbl-click-zoom="<?php echo esc_attr( $settings['disable_dbl_click_zoom'] ); ?>"
+		    data-eb-disable-drag="<?php echo esc_attr( $settings['disable_drag'] ); ?>"
+		    data-eb-disable-left-mouse-button-magnifier="<?php echo esc_attr( $settings['disable_left_mouse_button_magnifier'] ); ?>"
+		    data-eb-disable-right-mouse-button-magnifier="<?php echo esc_attr( $settings['disable_right_mouse_button_magnifier'] ); ?>"
+		    data-eb-disable-multi-touch="<?php echo esc_attr( $settings['disable_multi_touch'] ); ?>"
+		    data-eb-disable-route-editor="<?php echo esc_attr( $settings['disable_route_editor'] ); ?>"
+		    data-eb-disable-ruler="<?php echo esc_attr( $settings['disable_ruler'] ); ?>"
+		    data-eb-enable-object-manager="<?php echo esc_attr( $settings['enable_object_manager'] ); ?>"
+		    data-eb-infowindow-max-width="<?php echo esc_attr( $settings['infowindow_max_width'] ); ?>"
+		    data-eb-locations='<?php echo wp_json_encode( $geo_json ); ?>'
+		    style="height: <?php echo esc_attr( $settings['height']['size'] ); ?><?php echo esc_attr( $settings['height']['unit'] ); ?>;"></div>
+		<?php
 	}
 }
 
-// eof;
+// eof.
