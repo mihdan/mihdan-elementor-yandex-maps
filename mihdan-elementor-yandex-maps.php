@@ -56,6 +56,11 @@ class Core {
 	const MINIMUM_PHP_VERSION = '5.6';
 
 	/**
+	 * @var string $api_key Key for Yandex Maps API.
+	 */
+	private $api_key;
+
+	/**
 	 * Instance
 	 *
 	 * @since 1.3
@@ -139,8 +144,11 @@ class Core {
 			return;
 		}
 
+		// Получить ключ из базы.
+		$this->api_key = get_option( 'elementor_mihdan_elementor_yandex_maps_key' );
+
 		// Если не задан API ключ для карт.
-		if ( '' == get_option( 'elementor_mihdan_elementor_yandex_maps_key' ) ) {
+		if ( '' == $this->api_key ) {
 			add_action( 'admin_notices', [ $this, 'admin_notice_api_key_filed' ] );
 		}
 
@@ -164,9 +172,8 @@ class Core {
 	 * Enqueue scripts for editor.
 	 */
 	public function editor_scripts() {
-		$api_key = get_option( 'elementor_mihdan_elementor_yandex_maps_key' );
 		wp_enqueue_style( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/frontend/css/mihdan-elementor-yandex-maps-admin.css', MIHDAN_YANDEX_MAPS_FILE ) );
-		wp_enqueue_script( 'mihdan-elementor-yandex-maps-api-admin', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=admin&apikey=' . $api_key, [ 'jquery' ], self::VERSION, true );
+		wp_enqueue_script( 'mihdan-elementor-yandex-maps-api-admin', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=admin&apikey=' . $$this->api_key, [ 'jquery' ], self::VERSION, true );
 		wp_localize_script( 'mihdan-elementor-yandex-maps-api-admin', 'EB_WP_URL', array( 'plugin_url' => plugin_dir_url( __FILE__ ) ) );
 		wp_enqueue_script( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps-admin.js', MIHDAN_YANDEX_MAPS_FILE ), [ 'mihdan-elementor-yandex-maps-api-admin' ], self::VERSION, true );
 	}
@@ -182,8 +189,7 @@ class Core {
 	 * Enqueue scripts for frontend.
 	 */
 	public function frontend_scripts() {
-		$api_key = get_option( 'elementor_mihdan_elementor_yandex_maps_key' );
-		wp_register_script( 'mihdan-elementor-yandex-maps-api', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=frontend&apikey=' . $api_key, [ 'elementor-frontend' ], self::VERSION, true );
+		wp_register_script( 'mihdan-elementor-yandex-maps-api', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=frontend&apikey=' . $this->api_key, [ 'elementor-frontend' ], self::VERSION, true );
 		wp_localize_script( 'mihdan-elementor-yandex-maps-api', 'EB_WP_URL', array( 'plugin_url' => plugin_dir_url( __FILE__ ) ) );
 		wp_register_script( 'mihdan-elementor-yandex-maps', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps.js', MIHDAN_YANDEX_MAPS_FILE ), [ 'elementor-frontend', 'mihdan-elementor-yandex-maps-api' ], self::VERSION, true );
 	}
