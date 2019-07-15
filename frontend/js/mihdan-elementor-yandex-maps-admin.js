@@ -40,8 +40,8 @@ function mihdan_elementor_yandex_maps_find_pin_address( ob ) {
 
 			$(output).html("Latitude: " + coords[0] + "<br>Longitude: " + coords[1] + "<br>(Copy and Paste your Latitude & Longitude value below)<br />Полный адрес: " + firstGeoObject.getAddressLine() );
 
-			$(ob).parents('.elementor-control-pin_notice').nextAll('.elementor-control-pin_lat').find("input").val( coords[0] ).trigger("input");
-			$(ob).parents('.elementor-control-pin_notice').nextAll('.elementor-control-pin_lng').find("input").val( coords[1] ).trigger("input");
+			$(ob).parents('.elementor-control-pin_notice').nextAll('.elementor-control-point_lat').find("input").val( coords[0] ).trigger("input");
+			$(ob).parents('.elementor-control-pin_notice').nextAll('.elementor-control-point_lng').find("input").val( coords[1] ).trigger("input");
 		} );
 	} else {
 		alert( 'Не указан адрес для поиска' );

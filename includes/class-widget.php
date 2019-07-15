@@ -108,7 +108,7 @@ class Widget extends Widget_Base {
 			[
 				'label'       => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::RAW_HTML,
-				'raw'         => '<form onsubmit="mihdan_elementor_yandex_maps_find_address( this );" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;"><input type="submit" value="Search" class="elementor-button elementor-button-default" onclick="mihdan_elementor_yandex_maps_find_address( this )"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
+				'raw'         => '<form onsubmit="mihdan_elementor_yandex_maps_find_address( this );" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;" placeholder="' . __( 'Enter Search Address', 'mihdan-elementor-yandex-maps' ) . '" /><input type="submit" value="Search" class="elementor-button elementor-button-default" onclick="mihdan_elementor_yandex_maps_find_address( this )"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
 				'label_block' => true,
 			]
 		);
@@ -479,11 +479,18 @@ class Widget extends Widget_Base {
 				'type'        => Controls_Manager::REPEATER,
 				'default'     => [
 					[
-						'pin_title'   => __( 'Pin #1', 'mihdan-elementor-yandex-maps' ),
-						'pin_notice'  => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
-						'pin_lat'     => __( '55.7522200', 'mihdan-elementor-yandex-maps' ),
-						'pin_lng'     => __( '37.6155600', 'mihdan-elementor-yandex-maps' ),
-						'pin_content' => __( 'I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'mihdan-elementor-yandex-maps' ),
+						'pin_notice'             => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
+						'point_lat'              => __( '55.7522200', 'mihdan-elementor-yandex-maps' ),
+						'point_lng'              => __( '37.6155600', 'mihdan-elementor-yandex-maps' ),
+						'icon_color'             => 'blue',
+						'icon_type'              => 'Circle',
+						'icon_caption'           => '',
+						'icon_content'           => '',
+						'hint_content'           => '',
+						'balloon_content_header' => __( 'Balloon Content Header Default', 'mihdan-elementor-yandex-maps' ),
+						'balloon_content_body'   => '',
+						'balloon_content_footer' => '',
+						'balloon_is_opened'      => 'no',
 					],
 				],
 				'fields'      => [
@@ -491,7 +498,7 @@ class Widget extends Widget_Base {
 						'name'        => 'pin_notice',
 						'label'       => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::RAW_HTML,
-						'raw'         => '<form onsubmit="mihdan_elementor_yandex_maps_find_pin_address( this );" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;"><input type="submit" value="' . __( 'Search', 'mihdan-elementor-yandex-maps' ) . '" class="elementor-button elementor-button-default" onclick="mihdan_elementor_yandex_maps_find_pin_address( this )"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
+						'raw'         => '<form onsubmit="mihdan_elementor_yandex_maps_find_pin_address( this );" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;" placeholder="' . __( 'Enter Search Address', 'mihdan-elementor-yandex-maps' ) . '" /><input type="submit" value="' . __( 'Search', 'mihdan-elementor-yandex-maps' ) . '" class="elementor-button elementor-button-default" onclick="mihdan_elementor_yandex_maps_find_pin_address( this )"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
 						'label_block' => true,
 					],
 					[
@@ -721,7 +728,7 @@ class Widget extends Widget_Base {
 						'default' => 'no',
 					],
 				],
-				'title_field' => '{{{ pin_title }}}',
+				'title_field' => '{{{ balloon_content_header }}}',
 			]
 		);
 
