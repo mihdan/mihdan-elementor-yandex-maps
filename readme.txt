@@ -10,6 +10,9 @@ Stable tag: 1.3
 Elementor Yandex Maps Widget
 
 == Description ==
+
+`ВНИМАНИЕ: при обновлении на версию 1.3 могут потеряться ВСЕ точки на карте, сделайте резервную копию базы данных. Это связано с введением кластеризации. Спасибо за понимание!`
+
 Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard Elementor text editor. And many more custom map options.
 
 == Installation ==
