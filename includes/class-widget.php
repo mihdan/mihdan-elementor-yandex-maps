@@ -767,31 +767,37 @@ class Widget extends Widget_Base {
 			'features'      => array(),
 		);
 
-		foreach ( $settings['tabs'] as $index => $item ) :
+		foreach ( $settings['tabs'] as $index => $item ) {
+			// Для старых версий.
+			$point_lat              = ( isset( $item['pin_lat'] ) ) ? $item['pin_lat'] : $item['point_lat'];
+			$point_lng              = ( isset( $item['pin_lng'] ) ) ? $item['pin_lng'] : $item['point_lng'];
+			$balloon_content_header = ( isset( $item['pin_title'] ) ) ? $item['pin_title'] : $item['balloon_content_header'];
+			$balloon_content_body   = ( isset( $item['pin_content'] ) ) ? $item['pin_content'] : $item['balloon_content_body'];
+
 			$geo_json['features'][] = array(
 				'type'       => 'Feature',
 				'id'         => 'id_' . $index,
 				'geometry'   => array(
 					'type'        => 'Point',
 					'coordinates' => array(
-						$item['point_lat'],
-						$item['point_lng'],
+						$point_lat,
+						$point_lng,
 					),
 				),
 				'properties' => array(
 					'iconCaption'          => $item['icon_caption'],
 					'iconContent'          => $item['icon_content'],
 					'hintContent'          => $item['hint_content'],
-					'balloonContentHeader' => $item['balloon_content_header'],
+					'balloonContentHeader' => $balloon_content_header,
 					'balloonContentFooter' => $item['balloon_content_footer'],
-					'balloonContentBody'   => htmlspecialchars( $item['balloon_content_body'], ENT_QUOTES & ~ENT_COMPAT ),
+					'balloonContentBody'   => htmlspecialchars( $balloon_content_body, ENT_QUOTES & ~ENT_COMPAT ),
 				),
 				'options'    => array(
 					'preset'          => sprintf( 'islands#%s%sIcon', $item['icon_color'], $item['icon_type'] ),
 					'balloonIsOpened' => $item['balloon_is_opened'],
 				),
 			);
-		endforeach;
+		}
 		?>
 
 		<div id="eb-map-<?php echo esc_attr( $this->get_id() ); ?>"

@@ -5,13 +5,13 @@ Donate link: https://www.kobzarev.com/donate/
 Requires at least: 4.6
 Tested up to: 5.2
 Requires PHP: 5.6
-Stable tag: 1.3
+Stable tag: 1.3.1
 
 Elementor Yandex Maps Widget
 
 == Description ==
 
-`ВНИМАНИЕ: при обновлении на версию 1.3 могут потеряться ВСЕ точки на карте, сделайте резервную копию базы данных. Это связано с введением кластеризации. Спасибо за понимание!`
+ВНИМАНИЕ: при обновлении на версию 1.3 могут потеряться ВСЕ точки на карте, сделайте резервную копию базы данных. Это связано с введением кластеризации. Спасибо за понимание!
 
 Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard Elementor text editor. And many more custom map options.
 
@@ -28,6 +28,9 @@ Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map
 Получить API-ключ можно в [Кабинете разработчика](https://developer.tech.yandex.ru/services/). Нажмите «Получить ключ», затем выберите сервис «JavaScript API и HTTP Геокодер» и заполните анкету — ваш API-ключ будет сразу готов к использованию.
 
 == Changelog ==
+
+= 1.3.1 (05.08.2019) =
+* Bug with missing pins fixed
 
 = 1.3 (12.07.2019) =
 * Added clusterization feature
