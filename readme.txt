@@ -5,7 +5,7 @@ Donate link: https://www.kobzarev.com/donate/
 Requires at least: 4.6
 Tested up to: 5.2
 Requires PHP: 5.6
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 
 Elementor Yandex Maps Widget
 
@@ -28,6 +28,9 @@ Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map
 Получить API-ключ можно в [Кабинете разработчика](https://developer.tech.yandex.ru/services/). Нажмите «Получить ключ», затем выберите сервис «JavaScript API и HTTP Геокодер» и заполните анкету — ваш API-ключ будет сразу готов к использованию.
 
 == Changelog ==
+
+= 1.3.2 (12.08.2019) =
+* Bug with missing dynamic tags of pins fixed
 
 = 1.3.1 (05.08.2019) =
 * Bug with missing pins fixed

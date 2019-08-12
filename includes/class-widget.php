@@ -507,6 +507,9 @@ class Widget extends Widget_Base {
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '55.7522200',
 						'placeholder' => '55.7522200',
+						'dynamic'     => [
+							'active' => true,
+						],
 					],
 					[
 						'name'        => 'point_lng',
@@ -514,6 +517,9 @@ class Widget extends Widget_Base {
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '37.6155600',
 						'placeholder' => '37.6155600',
+						'dynamic'     => [
+							'active' => true,
+						],
 					],
 					[
 						'name'    => 'icon_color',

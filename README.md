@@ -9,7 +9,7 @@ Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map
 - WordPress: 4.6+
 - Tested up to: 4.9.6
 - Requires PHP: 5.6
-- Stable tag: 1.2
+- Stable tag: 1.3.2
 
 ## Installation
 1. Visit ‘Plugins > Add New’
