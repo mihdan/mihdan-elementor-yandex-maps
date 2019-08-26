@@ -189,6 +189,38 @@ class Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'map_language',
+			[
+				'label'        => __( 'Map Language', 'mihdan-elementor-yandex-maps' ),
+				'description'   => __( 'Задает язык объектов на карте (топонимов, элементов управления).', 'mihdan-elementor-yandex-maps' ),
+				'type'         => Controls_Manager::SELECT,
+				'options'      => [
+					'ru' => __( 'Russian', 'mihdan-elementor-yandex-maps' ),
+					'uk' => __( 'Ukrainian', 'mihdan-elementor-yandex-maps' ),
+					'en' => __( 'English', 'mihdan-elementor-yandex-maps' ),
+					'tr' => __( 'Turkish', 'mihdan-elementor-yandex-maps' ),
+				],
+				'default'     => 'ru',
+			]
+		);
+
+		$this->add_control(
+			'map_region',
+			[
+				'label'   => __( 'Map Region', 'mihdan-elementor-yandex-maps' ),
+				'description'   => __( 'Определяет региональные особенности, например единицу измерения (для обозначения расстояния между объектами или скорости движения по маршруту). Для регионов RU, UA и TR расстояние показывается в километрах, для US — в милях.', 'mihdan-elementor-yandex-maps' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => [
+					'RU' => __( 'Russia', 'mihdan-elementor-yandex-maps' ),
+					'UA' => __( 'Ukraine', 'mihdan-elementor-yandex-maps' ),
+					'US' => __( 'USA', 'mihdan-elementor-yandex-maps' ),
+					'TR' => __( 'Turkey', 'mihdan-elementor-yandex-maps' ),
+				],
+				'default' => 'ru',
+			]
+		);
+
+		$this->add_control(
 			'view',
 			[
 				'label'   => __( 'View', 'mihdan-elementor-yandex-maps' ),
