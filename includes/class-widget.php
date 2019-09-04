@@ -216,7 +216,7 @@ class Widget extends Widget_Base {
 					'US' => __( 'USA', 'mihdan-elementor-yandex-maps' ),
 					'TR' => __( 'Turkey', 'mihdan-elementor-yandex-maps' ),
 				],
-				'default' => 'ru',
+				'default' => 'RU',
 			]
 		);
 
