@@ -1,178 +1,202 @@
 ( function( $, ymaps ) {
-    var mihdan_elementor_yandex_maps = function( $scope, $ ) {
-        var mapid = $scope.find('.eb-map'),
-            maptype = $(mapid).data("eb-map-type"),
-            zoom = $(mapid).data("eb-map-zoom"),
-            map_lat = $(mapid).data("eb-map-lat"),
-            map_lng = $(mapid).data("eb-map-lng"),
-	        ruler_control = $(mapid).data("eb-ruler-control"),
-	        search_control = $(mapid).data("eb-search-control"),
-	        traffic_control = $(mapid).data("eb-traffic-control"),
-	        type_selector = $(mapid).data("eb-type-selector"),
-	        zoom_control = $(mapid).data("eb-zoom-control"),
-	        geolocation_control = $(mapid).data("eb-geolocation-control"),
-	        route_editor = $(mapid).data("eb-route-editor"),
-	        fullscreen_control = $(mapid).data("eb-fullscreen-control"),
-	        route_button_control = $(mapid).data("eb-route-button-control"),
-	        route_panel_control = $(mapid).data("eb-route-panel-control"),
-	        disable_scroll_zoom = $(mapid).data("eb-disable-scroll-zoom"),
-	        disable_dbl_click_zoom = $(mapid).data("eb-disable-dbl-click-zoom"),
-	        disable_drag = $(mapid).data("eb-disable-drag"),
-	        disable_left_mouse_button_magnifier = $(mapid).data("eb-disable-left-mouse-button-magnifier"),
-	        disable_right_mouse_button_magnifier = $(mapid).data("eb-disable-right-mouse-button-magnifier"),
-	        disable_multi_touch = $(mapid).data("eb-disable-disable-multi-touch"),
-	        disable_route_editor = $(mapid).data("eb-disable-route-editor"),
-	        disable_ruler = $(mapid).data("eb-disable-ruler"),
-	        enable_object_manager = $(mapid).data("eb-enable-object-manager"),
-            infowindow_max_width = parseInt( $(mapid).data("eb-infowindow-max-width") ),
-            active_info,
-            infowindow,
-            map,
-	        // @link https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/control.storage-docpage/
-            controls = [];
+	'use strict';
+	let map = {
+		unset: function ( arr ) {
+			arr.filter(
+				function( i ) {
+					return i !== 'b';
+				}
+			);
+		},
+		init: function ( $scope, $ ) {
 
-        function init_map() {
+			let mapId                                = $scope.find( '.eb-map' ),
+				maptype                              = $( mapId ).data( 'eb-map-type' ),
+				zoom                                 = $( mapId ).data( 'eb-map-zoom' ),
+				map_lat                              = $( mapId ).data( 'eb-map-lat' ),
+				map_lng                              = $( mapId ).data( 'eb-map-lng' ),
+				ruler_control                        = $( mapId ).data( 'eb-ruler-control' ),
+				search_control                       = $( mapId ).data( 'eb-search-control' ),
+				traffic_control                      = $( mapId ).data( 'eb-traffic-control' ),
+				type_selector                        = $( mapId ).data( 'eb-type-selector' ),
+				zoom_control                         = $( mapId ).data( 'eb-zoom-control' ),
+				geolocation_control                  = $( mapId ).data( 'eb-geolocation-control' ),
+				route_editor                         = $( mapId ).data( 'eb-route-editor' ),
+				fullscreen_control                   = $( mapId ).data( 'eb-fullscreen-control' ),
+				route_button_control                 = $( mapId ).data( 'eb-route-button-control' ),
+				route_panel_control                  = $( mapId ).data( 'eb-route-panel-control' ),
 
-	        if ( 'yes' === ruler_control ) {
-		        controls.push( 'rulerControl' );
-	        }
+				disable_scroll_zoom                  = $( mapId ).data( 'eb-disable-scroll-zoom' ),
+				disable_dbl_click_zoom               = $( mapId ).data( 'eb-disable-dbl-click-zoom' ),
+				disable_drag                         = $( mapId ).data( 'eb-disable-drag' ),
+				disable_left_mouse_button_magnifier  = $( mapId ).data( 'eb-disable-left-mouse-button-magnifier' ),
+				disable_right_mouse_button_magnifier = $( mapId ).data( 'eb-disable-right-mouse-button-magnifier' ),
+				disable_multi_touch                  = $( mapId ).data( 'eb-disable-disable-multi-touch' ),
+				disable_route_editor                 = $( mapId ).data( 'eb-disable-route-editor' ),
+				disable_ruler                        = $( mapId ).data( 'eb-disable-ruler' ),
 
-	        if ( 'yes' === search_control ) {
-		        controls.push( 'searchControl' );
-	        }
+				enable_object_manager                = $( mapId ).data( 'eb-enable-object-manager' ),
+				infowindow_max_width                 = parseInt( $( mapId ).data( 'eb-infowindow-max-width' ) ),
+				controls                             = [],
+				behaviors                            = [
+					'scrollZoom',
+					'dblClickZoom',
+					'drag',
+					'leftMouseButtonMagnifier',
+					'rightMouseButtonMagnifier',
+					'multiTouch',
+					'routeEditor',
+					'ruler'
+				];
 
-	        if ( 'yes' === traffic_control ) {
-		        controls.push( 'trafficControl' );
-	        }
+			ymaps.ready(
+				function () {
+					for ( var i in behaviors ) {
 
-	        if ( 'yes' === type_selector ) {
-		        controls.push( 'typeSelector' );
-	        }
+					}
 
-	        if ( 'yes' === zoom_control ) {
-		        controls.push( 'zoomControl' );
-	        }
+					if ( 'yes' === ruler_control ) {
+						controls.push( 'rulerControl' );
+					}
 
-	        if ( 'yes' === geolocation_control ) {
-		        controls.push( 'geolocationControl' );
-	        }
+					if ( 'yes' === search_control ) {
+						controls.push( 'searchControl' );
+					}
 
-	        if ( 'yes' === route_editor ) {
-		        controls.push( 'routeEditor' );
-	        }
+					if ( 'yes' === traffic_control ) {
+						controls.push( 'trafficControl' );
+					}
 
-	        if ( 'yes' === fullscreen_control ) {
-		        controls.push( 'fullscreenControl' );
-	        }
+					if ( 'yes' === type_selector ) {
+						controls.push( 'typeSelector' );
+					}
 
-	        if ( 'yes' === route_button_control ) {
-		        controls.push( 'routeButtonControl' );
-	        }
+					if ( 'yes' === zoom_control ) {
+						controls.push( 'zoomControl' );
+					}
 
-	        if ( 'yes' === route_panel_control ) {
-		        controls.push( 'routePanelControl' );
-	        }
+					if ( 'yes' === geolocation_control ) {
+						controls.push( 'geolocationControl' );
+					}
 
-	        var map = new ymaps.Map( mapid.attr('id'), {
-		        center: [ parseFloat( map_lat ), parseFloat( map_lng ) ],
-		        zoom: zoom,
-                type: 'yandex#' + maptype,
-		        controls: controls
-	        }, {
-		        searchControlProvider: 'yandex#search'
-	        } );
+					if ( 'yes' === route_editor ) {
+						controls.push( 'routeEditor' );
+					}
 
-	        // Отключить прокрутку колесом мыши
-	        if ( 'yes' === disable_scroll_zoom ) {
-		        map.behaviors.disable('scrollZoom');
-	        }
+					if ( 'yes' === fullscreen_control ) {
+						controls.push( 'fullscreenControl' );
+					}
 
-	        // Отключить масштабирование карты двойным щелчком кнопки мыши
-	        if ( 'yes' === disable_dbl_click_zoom ) {
-		        map.behaviors.disable('dblClickZoom');
-	        }
+					if ( 'yes' === route_button_control ) {
+						controls.push( 'routeButtonControl' );
+					}
 
-			// Отключить перетаскивание карты с помощью мыши либо одиночного касания
-	        if ( 'yes' === disable_drag ) {
-		        map.behaviors.disable('drag');
-	        }
+					if ( 'yes' === route_panel_control ) {
+						controls.push( 'routePanelControl' );
+					}
 
-	        // Отключить масштабирование карты при выделении области левой кнопкой мыши
-	        if ( 'yes' === disable_left_mouse_button_magnifier ) {
-		        map.behaviors.disable('leftMouseButtonMagnifier');
-	        }
+					var map = new ymaps.Map( mapId.attr('id'), {
+						center: [ parseFloat( map_lat ), parseFloat( map_lng ) ],
+						zoom: zoom,
+						type: 'yandex#' + maptype,
+						controls: controls
+					}, {
+						searchControlProvider: 'yandex#search'
+					} );
 
-	        // Отключить масштабирование карты при выделении области правой кнопкой мыши
-	        if ( 'yes' === disable_right_mouse_button_magnifier ) {
-		        map.behaviors.disable('rightMouseButtonMagnifier');
-	        }
+					// Отключить прокрутку колесом мыши
+					if ( 'yes' === disable_scroll_zoom ) {
+						map.behaviors.disable('scrollZoom');
+					}
 
-	        // Отключить масштабирование карты мультисенсорным касанием
-	        if ( 'yes' === disable_multi_touch ) {
-		        map.behaviors.disable('multiTouch');
-	        }
+					// Отключить масштабирование карты двойным щелчком кнопки мыши
+					if ( 'yes' === disable_dbl_click_zoom ) {
+						map.behaviors.disable('dblClickZoom');
+					}
 
-	        // Отключить редактор маршрутов
-	        if ( 'yes' === disable_route_editor ) {
-		        map.behaviors.disable('routeEditor');
-	        }
+					// Отключить перетаскивание карты с помощью мыши либо одиночного касания
+					if ( 'yes' === disable_drag ) {
+						map.behaviors.disable('drag');
+					}
 
-	        // Отключить линейку
-	        if ( 'yes' === disable_ruler ) {
-		        map.behaviors.disable('ruler');
-	        }
+					// Отключить масштабирование карты при выделении области левой кнопкой мыши
+					if ( 'yes' === disable_left_mouse_button_magnifier ) {
+						map.behaviors.disable('leftMouseButtonMagnifier');
+					}
 
-            var markersLocations = $( mapid ).data('eb-locations');
+					// Отключить масштабирование карты при выделении области правой кнопкой мыши
+					if ( 'yes' === disable_right_mouse_button_magnifier ) {
+						map.behaviors.disable('rightMouseButtonMagnifier');
+					}
 
-	        // Если включена кластеризация.
-	        if ( 'yes' === enable_object_manager ) {
-				// Создание менеджера объектов.
-		        var objectManager = new ymaps.ObjectManager( {
-			        clusterize: true,
-			        preset: markersLocations.clusterPreset
-		        } );
+					// Отключить масштабирование карты мультисенсорным касанием
+					if ( 'yes' === disable_multi_touch ) {
+						map.behaviors.disable('multiTouch');
+					}
 
-				// После создания менеджера ему следует передать JSON-описание объектов.
-		        objectManager.add( markersLocations );
+					// Отключить редактор маршрутов
+					if ( 'yes' === disable_route_editor ) {
+						map.behaviors.disable('routeEditor');
+					}
 
-		        // Отобразим объекты на карте.
-		        map.geoObjects.add( objectManager );
+					// Отключить линейку
+					if ( 'yes' === disable_ruler ) {
+						map.behaviors.disable('ruler');
+					}
 
-	        } else {
+					var markersLocations = $( mapId ).data('eb-locations');
 
-		        $.each( markersLocations.features, function ( index, Element, content ) {
+					// Если включена кластеризация.
+					if ( 'yes' === enable_object_manager ) {
+						// Создание менеджера объектов.
+						var objectManager = new ymaps.ObjectManager( {
+							clusterize: true,
+							preset: markersLocations.clusterPreset
+						} );
 
-			        var placemark = new ymaps.Placemark( [ parseFloat( Element.geometry.coordinates[0] ), parseFloat( Element.geometry.coordinates[1] ) ], {
-				        hintContent: Element.properties.hintContent,
-				        balloonContentHeader: Element.properties.balloonContentHeader,
-				        balloonContentBody: Element.properties.balloonContentBody,
-				        balloonContentFooter: Element.properties.balloonContentFooter,
-				        iconContent: Element.properties.iconContent,
-				        iconCaption: Element.properties.iconCaption,
-			        }, {
-				        preset: Element.options.preset,
-				        balloonMaxWidth: parseInt( infowindow_max_width )
-			        } );
+						// После создания менеджера ему следует передать JSON-описание объектов.
+						objectManager.add( markersLocations );
 
-			        map.geoObjects.add( placemark );
+						// Отобразим объекты на карте.
+						map.geoObjects.add( objectManager );
 
-			        // Показать балун при загрузке метки.
-			        if ( 'yes' === Element.options.balloonIsOpened ) {
-				        placemark.balloon.open();
-			        }
-		        } );
-	        }
-        }
+					} else {
 
-	    ymaps.ready( init_map );
+						$.each( markersLocations.features, function ( index, Element, content ) {
 
-    };
+							var placemark = new ymaps.Placemark( [ parseFloat( Element.geometry.coordinates[0] ), parseFloat( Element.geometry.coordinates[1] ) ], {
+								hintContent: Element.properties.hintContent,
+								balloonContentHeader: Element.properties.balloonContentHeader,
+								balloonContentBody: Element.properties.balloonContentBody,
+								balloonContentFooter: Element.properties.balloonContentFooter,
+								iconContent: Element.properties.iconContent,
+								iconCaption: Element.properties.iconCaption,
+							}, {
+								preset: Element.options.preset,
+								balloonMaxWidth: parseInt( infowindow_max_width )
+							} );
 
-    // Make sure you run this code under Elementor..
-    $( window ).on( 'elementor/frontend/init', function() {
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/yandex-maps.default', mihdan_elementor_yandex_maps );
-	    //elementorModules.frontend.handlers.hooks.Base.addAction( 'frontend/element_ready/yandex-maps.default', mihdan_elementor_yandex_maps );
-    } );
+							map.geoObjects.add( placemark );
+
+							// Показать балун при загрузке метки.
+							if ( 'yes' === Element.options.balloonIsOpened ) {
+								placemark.balloon.open();
+							}
+						} );
+					}
+				}
+			);
+		}
+	};
+
+	// Make sure you run this code under Elementor..
+	$( window ).on(
+		'elementor/frontend/init',
+		function() {
+			elementorFrontend.hooks.addAction( 'frontend/element_ready/yandex-maps.default', map.init );
+			//elementorModules.frontend.handlers.hooks.Base.addAction( 'frontend/element_ready/yandex-maps.default', mihdan_elementor_yandex_maps );
+		}
+	);
 
 } )( window.jQuery, window.ymaps );
 
