@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE', __FILE__ );
 define( 'MIHDAN_ELEMENTOR_YANDEX_MAPS_DIR', __DIR__ );
+define( 'MIHDAN_ELEMENTOR_YANDEX_MAPS_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
 
 /**
  * Plugin Version
