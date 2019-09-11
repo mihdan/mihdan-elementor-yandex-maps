@@ -78,7 +78,7 @@ class Main {
 		$this->api_key = get_option( 'elementor_mihdan_elementor_yandex_maps_key' );
 
 		// Если не задан API ключ для карт.
-		if ( '' === $this->api_key ) {
+		if ( ! $this->api_key ) {
 			add_action( 'admin_notices', [ $this, 'admin_notice_invalid_api_key' ] );
 		}
 
