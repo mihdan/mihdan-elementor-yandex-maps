@@ -102,6 +102,18 @@ class Main {
 		add_action( 'elementor/frontend/after_enqueue_styles', [ $this, 'frontend_styles' ] );
 		add_action( 'elementor/frontend/after_register_scripts', [ $this, 'frontend_scripts' ] );
 		add_action( 'elementor/widgets/widgets_registered', [ $this, 'require_widgets' ] );
+		add_action( 'wp_head', [ $this, 'resource_hints' ] );
+	}
+
+	/**
+	 * Add resource hints like prefetch, preload, preconnect.
+	 */
+	public function resource_hints() {
+		?>
+		<meta http-equiv="x-dns-prefetch-control" content="on">
+		<link rel="preconnect" href="//api-maps.yandex.ru">
+		<link rel="dns-prefetch" href="//api-maps.yandex.ru">
+		<?php
 	}
 
 	/**
