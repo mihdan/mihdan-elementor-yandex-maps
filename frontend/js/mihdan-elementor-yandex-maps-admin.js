@@ -22,10 +22,13 @@ function mihdan_elementor_yandex_maps_find_address( ob ) {
         alert( 'Не указан адрес для поиска' );
     }
 }
-function mihdan_elementor_yandex_maps_find_pin_address( ob ) {
+function mihdan_elementor_yandex_maps_find_pin_address( ob, map_id ) {
 
-	var address = $( ob ).parent().find('input').attr('value');
-	if( address !== '' ) {
+	var $       = jQuery,
+		ns      = 'mihdan_elementor_yandex_maps_ns_' + map_id,
+		address = $( ob ).parent().find('input').attr('value');
+
+	if ( address !== '' ) {
 		ymaps.geocode( address, {
 			results: 1
 		} ).then(function ( res ) {

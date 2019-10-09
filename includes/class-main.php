@@ -5,7 +5,7 @@
  * @package mihdan-elementor-yandex-maps
  */
 
-namespace MihdanElementorYandexMaps;
+namespace Mihdan\ElementorYandexMaps;
 
 use \Elementor\Settings;
 use \Elementor\Plugin;
@@ -34,6 +34,11 @@ class Main {
 	private $api_key;
 
 	/**
+	 * @var Notifications $notifications Экземпляр класса.
+	 */
+	private $notifications;
+
+	/**
 	 * Instance
 	 *
 	 * Ensures only one instance of the class is loaded or can be loaded.
@@ -60,6 +65,8 @@ class Main {
 	 */
 	public function __construct() {
 		$this->init();
+
+		//$this->notifications = new Notifications();
 	}
 
 	/**
@@ -69,18 +76,24 @@ class Main {
 		add_action( 'plugins_loaded', [ $this, 'init_hooks' ] );
 	}
 
+	public static function get_api_key() {
+		return get_option( 'elementor_mihdan_elementor_yandex_maps_key' );
+	}
+
 	/**
 	 * Hooks initialization.
 	 */
 	public function init_hooks() {
 
 		// Получить ключ из базы.
-		$this->api_key = get_option( 'elementor_mihdan_elementor_yandex_maps_key' );
+		$this->api_key = self::get_api_key();
 
 		// Если не задан API ключ для карт.
 		if ( ! $this->api_key ) {
 			add_action( 'admin_notices', [ $this, 'admin_notice_invalid_api_key' ] );
 		}
+
+		add_action( 'admin_notices', [ $this, 'admin_notice_star' ] );
 
 		// Add Plugin actions.
 		add_action( 'elementor/init', [ $this, 'register_category' ] );
@@ -97,8 +110,8 @@ class Main {
 	public function editor_scripts() {
 		wp_enqueue_style( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/frontend/css/mihdan-elementor-yandex-maps-admin.css', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), [], MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION );
 		wp_enqueue_script( 'mihdan-elementor-yandex-maps-api-admin', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=admin&apikey=' . $this->api_key, [ 'jquery' ], MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION, true );
-		wp_localize_script( 'mihdan-elementor-yandex-maps-api-admin', 'mihdan_elementor_yandex_maps_config', array( 'plugin_url' => MIHDAN_ELEMENTOR_YANDEX_MAPS_URL ) );
-		wp_enqueue_script( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps-admin.js', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), [ 'mihdan-elementor-yandex-maps-api-admin' ], MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION, true );
+		//wp_localize_script( 'mihdan-elementor-yandex-maps-api-admin', 'mihdan_elementor_yandex_maps_config', array( 'plugin_url' => MIHDAN_ELEMENTOR_YANDEX_MAPS_URL ) );
+		wp_enqueue_script( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps-admin.js', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), [], MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION, true );
 	}
 
 	/**
@@ -112,9 +125,15 @@ class Main {
 	 * Enqueue scripts for frontend.
 	 */
 	public function frontend_scripts() {
-		wp_register_script( 'mihdan-elementor-yandex-maps-api', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=frontend&apikey=' . $this->api_key, [ 'elementor-frontend' ], MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION, true );
-		wp_localize_script( 'mihdan-elementor-yandex-maps-api', 'mihdan_elementor_yandex_maps_config', array( 'plugin_url' => MIHDAN_ELEMENTOR_YANDEX_MAPS_URL ) );
-		wp_register_script( 'mihdan-elementor-yandex-maps', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps.js', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), [ 'elementor-frontend', 'mihdan-elementor-yandex-maps-api' ], MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION, true );
+		wp_localize_script(
+			'elementor-frontend',
+			'mihdan_elementor_yandex_maps_config',
+			array(
+				'plugin_url' => MIHDAN_ELEMENTOR_YANDEX_MAPS_URL,
+				'api_key'    => $this->api_key,
+			)
+		);
+		wp_register_script( 'mihdan-elementor-yandex-maps', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps.js', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), [ 'elementor-frontend' ], MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION, true );
 	}
 
 	/**
@@ -201,6 +220,8 @@ class Main {
 
 		echo '<div class="notice notice-warning is-dismissible"><p>' . wp_kses( $message, array( 'a' => array( 'href' => true ) ) ) . '</p></div>';
 	}
+
+	public function admin_notice_star() {}
 }
 
 Main::instance();

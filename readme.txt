@@ -4,7 +4,7 @@ Tags: elementor, yandex, maps, api, mihdan
 Donate link: https://www.kobzarev.com/donate/
 Requires at least: 4.6
 Tested up to: 5.2
-Requires PHP: 5.6
+Requires PHP: 5.6.20
 Stable tag: 1.3.2
 
 Elementor Yandex Maps Widget
@@ -31,8 +31,11 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 
 == Changelog ==
 
-= 1.3.2 (12.08.2019) =
-* Bug with missing dynamic tags of pins fixed
+= 1.3.2 (09.10.2019) =
+* Added language switcher for maps
+* Fixed bugs
+* Removed unused code
+* WPCS
 
 = 1.3.1 (05.08.2019) =
 * Bug with missing pins fixed
