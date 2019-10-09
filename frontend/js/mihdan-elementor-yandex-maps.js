@@ -10,7 +10,7 @@
 		},
 		init: function ( $scope, $ ) {
 
-			var mapId                                = $scope.find( '.eb-map' ),
+			var mapId                                = $scope.find( '.mihdan-elementor-yandex-maps' ),
 				maptype                              = $( mapId ).data( 'eb-map-type' ),
 				zoom                                 = $( mapId ).data( 'eb-map-zoom' ),
 				map_id                               = $( mapId ).data( 'map-id' ),

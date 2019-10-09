@@ -1,7 +1,35 @@
-.eb-map {
+.mihdan-elementor-yandex-maps {
 	height: 300px;
 	background: #f2f2f2 url("../images/placeholder.svg") no-repeat center / 100px auto;
 	box-shadow: inset 0px 0px 60px 0px rgba(0,0,0,0.2);
+}
+
+.mihdan-elementor-yandex-maps_filter_grayscale [class*="ymaps-2"][class*="-ground-pane"] {
+	filter: grayscale(100%);
+}
+
+.mihdan-elementor-yandex-maps_filter_sepia [class*="ymaps-2"][class*="-ground-pane"] {
+	filter: sepia(0.5);
+}
+
+.mihdan-elementor-yandex-maps_filter_brightness [class*="ymaps-2"][class*="-ground-pane"] {
+	filter: brightness(50%);
+}
+
+.mihdan-elementor-yandex-maps_filter_invert [class*="ymaps-2"][class*="-ground-pane"] {
+	filter: invert(100%);
+}
+
+.mihdan-elementor-yandex-maps_filter_green [class*="ymaps-2"][class*="-ground-pane"] {
+	filter: hue-rotate(90deg);
+}
+
+.mihdan-elementor-yandex-maps_filter_blue [class*="ymaps-2"][class*="-ground-pane"] {
+	filter: hue-rotate(180deg);
+}
+
+.mihdan-elementor-yandex-maps_filter_purple [class*="ymaps-2"][class*="-ground-pane"] {
+	filter: hue-rotate(260deg);
 }
 
 .eb-map-container h6 {

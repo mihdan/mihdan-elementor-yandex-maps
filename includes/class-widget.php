@@ -207,16 +207,36 @@ class Widget extends Widget_Base {
 		$this->add_control(
 			'map_region',
 			[
-				'label'   => __( 'Map Region', 'mihdan-elementor-yandex-maps' ),
-				'description'   => __( 'Определяет региональные особенности, например единицу измерения (для обозначения расстояния между объектами или скорости движения по маршруту). Для регионов RU, UA и TR расстояние показывается в километрах, для US — в милях.', 'mihdan-elementor-yandex-maps' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => [
+				'label'       => __( 'Map Region', 'mihdan-elementor-yandex-maps' ),
+				'description' => __( 'Определяет региональные особенности, например единицу измерения (для обозначения расстояния между объектами или скорости движения по маршруту). Для регионов RU, UA и TR расстояние показывается в километрах, для US — в милях.', 'mihdan-elementor-yandex-maps' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => [
 					'RU' => __( 'Russia', 'mihdan-elementor-yandex-maps' ),
 					'UA' => __( 'Ukraine', 'mihdan-elementor-yandex-maps' ),
 					'US' => __( 'USA', 'mihdan-elementor-yandex-maps' ),
 					'TR' => __( 'Turkey', 'mihdan-elementor-yandex-maps' ),
 				],
-				'default' => 'RU',
+				'default'     => 'RU',
+			]
+		);
+
+		$this->add_control(
+			'map_filter',
+			[
+				'label'       => __( 'Map Filter', 'mihdan-elementor-yandex-maps' ),
+				'description' => __( 'Позволяет перекрасить карту.', 'mihdan-elementor-yandex-maps' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => [
+					'none'       => __( 'None', 'mihdan-elementor-yandex-maps' ),
+					'grayscale'  => __( 'Grayscale', 'mihdan-elementor-yandex-maps' ),
+					'sepia'      => __( 'Sepia', 'mihdan-elementor-yandex-maps' ),
+					'brightness' => __( 'Brightness', 'mihdan-elementor-yandex-maps' ),
+					'green'      => __( 'Green', 'mihdan-elementor-yandex-maps' ),
+					'blue'       => __( 'Blue', 'mihdan-elementor-yandex-maps' ),
+					'purple'     => __( 'Purple', 'mihdan-elementor-yandex-maps' ),
+					'invert'     => __( 'Invert', 'mihdan-elementor-yandex-maps' ),
+				],
+				'default'     => 'none',
 			]
 		);
 
@@ -836,10 +856,19 @@ class Widget extends Widget_Base {
 				),
 			);
 		}
+
+		$classes = array(
+			'mihdan-elementor-yandex-maps',
+		);
+
+		// Класс с фильтрами.
+		if ( 'none' !== $settings['map_filter'] ) {
+			$classes[] = 'mihdan-elementor-yandex-maps_filter_' . $settings['map_filter'];
+		}
 		?>
 
 		<div id="eb-map-<?php echo esc_attr( $this->get_id() ); ?>"
-		     class="eb-map"
+		     class="<?php echo implode( ' ', $classes ); ?>"
 		     data-map-id="<?php echo esc_attr( $this->get_id() ); ?>"
 		     data-map-language="<?php echo esc_attr( $settings['map_language'] ); ?>"
 		     data-map-region="<?php echo esc_attr( $settings['map_region'] ); ?>"
