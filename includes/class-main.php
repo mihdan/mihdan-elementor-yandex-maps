@@ -102,18 +102,28 @@ class Main {
 		add_action( 'elementor/frontend/after_enqueue_styles', [ $this, 'frontend_styles' ] );
 		add_action( 'elementor/frontend/after_register_scripts', [ $this, 'frontend_scripts' ] );
 		add_action( 'elementor/widgets/widgets_registered', [ $this, 'require_widgets' ] );
-		add_action( 'wp_head', [ $this, 'resource_hints' ] );
+		add_filter( 'wp_resource_hints', [ $this, 'resource_hints' ], 10, 2 );
 	}
 
 	/**
 	 * Add resource hints like prefetch, preload, preconnect.
+	 *
+	 * @param array  $urls          URLs to print for resource hints.
+	 * @param string $relation_type The relation type the URLs are printed for, e.g. 'preconnect' or 'prerender'.
+	 *
+	 * @return array
 	 */
-	public function resource_hints() {
-		?>
-		<meta http-equiv="x-dns-prefetch-control" content="on">
-		<link rel="preconnect" href="//api-maps.yandex.ru">
-		<link rel="dns-prefetch" href="//api-maps.yandex.ru">
-		<?php
+	public function resource_hints( $urls, $relation_type ) {
+
+		if ( 'dns-prefetch' === $relation_type ) {
+			$urls[] = '//api-maps.yandex.ru';
+		}
+
+		if ( 'preconnect' === $relation_type ) {
+			$urls[] = '//api-maps.yandex.ru';
+		}
+
+		return $urls;
 	}
 
 	/**
