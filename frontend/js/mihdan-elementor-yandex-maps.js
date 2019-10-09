@@ -38,7 +38,7 @@
 				disable_route_editor                 = $( mapId ).data( 'eb-disable-route-editor' ),
 				disable_ruler                        = $( mapId ).data( 'eb-disable-ruler' ),
 				enable_object_manager                = $( mapId ).data( 'eb-enable-object-manager' ),
-				infowindow_max_width                 = parseInt( $( mapId ).data( 'eb-infowindow-max-width' ) ),
+				infowindow_max_width                 = parseInt( $( mapId ).data( 'eb-infowindow-max-width' ), 10 ),
 				controls                             = [];
 				/*
 				behaviors                            = [
@@ -198,7 +198,7 @@
 								},
 								{
 									preset: Element.options.preset,
-									balloonMaxWidth: parseInt( infowindow_max_width )
+									balloonMaxWidth: parseInt( infowindow_max_width, 10 )
 								}
 							);
 
