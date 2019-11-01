@@ -33,6 +33,7 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 * Added resource hints like prefetch, preload, preconnect
 * Added notifications
 * Added support for WordPress 5.3
+* Added dynamic tags to latitude & longitude for pins
 * Fixed bugs
 
 = 1.3.2 (09.10.2019) =
