@@ -3,17 +3,14 @@ Contributors: mihdan
 Tags: elementor, yandex, maps, api, mihdan
 Donate link: https://www.kobzarev.com/donate/
 Requires at least: 4.6
-Tested up to: 5.2
+Tested up to: 5.3
 Requires PHP: 5.6.20
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 
 Elementor Yandex Maps Widget
 
 == Description ==
-
-ВНИМАНИЕ: при обновлении на версию 1.3 могут потеряться ВСЕ точки на карте, сделайте резервную копию базы данных. Это связано с введением кластеризации. Спасибо за понимание!
-
-Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard Elementor text editor. And many more custom map options.
+SEO-friendly Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard Elementor text editor. And many more custom map options.
 
 Based on the original [Elementor Google Map Extended](https://wordpress.org/plugins/extended-google-map-for-elementor/) plugin by InternetCSS.
 
@@ -30,6 +27,13 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 Получить API-ключ можно в [Кабинете разработчика](https://developer.tech.yandex.ru/services/). Нажмите «Получить ключ», затем выберите сервис «JavaScript API и HTTP Геокодер» и заполните анкету — ваш API-ключ будет сразу готов к использованию.
 
 == Changelog ==
+= 1.3.3 (01.11.2019) =
+* Added filters to maps: grayscale, sepia, green, blue
+* Added asynchronous script loading
+* Added resource hints like prefetch, preload, preconnect
+* Added notifications
+* Added support for WordPress 5.3
+* Fixed bugs
 
 = 1.3.2 (09.10.2019) =
 * Added language switcher for maps
