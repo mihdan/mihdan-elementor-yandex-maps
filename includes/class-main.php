@@ -9,6 +9,7 @@ namespace Mihdan\ElementorYandexMaps;
 
 use \Elementor\Settings;
 use \Elementor\Plugin;
+use WPTRT\AdminNotices\Notices;
 
 /**
  * Class Main
@@ -34,9 +35,14 @@ class Main {
 	private $api_key;
 
 	/**
-	 * @var Notifications $notifications Экземпляр класса.
+	 * @var Notices $notify Экземпляр класса.
 	 */
-	private $notifications;
+	private $notify;
+
+	/**
+	 * @var Requirements $requirements
+	 */
+	private $requirements;
 
 	/**
 	 * Instance
@@ -64,16 +70,22 @@ class Main {
 	 * @access public
 	 */
 	public function __construct() {
-		$this->init();
+		$this->notify       = new Notices();
+		$this->requirements = new Requirements( $this->notify );
 
-		//$this->notifications = new Notifications();
-	}
+		// Получить ключ из базы.
+		$this->api_key = self::get_api_key();
 
-	/**
-	 * Init plugin.
-	 */
-	public function init() {
-		add_action( 'plugins_loaded', [ $this, 'init_hooks' ] );
+		if ( ! $this->requirements->are_requirements_met() ) {
+			return;
+		}
+
+		// Если не задан API ключ для карт.
+		if ( ! $this->api_key ) {
+			$this->admin_notice_invalid_api_key();
+		}
+
+		$this->init_hooks();
 	}
 
 	public static function get_api_key() {
@@ -85,15 +97,7 @@ class Main {
 	 */
 	public function init_hooks() {
 
-		// Получить ключ из базы.
-		$this->api_key = self::get_api_key();
-
-		// Если не задан API ключ для карт.
-		if ( ! $this->api_key ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_invalid_api_key' ] );
-		}
-
-		add_action( 'admin_notices', [ $this, 'admin_notice_star' ] );
+		add_action( 'plugins_loaded', [ $this, 'i18n' ] );
 
 		// Add Plugin actions.
 		add_action( 'elementor/init', [ $this, 'register_category' ] );
@@ -103,6 +107,16 @@ class Main {
 		add_action( 'elementor/frontend/after_register_scripts', [ $this, 'frontend_scripts' ] );
 		add_action( 'elementor/widgets/widgets_registered', [ $this, 'require_widgets' ] );
 		add_filter( 'wp_resource_hints', [ $this, 'resource_hints' ], 10, 2 );
+
+		// Просьба оценить плагин.
+		add_action( 'admin_init', [ $this, 'admin_notice_star' ] );
+	}
+
+	/**
+	 * Load Plugin Textdomain.
+	 */
+	public function i18n() {
+		load_plugin_textdomain( 'mihdan-elementor-yandex-maps' );
 	}
 
 	/**
@@ -223,7 +237,6 @@ class Main {
 	 * @access public
 	 */
 	public function require_widgets() {
-		require_once MIHDAN_ELEMENTOR_YANDEX_MAPS_DIR . '/includes/class-widget.php';
 		Plugin::instance()->widgets_manager->register_widget_type( new Widget\Widget() );
 	}
 
@@ -237,15 +250,48 @@ class Main {
 	 * @access public
 	 */
 	public function admin_notice_invalid_api_key() {
-		// translators: %s ссылка на страницу настроек.
+		/* translators: link to settings page. */
 		$message = sprintf( __( 'To make plugin Mihdan: Elementor Yandex Maps work properly, you should <a href="%s">specify the Yandex Maps API key</a>.', 'mihdan-elementor-yandex-maps' ), admin_url( 'admin.php?page=elementor#tab-' . Settings::TAB_INTEGRATIONS ) );
 
-		echo '<div class="notice notice-warning is-dismissible"><p>' . wp_kses( $message, array( 'a' => array( 'href' => true ) ) ) . '</p></div>';
+		$this->notify->add(
+			'mihdan_elementor_yandex_maps_invalid_api_key',
+			'',
+			$message,
+			array(
+				'type' => 'error',
+			)
+		);
+
+		$this->notify->boot();
 	}
 
-	public function admin_notice_star() {}
-}
+	/**
+	 * Admin notice.
+	 */
+	public function admin_notice_star() {
+		/**
+		 * @var \WP_User $current_user;
+		 */
+		global $current_user;
 
-Main::instance();
+		$message = sprintf(
+			/* translators: link to plugin rating. */
+			__(
+				'Enjoyed Elementor Yandex Maps? Please leave us a <a href="%s" target="_blank">★★★★★</a> rating. We really appreciate your support!',
+				'mihdan-elementor-yandex-maps'
+			),
+			'https://wordpress.org/support/plugin/mihdan-elementor-yandex-maps/reviews/#new-post'
+		);
+
+		$this->notify->add(
+			'mihdan_elementor_yandex_maps_star',
+			/* translators: display name for current user */
+			sprintf( __( 'Hi, %s', 'mihdan-elementor-yandex-maps' ), $current_user->get( 'display_name' ) ),
+			$message
+		);
+
+		$this->notify->boot();
+	}
+}
 
 // eof.
