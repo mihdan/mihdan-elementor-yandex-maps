@@ -4,7 +4,7 @@
     "keywords": ["wordpress", "plugin", "yandex", "maps", "mihdan", "elementor", "api"],
     "type": "wordpress-plugin",
     "require": {
-        "wptrt/admin-notices": "dev-master"
+        "wptrt/admin-notices": "^1.0"
     },
     "license": "GPL-2.0",
     "authors": [
@@ -13,5 +13,10 @@
             "email": "mikhail@kobzarev.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload": {
+      "classmap": [
+        "includes"
+      ]
+    }
 }

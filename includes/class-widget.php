@@ -191,10 +191,10 @@ class Widget extends Widget_Base {
 		$this->add_control(
 			'map_language',
 			[
-				'label'        => __( 'Map Language', 'mihdan-elementor-yandex-maps' ),
-				'description'   => __( 'Задает язык объектов на карте (топонимов, элементов управления).', 'mihdan-elementor-yandex-maps' ),
-				'type'         => Controls_Manager::SELECT,
-				'options'      => [
+				'label'       => __( 'Map Language', 'mihdan-elementor-yandex-maps' ),
+				'description' => __( 'Задает язык объектов на карте (топонимов, элементов управления).', 'mihdan-elementor-yandex-maps' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => [
 					'ru' => __( 'Russian', 'mihdan-elementor-yandex-maps' ),
 					'uk' => __( 'Ukrainian', 'mihdan-elementor-yandex-maps' ),
 					'en' => __( 'English', 'mihdan-elementor-yandex-maps' ),
