@@ -5,7 +5,7 @@ Donate link: https://www.kobzarev.com/donate/
 Requires at least: 4.6
 Tested up to: 5.3
 Requires PHP: 5.6.20
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 
 Elementor Yandex Maps Widget
 
@@ -27,6 +27,9 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 Получить API-ключ можно в [Кабинете разработчика](https://developer.tech.yandex.ru/services/). Нажмите «Получить ключ», затем выберите сервис «JavaScript API и HTTP Геокодер» и заполните анкету — ваш API-ключ будет сразу готов к использованию.
 
 == Changelog ==
+= 1.3.4 (22.01.2020) =
+* Fixed bug with map center search
+
 = 1.3.3 (01.11.2019) =
 * Added filters to maps: grayscale, sepia, green, blue
 * Added asynchronous script loading

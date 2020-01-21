@@ -108,7 +108,7 @@ class Widget extends Widget_Base {
 			[
 				'label'       => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::RAW_HTML,
-				'raw'         => '<form onsubmit="mihdan_elementor_yandex_maps_find_address( this );" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;" placeholder="' . __( 'Enter Search Address', 'mihdan-elementor-yandex-maps' ) . '" /><input type="submit" value="Search" class="elementor-button elementor-button-default" onclick="mihdan_elementor_yandex_maps_find_address( this )"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
+				'raw'         => '<form onsubmit="return mihdan_elementor_yandex_maps_find_address( this );"><input type="search" style="margin-top:10px; margin-bottom:10px;" placeholder="' . __( 'Enter Search Address', 'mihdan-elementor-yandex-maps' ) . '" /><input type="submit" value="Search" class="elementor-button elementor-button-default"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
 				'label_block' => true,
 			]
 		);
