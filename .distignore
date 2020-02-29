@@ -37,3 +37,4 @@ node_modules
 /assets
 /src
 screenshot-*.png
+.wordpress-org
