@@ -745,6 +745,9 @@ class Widget extends Widget_Base {
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '',
 						'label_block' => true,
+						'dynamic'     => [
+							'active' => true,
+						],
 					],
 					[
 						'name'        => 'icon_content',
@@ -752,6 +755,9 @@ class Widget extends Widget_Base {
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '',
 						'label_block' => true,
+						'dynamic'     => [
+							'active' => true,
+						],
 					],
 					[
 						'name'        => 'hint_content',
@@ -759,6 +765,9 @@ class Widget extends Widget_Base {
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '',
 						'label_block' => true,
+						'dynamic'     => [
+							'active' => true,
+						],
 					],
 					[
 						'name'        => 'balloon_content_header',
@@ -766,18 +775,27 @@ class Widget extends Widget_Base {
 						'type'        => Controls_Manager::TEXT,
 						'default'     => __( 'Balloon Content Header Default', 'mihdan-elementor-yandex-maps' ),
 						'label_block' => true,
+						'dynamic'     => [
+							'active' => true,
+						],
 					],
 					[
 						'name'    => 'balloon_content_body',
 						'label'   => __( 'Balloon Content Body', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::WYSIWYG,
 						'default' => '',
+						'dynamic' => [
+							'active' => true,
+						],
 					],
 					[
 						'name'    => 'balloon_content_footer',
 						'label'   => __( 'Balloon Content Footer', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::TEXTAREA,
 						'default' => '',
+						'dynamic' => [
+							'active' => true,
+						],
 					],
 					[
 						'name'    => 'balloon_is_opened',
