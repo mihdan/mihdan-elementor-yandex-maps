@@ -28,10 +28,10 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 
 == Changelog ==
 
-= 1.3.6 (26.05.2020) =
+= 1.3.6 (27.05.2020) =
 * WPCS
 * Add border-radius support for maps
-* Add custom marker for maps
+* Add custom marker for maps. Thanks to @land0r
 * Add custom icon for widget
 
 = 1.3.5 (26.05.2020) =
