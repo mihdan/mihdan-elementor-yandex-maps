@@ -1,0 +1,30 @@
+.panel-elements-category-title-eb-elementor-extended {
+    background-color: #9b0a46;
+    color: #fff;
+    margin: 5px 10px;
+    border-radius: 3px;
+}
+.eb-map-find-address {
+	    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#eb-output-result {
+	margin-bottom: 10px;
+    line-height: 1.3;
+    font-size: 12px;
+}
+
+.elementor-yandex-map-icon {
+	display: block;
+	width: 36px;
+	height: 36px;
+	margin-left: auto;
+	margin-right: auto;
+	background: url("../images/elementor-yandex-map.svg") 50% 50% no-repeat;
+	background-size: 36px 36px;
+}
+.elementor-yandex-map-icon path {
+	fill: red !important;
+	color: red !important;
+	background-color: red !important;
+}
