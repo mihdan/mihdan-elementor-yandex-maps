@@ -6,6 +6,10 @@
     "require": {
         "wptrt/admin-notices": "^1.0"
     },
+    "require-dev": {
+      "squizlabs/php_codesniffer": "^3.0",
+      "wp-coding-standards/wpcs": "^2.0"
+    },
     "license": "GPL-2.0",
     "authors": [
         {
