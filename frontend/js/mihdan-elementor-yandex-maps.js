@@ -169,9 +169,27 @@
 					w[ map ].geoObjects.add( objectManager );
 
 				} else {
+					/**
+					 * @link https://tech.yandex.ru/maps/jsbox/2.1/icon_customImage
+					 * @link https://tech.yandex.ru/maps/jsapi/doc/2.1/dg/concepts/geoobjects-docpage/#geoobjects__icon-style
+					 */
 					$.each(
 						markersLocations.features,
 						function ( index, Element, content ) {
+							var options = {};
+
+							// Custom icon.
+							if ( Element.options.iconImage ) {
+								options.iconLayout    = 'default#image';
+								options.iconImageHref =  Element.options.iconImage;
+								options.iconImageSize = [
+									parseInt( Element.options.iconImageWidth, 10 ),
+									parseInt( Element.options.iconImageHeight, 10 )
+								];
+							} else{
+								options.preset          = Element.options.preset;
+								options.balloonMaxWidth = parseInt( infowindow_max_width, 10 );
+							}
 
 							var placemark = new w[ ns ].Placemark(
 								[
@@ -184,12 +202,9 @@
 									balloonContentBody: Element.properties.balloonContentBody,
 									balloonContentFooter: Element.properties.balloonContentFooter,
 									iconContent: Element.properties.iconContent,
-									iconCaption: Element.properties.iconCaption,
+									iconCaption: Element.properties.iconCaption
 								},
-								{
-									preset: Element.options.preset,
-									balloonMaxWidth: parseInt( infowindow_max_width, 10 )
-								}
+								options
 							);
 
 							w[ map ].geoObjects.add( placemark );

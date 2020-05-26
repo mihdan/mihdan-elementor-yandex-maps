@@ -9,6 +9,7 @@ namespace Mihdan\ElementorYandexMaps\Widget;
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
+use Elementor\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -604,6 +605,7 @@ class Widget extends Widget_Base {
 						'type'    => Controls_Manager::SELECT2,
 						'options' => array(
 							''                          => __( 'Default Icon', 'mihdan-elementor-yandex-maps' ),
+							'Custom'                    => __( 'Custom', 'mihdan-elementor-yandex-maps' ),
 							'Stretchy'                  => __( 'Stretchy Icon', 'mihdan-elementor-yandex-maps' ),
 							'Dot'                       => __( 'Dot Icon', 'mihdan-elementor-yandex-maps' ),
 							'Circle'                    => __( 'Circle Icon', 'mihdan-elementor-yandex-maps' ),
@@ -740,6 +742,17 @@ class Widget extends Widget_Base {
 						'default' => 'Circle',
 					),
 					array(
+						'name'      => 'icon_image',
+						'label'     => __( 'Image', 'mihdan-elementor-yandex-maps' ),
+						'type'      => Controls_Manager::MEDIA,
+						'condition' => array(
+							'icon_type' => 'Custom',
+						),
+						'dynamic'   => array(
+							'active' => true,
+						),
+					),
+					array(
 						'name'        => 'icon_caption',
 						'label'       => __( 'Icon Caption', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::TEXT,
@@ -838,6 +851,21 @@ class Widget extends Widget_Base {
 			$point_lng              = ( isset( $item['pin_lng'] ) ) ? $item['pin_lng'] : $item['point_lng'];
 			$balloon_content_header = ( isset( $item['pin_title'] ) ) ? $item['pin_title'] : $item['balloon_content_header'];
 			$balloon_content_body   = ( isset( $item['pin_content'] ) ) ? $item['pin_content'] : $item['balloon_content_body'];
+			$icon_image             = ( 'Custom' === $item['icon_type'] && isset( $item['icon_image'] ) )
+				? $item['icon_image']
+				: '';
+
+			$icon_image_url    = '';
+			$icon_image_width  = '';
+			$icon_image_height = '';
+
+			// Custom marker.
+			if ( $icon_image ) {
+				$icon_image_metadata = wp_get_attachment_metadata( $icon_image['id'] );
+				$icon_image_width    = $icon_image_metadata['width'];
+				$icon_image_height   = $icon_image_metadata['height'];
+				$icon_image_url      = $icon_image['url'];
+			}
 
 			$geo_json['features'][] = array(
 				'type'       => 'Feature',
@@ -860,6 +888,9 @@ class Widget extends Widget_Base {
 				'options'    => array(
 					'preset'          => sprintf( 'islands#%s%sIcon', $item['icon_color'], $item['icon_type'] ),
 					'balloonIsOpened' => $item['balloon_is_opened'],
+					'iconImage'       => $icon_image_url,
+					'iconImageWidth'  => $icon_image_width,
+					'iconImageHeight' => $icon_image_height,
 				),
 			);
 		}
