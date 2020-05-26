@@ -38,3 +38,4 @@ node_modules
 /src
 screenshot-*.png
 .wordpress-org
+.github
