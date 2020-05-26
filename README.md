@@ -12,14 +12,15 @@ Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map
 - Stable tag: 1.3.2
 
 ## Installation
-1. Visit ‘Plugins > Add New’
-2. Search for ‘Mihdan: Elementor Yandex Maps’
-3. Activate Mihdan: Elementor Yandex Maps from your Plugins page.
-4. [Optional] Configure Mihdan: Elementor Yandex Maps settings.
+1. `git clone https://github.com/mihdan/mihdan-elementor-yandex-maps.git mihdan-elementor-yandex-maps`
+2. `composer install --no-dev`
+3. Visit Dashboard > Plugins
+4. Activate Mihdan: Elementor Yandex Maps from your Plugins page.
+5. [Optional] Configure Mihdan: Elementor Yandex Maps settings.
 
 ## Screenshots
-1. Map appearance
-2. Admin settingd appearance
+1. ![Map appearance](https://raw.githubusercontent.com/mihdan/mihdan-elementor-yandex-maps/master/.wordpress-org/screenshot-1.png)
+2. ![Admin settingd appearance](https://raw.githubusercontent.com/mihdan/mihdan-elementor-yandex-maps/master/.wordpress-org/screenshot-2.png)
 
 ## Обсуждение
 Проект можно обсудить у меня в [блоге](https://www.kobzarev.com/projects/mihdan-elementor-yandex-maps/).
