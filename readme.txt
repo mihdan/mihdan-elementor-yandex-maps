@@ -3,7 +3,7 @@ Contributors: mihdan
 Tags: elementor, yandex, maps, api, mihdan
 Donate link: https://www.kobzarev.com/donate/
 Requires at least: 5.0
-Tested up to: 5.3
+Tested up to: 5.4
 Requires PHP: 5.6.20
 Stable tag: 1.3.5
 
@@ -28,7 +28,7 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 
 == Changelog ==
 
-= 1.3.5 (29.02.2020) =
+= 1.3.5 (26.05.2020) =
 * Added dynamic tags for icon and hint caption and content
 
 = 1.3.4 (29.02.2020) =
