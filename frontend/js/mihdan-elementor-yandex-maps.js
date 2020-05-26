@@ -169,7 +169,6 @@
 					w[ map ].geoObjects.add( objectManager );
 
 				} else {
-
 					$.each(
 						markersLocations.features,
 						function ( index, Element, content ) {

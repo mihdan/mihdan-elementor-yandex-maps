@@ -902,7 +902,7 @@ class Widget extends Widget_Base {
 				"disableRuler" : "<?php echo esc_attr( $settings['disable_ruler'] ); ?>",
 				"enableObjectManager" : "<?php echo esc_attr( $settings['enable_object_manager'] ); ?>",
 				"infoWindowMaxWidth" : "<?php echo esc_attr( $settings['infowindow_max_width'] ); ?>",
-				"locations" : '<?php echo wp_json_encode( $geo_json ); ?>'
+				"locations" : <?php echo wp_json_encode( $geo_json ); ?>
 			};
 		</script>
 		<div id="mihdan_elementor_yandex_map_<?php echo esc_attr( $this->get_id() ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" style="height: <?php echo esc_attr( $settings['height']['size'] ); ?><?php echo esc_attr( $settings['height']['unit'] ); ?>;"></div>
