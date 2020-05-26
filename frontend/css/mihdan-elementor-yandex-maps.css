@@ -4,6 +4,10 @@
 	box-shadow: inset 0px 0px 60px 0px rgba(0,0,0,0.2);
 }
 
+.elementor-widget-yandex-maps .elementor-widget-container {
+	overflow: hidden;
+}
+
 .mihdan-elementor-yandex-maps_filter_grayscale [class*="ymaps-2"][class*="-ground-pane"] {
 	filter: grayscale(100%);
 }
