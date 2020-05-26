@@ -10,47 +10,38 @@
 		},
 		init: function ( $scope, $ ) {
 
-			var mapId                                = $scope.find( '.mihdan-elementor-yandex-maps' ),
-				maptype                              = $( mapId ).data( 'eb-map-type' ),
-				zoom                                 = $( mapId ).data( 'eb-map-zoom' ),
-				map_id                               = $( mapId ).data( 'map-id' ),
+			var $map   = $scope.find( '.mihdan-elementor-yandex-maps' ),
+				map_id = $map.attr( 'id' ).substr( 28 ),
+				config = w[ 'mihdan_elementor_yandex_map_' + map_id ];
+
+			var	mapType                              = config.type,
+				zoom                                 = config.zoom,
 				api_key                              = w.mihdan_elementor_yandex_maps_config.api_key,
-				map_lat                              = $( mapId ).data( 'eb-map-lat' ),
-				map_lng                              = $( mapId ).data( 'eb-map-lng' ),
-				language                             = $( mapId ).data( 'map-language' ) || 'ru',
-				region                               = $( mapId ).data( 'map-region' ) || 'RU',
-				ruler_control                        = $( mapId ).data( 'eb-ruler-control' ),
-				search_control                       = $( mapId ).data( 'eb-search-control' ),
-				traffic_control                      = $( mapId ).data( 'eb-traffic-control' ),
-				type_selector                        = $( mapId ).data( 'eb-type-selector' ),
-				zoom_control                         = $( mapId ).data( 'eb-zoom-control' ),
-				geolocation_control                  = $( mapId ).data( 'eb-geolocation-control' ),
-				route_editor                         = $( mapId ).data( 'eb-route-editor' ),
-				fullscreen_control                   = $( mapId ).data( 'eb-fullscreen-control' ),
-				route_button_control                 = $( mapId ).data( 'eb-route-button-control' ),
-				route_panel_control                  = $( mapId ).data( 'eb-route-panel-control' ),
-				disable_scroll_zoom                  = $( mapId ).data( 'eb-disable-scroll-zoom' ),
-				disable_dbl_click_zoom               = $( mapId ).data( 'eb-disable-dbl-click-zoom' ),
-				disable_drag                         = $( mapId ).data( 'eb-disable-drag' ),
-				disable_left_mouse_button_magnifier  = $( mapId ).data( 'eb-disable-left-mouse-button-magnifier' ),
-				disable_right_mouse_button_magnifier = $( mapId ).data( 'eb-disable-right-mouse-button-magnifier' ),
-				disable_multi_touch                  = $( mapId ).data( 'eb-disable-disable-multi-touch' ),
-				disable_route_editor                 = $( mapId ).data( 'eb-disable-route-editor' ),
-				disable_ruler                        = $( mapId ).data( 'eb-disable-ruler' ),
-				enable_object_manager                = $( mapId ).data( 'eb-enable-object-manager' ),
-				infowindow_max_width                 = parseInt( $( mapId ).data( 'eb-infowindow-max-width' ), 10 ),
+				map_lat                              = config.lat,
+				map_lng                              = config.lng,
+				language                             = config.language || 'ru',
+				region                               = config.region || 'RU',
+				ruler_control                        = config.rulerControl,
+				search_control                       = config.searchControl,
+				traffic_control                      = config.trafficControl,
+				type_selector                        = config.typeSelector,
+				zoom_control                         = config.zoomControl,
+				geolocation_control                  = config.geolocationControl,
+				route_editor                         = config.routeEditor,
+				fullscreen_control                   = config.fullscreenControl,
+				route_button_control                 = config.routeButtonControl,
+				route_panel_control                  = config.routePanelControl,
+				disable_scroll_zoom                  = config.disableScrollZoom,
+				disable_dbl_click_zoom               = config.disableDblClickZoom,
+				disable_drag                         = config.disableDrag,
+				disable_left_mouse_button_magnifier  = config.disableLeftMouseButtonMagnifier,
+				disable_right_mouse_button_magnifier = config.disableRightMouseButtonMagnifier,
+				disable_multi_touch                  = config.disableMultiTouch,
+				disable_route_editor                 = config.disableRouteEditor,
+				disable_ruler                        = config.disableRuler,
+				enable_object_manager                = config.enableObjectManager,
+				infowindow_max_width                 = parseInt( config.infoWindowMaxWidth, 10 ),
 				controls                             = [];
-				/*
-				behaviors                            = [
-					'scrollZoom',
-					'dblClickZoom',
-					'drag',
-					'leftMouseButtonMagnifier',
-					'rightMouseButtonMagnifier',
-					'multiTouch',
-					'routeEditor',
-					'ruler'
-				];*/
 
 			// Неймспейс для карты.
 			var ns  = 'mihdan_elementor_yandex_maps_ns_' + map_id;
@@ -107,11 +98,11 @@
 				}
 
 				w[ map ] = new w[ ns ].Map(
-					mapId.attr( 'id' ),
+					$map.attr( 'id' ),
 					{
 						center: [ parseFloat( map_lat ), parseFloat( map_lng ) ],
 						zoom: zoom,
-						type: 'yandex#' + maptype,
+						type: 'yandex#' + mapType,
 						controls: controls
 					},
 					{
@@ -159,7 +150,7 @@
 					w[ map ].behaviors.disable( 'ruler' );
 				}
 
-				var markersLocations = $( mapId ).data( 'eb-locations' );
+				var markersLocations = config.locations;
 
 				// Если включена кластеризация.
 				if ( 'yes' === enable_object_manager ) {
