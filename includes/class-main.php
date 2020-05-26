@@ -25,7 +25,7 @@ class Main {
 	 *
 	 * @var Plugin The single instance of the class.
 	 */
-	private static $_instance = null;
+	private static $instance = null;
 
 	/**
 	 * Yandex Map API key
@@ -35,11 +35,15 @@ class Main {
 	private $api_key;
 
 	/**
+	 * Notices instance
+	 *
 	 * @var Notices $notify Экземпляр класса.
 	 */
 	private $notify;
 
 	/**
+	 * Requirements instance
+	 *
 	 * @var Requirements $requirements
 	 */
 	private $requirements;
@@ -55,10 +59,11 @@ class Main {
 	 * @return Plugin An instance of the class.
 	 */
 	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
 		}
-		return self::$_instance;
+
+		return self::$instance;
 	}
 
 	/**
@@ -88,6 +93,11 @@ class Main {
 		$this->init_hooks();
 	}
 
+	/**
+	 * Get API key from database.
+	 *
+	 * @return bool|mixed|void
+	 */
 	public static function get_api_key() {
 		return get_option( 'elementor_mihdan_elementor_yandex_maps_key' );
 	}
@@ -97,19 +107,19 @@ class Main {
 	 */
 	public function init_hooks() {
 
-		add_action( 'plugins_loaded', [ $this, 'i18n' ] );
+		add_action( 'plugins_loaded', array( $this, 'i18n' ) );
 
 		// Add Plugin actions.
-		add_action( 'elementor/init', [ $this, 'register_category' ] );
-		add_action( 'elementor/admin/after_create_settings/elementor', [ $this, 'register_settings' ] );
-		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'editor_scripts' ] );
-		add_action( 'elementor/frontend/after_enqueue_styles', [ $this, 'frontend_styles' ] );
-		add_action( 'elementor/frontend/after_register_scripts', [ $this, 'frontend_scripts' ] );
-		add_action( 'elementor/widgets/widgets_registered', [ $this, 'require_widgets' ] );
-		add_filter( 'wp_resource_hints', [ $this, 'resource_hints' ], 10, 2 );
+		add_action( 'elementor/init', array( $this, 'register_category' ) );
+		add_action( 'elementor/admin/after_create_settings/elementor', array( $this, 'register_settings' ) );
+		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'editor_scripts' ) );
+		add_action( 'elementor/frontend/after_enqueue_styles', array( $this, 'frontend_styles' ) );
+		add_action( 'elementor/frontend/after_register_scripts', array( $this, 'frontend_scripts' ) );
+		add_action( 'elementor/widgets/widgets_registered', array( $this, 'require_widgets' ) );
+		add_filter( 'wp_resource_hints', array( $this, 'resource_hints' ), 10, 2 );
 
 		// Просьба оценить плагин.
-		add_action( 'admin_init', [ $this, 'admin_notice_star' ] );
+		add_action( 'admin_init', array( $this, 'admin_notice_star' ) );
 	}
 
 	/**
@@ -144,17 +154,16 @@ class Main {
 	 * Enqueue scripts for editor.
 	 */
 	public function editor_scripts() {
-		wp_enqueue_style( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/frontend/css/mihdan-elementor-yandex-maps-admin.css', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), [], MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION );
-		wp_enqueue_script( 'mihdan-elementor-yandex-maps-api-admin', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=admin&apikey=' . $this->api_key, [ 'jquery' ], MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION, true );
-		//wp_localize_script( 'mihdan-elementor-yandex-maps-api-admin', 'mihdan_elementor_yandex_maps_config', array( 'plugin_url' => MIHDAN_ELEMENTOR_YANDEX_MAPS_URL ) );
-		wp_enqueue_script( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps-admin.js', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), [ 'jquery' ], MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION, true );
+		wp_enqueue_style( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/admin/css/mihdan-elementor-yandex-maps-admin.css', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), array(), MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION );
+		wp_enqueue_script( 'mihdan-elementor-yandex-maps-api-admin', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&source=admin&apikey=' . $this->api_key, array( 'jquery' ), MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION, true );
+		wp_enqueue_script( 'mihdan-elementor-yandex-maps-admin', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps-admin.js', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), array( 'jquery' ), MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION, true );
 	}
 
 	/**
 	 * Enqueue styles for frontend.
 	 */
 	public function frontend_styles() {
-		wp_enqueue_style( 'mihdan-elementor-yandex-maps', plugins_url( '/frontend/css/mihdan-elementor-yandex-maps.css', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), [], MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION );
+		wp_enqueue_style( 'mihdan-elementor-yandex-maps', plugins_url( '/frontend/css/mihdan-elementor-yandex-maps.css', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), array(), MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION );
 	}
 
 	/**
@@ -169,7 +178,7 @@ class Main {
 				'api_key'    => $this->api_key,
 			)
 		);
-		wp_register_script( 'mihdan-elementor-yandex-maps', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps.js', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), [ 'elementor-frontend' ], MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION, true );
+		wp_register_script( 'mihdan-elementor-yandex-maps', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps.js', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), array( 'elementor-frontend' ), MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION, true );
 	}
 
 	/**
@@ -178,10 +187,10 @@ class Main {
 	public function register_category() {
 		Plugin::$instance->elements_manager->add_category(
 			'mihdan',
-			[
+			array(
 				'title' => 'Mihdan Widgets',
 				'icon'  => 'font',
-			]
+			)
 		);
 	}
 
@@ -198,7 +207,7 @@ class Main {
 		$settings->add_section(
 			Settings::TAB_INTEGRATIONS,
 			'mihdan-elementor-yandex-maps',
-			[
+			array(
 				'label'    => __( 'Yandex Maps', 'mihdan-elementor-yandex-maps' ),
 				'callback' => function() {
 					$message = __( '<p>Go to the <a href="https://developer.tech.yandex.ru/" target="_blank">Developer\'s Dashboard</a> and press “Get key”. In the popup window, select the “JavaScript API, Geocoding API” option.</p><p>After you select the service, the form appears. In this form, you need to provide your contact information. After you fill in the form, the “Service successfully connected” text appears. The created key is now available in the “Keys” section. Use it when you enable the API.</p>', 'mihdan-elementor-yandex-maps' );
@@ -216,15 +225,15 @@ class Main {
 						)
 					);
 				},
-				'fields'   => [
-					'mihdan_elementor_yandex_maps_key' => [
+				'fields'   => array(
+					'mihdan_elementor_yandex_maps_key' => array(
 						'label'      => __( 'API Key', 'mihdan-elementor-yandex-maps' ),
-						'field_args' => [
+						'field_args' => array(
 							'type' => 'text',
-						],
-					],
-				],
-			]
+						),
+					),
+				),
+			)
 		);
 	}
 
@@ -270,7 +279,9 @@ class Main {
 	 */
 	public function admin_notice_star() {
 		/**
-		 * @var \WP_User $current_user;
+		 * Current user.
+		 *
+		 * \WP_User $current_user
 		 */
 		global $current_user;
 
