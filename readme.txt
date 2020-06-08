@@ -5,7 +5,7 @@ Donate link: https://www.kobzarev.com/donate/
 Requires at least: 5.0
 Tested up to: 5.4
 Requires PHP: 5.6.20
-Stable tag: 1.3.6
+Stable tag: 1.4.0
 
 Elementor Yandex Maps Widget
 
@@ -28,11 +28,14 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 
 == Changelog ==
 
+= 1.4.0 (08.06.2020) =
+* Added support for CPT markers
+
 = 1.3.6 (27.05.2020) =
 * WPCS
-* Add border-radius support for maps
-* Add custom marker for maps. Thanks to @land0r
-* Add custom icon for widget
+* Added border-radius support for maps
+* Added custom marker for maps. Thanks to @land0r
+* Added custom icon for widget
 
 = 1.3.5 (26.05.2020) =
 * Added dynamic tags for icon and hint caption and content
