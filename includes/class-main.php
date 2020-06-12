@@ -7,8 +7,10 @@
 
 namespace Mihdan\ElementorYandexMaps;
 
-use \Elementor\Settings;
-use \Elementor\Plugin;
+use Elementor\Core\DynamicTags\Manager;
+use Elementor\Settings;
+use Elementor\Plugin;
+use Elementor\Widgets_Manager;
 use WPTRT\AdminNotices\Notices;
 
 /**
@@ -116,6 +118,7 @@ class Main {
 		add_action( 'elementor/frontend/after_enqueue_styles', array( $this, 'frontend_styles' ) );
 		add_action( 'elementor/frontend/after_register_scripts', array( $this, 'frontend_scripts' ) );
 		add_action( 'elementor/widgets/widgets_registered', array( $this, 'require_widgets' ) );
+		//add_action( 'elementor/dynamic_tags/register_tags', array( $this, 'register_tags' ) );
 		add_filter( 'wp_resource_hints', array( $this, 'resource_hints' ), 10, 2 );
 
 		// Просьба оценить плагин.
@@ -244,9 +247,27 @@ class Main {
 	 *
 	 * @since 1.3
 	 * @access public
+	 *
+	 * @param Widgets_Manager $widgets_manager Widgets_Manager instance.
 	 */
-	public function require_widgets() {
-		Plugin::instance()->widgets_manager->register_widget_type( new Widget\Widget() );
+	public function require_widgets( Widgets_Manager $widgets_manager ) {
+		$widgets_manager->register_widget_type( new Widget\Widget() );
+	}
+
+	/**
+	 * Register custom tags.
+	 *
+	 * @param Manager $dynamic_tags Manager instance.
+	 */
+	public function register_tags( Manager $dynamic_tags ) {
+		$dynamic_tags->register_group(
+			'request-variables',
+			array(
+				'title' => 'Request Variables',
+			)
+		);
+
+		$dynamic_tags->register_tag( 'Mihdan\ElementorYandexMaps\ACF_Tag' );
 	}
 
 	/**
