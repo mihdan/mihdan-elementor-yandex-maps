@@ -28,8 +28,9 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 
 == Changelog ==
 
-= 1.4.0 (08.06.2020) =
+= 1.4.0 (12.06.2020) =
 * Added support for CPT markers
+* Fixed bugs
 
 = 1.3.6 (27.05.2020) =
 * WPCS

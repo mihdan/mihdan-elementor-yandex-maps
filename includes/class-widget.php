@@ -7,9 +7,11 @@
 
 namespace Mihdan\ElementorYandexMaps\Widget;
 
+use Elementor\Core\DynamicTags\Manager;
+use Elementor\Modules\DynamicTags\Module as TagsModule;
+use Elementor\Plugin;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -19,6 +21,244 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Widget
  */
 class Widget extends Widget_Base {
+
+	/**
+	 * Широта по умолчанию.
+	 *
+	 * @var string $default_lat
+	 */
+	private $default_lat = '55.7522200';
+
+	/**
+	 * Долгота по умолчанию.
+	 *
+	 * @var string $default_lng
+	 */
+	private $default_lng = '37.6155600';
+
+	/**
+	 * Цвета иконок.
+	 *
+	 * @var array $icon_colors
+	 */
+	private $icon_colors = array();
+
+	/**
+	 * Типы иконок.
+	 *
+	 * @var array $icon_types
+	 */
+	private $icon_types = array();
+
+	/**
+	 * Widget constructor.
+	 *
+	 * @param array $data Data.
+	 * @param null  $args Arguments.
+	 *
+	 * @throws \Exception Exception.
+	 */
+	public function __construct( $data = array(), $args = null ) {
+		parent::__construct( $data, $args );
+		$this->setup();
+	}
+
+	/**
+	 * Setup variables.
+	 */
+	public function setup() {
+		$this->icon_colors = array(
+			'blue'       => __( 'Blue', 'mihdan-elementor-yandex-maps' ),
+			'red'        => __( 'Red', 'mihdan-elementor-yandex-maps' ),
+			'darkOrange' => __( 'Dark Orange', 'mihdan-elementor-yandex-maps' ),
+			'night'      => __( 'Night', 'mihdan-elementor-yandex-maps' ),
+			'darkBlue'   => __( 'Dark Blue', 'mihdan-elementor-yandex-maps' ),
+			'pink'       => __( 'Pink', 'mihdan-elementor-yandex-maps' ),
+			'gray'       => __( 'Gray', 'mihdan-elementor-yandex-maps' ),
+			'brown'      => __( 'Brown', 'mihdan-elementor-yandex-maps' ),
+			'darkGreen'  => __( 'Dark Green', 'mihdan-elementor-yandex-maps' ),
+			'violet'     => __( 'Violet', 'mihdan-elementor-yandex-maps' ),
+			'black'      => __( 'Black', 'mihdan-elementor-yandex-maps' ),
+			'yellow'     => __( 'Yellow', 'mihdan-elementor-yandex-maps' ),
+			'green'      => __( 'Green', 'mihdan-elementor-yandex-maps' ),
+			'orange'     => __( 'Orange', 'mihdan-elementor-yandex-maps' ),
+			'lightBlue'  => __( 'Light Blue', 'mihdan-elementor-yandex-maps' ),
+			'olive'      => __( 'Olive', 'mihdan-elementor-yandex-maps' ),
+		);
+
+		$this->icon_types = array(
+			''                          => __( 'Default Icon', 'mihdan-elementor-yandex-maps' ),
+			'Custom'                    => __( 'Custom', 'mihdan-elementor-yandex-maps' ),
+			'Stretchy'                  => __( 'Stretchy Icon', 'mihdan-elementor-yandex-maps' ),
+			'Dot'                       => __( 'Dot Icon', 'mihdan-elementor-yandex-maps' ),
+			'Circle'                    => __( 'Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'CircleDot'                 => __( 'Circle Dot Icon', 'mihdan-elementor-yandex-maps' ),
+			'Airport'                   => __( 'Airport Icon', 'mihdan-elementor-yandex-maps' ),
+			'Attention'                 => __( 'Attention Icon', 'mihdan-elementor-yandex-maps' ),
+			'Auto'                      => __( 'Auto Icon', 'mihdan-elementor-yandex-maps' ),
+			'Bar'                       => __( 'Bar Icon', 'mihdan-elementor-yandex-maps' ),
+			'Barber'                    => __( 'Barber Icon', 'mihdan-elementor-yandex-maps' ),
+			'Beach'                     => __( 'Beach Icon', 'mihdan-elementor-yandex-maps' ),
+			'Bicycle'                   => __( 'Bicycle Icon', 'mihdan-elementor-yandex-maps' ),
+			'Bicycle2'                  => __( 'Bicycle2 Icon', 'mihdan-elementor-yandex-maps' ),
+			'Book'                      => __( 'Book Icon', 'mihdan-elementor-yandex-maps' ),
+			'CarWash'                   => __( 'CarWash Icon', 'mihdan-elementor-yandex-maps' ),
+			'Christian'                 => __( 'Book Icon', 'mihdan-elementor-yandex-maps' ),
+			'Cinema'                    => __( 'Cinema Icon', 'mihdan-elementor-yandex-maps' ),
+			'Circus'                    => __( 'Circus Icon', 'mihdan-elementor-yandex-maps' ),
+			'Court'                     => __( 'Court Icon', 'mihdan-elementor-yandex-maps' ),
+			'Delivery'                  => __( 'Delivery Icon', 'mihdan-elementor-yandex-maps' ),
+			'Discount'                  => __( 'Discount Icon', 'mihdan-elementor-yandex-maps' ),
+			'Dog'                       => __( 'Dog Icon', 'mihdan-elementor-yandex-maps' ),
+			'Education'                 => __( 'Education Icon', 'mihdan-elementor-yandex-maps' ),
+			'EntertainmentCenter'       => __( 'EntertainmentCenter Icon', 'mihdan-elementor-yandex-maps' ),
+			'Factory'                   => __( 'Factory Icon', 'mihdan-elementor-yandex-maps' ),
+			'Family'                    => __( 'Family Icon', 'mihdan-elementor-yandex-maps' ),
+			'Fashion'                   => __( 'Fashion Icon', 'mihdan-elementor-yandex-maps' ),
+			'Food'                      => __( 'Food Icon', 'mihdan-elementor-yandex-maps' ),
+			'FuelStation'               => __( 'FuelStation Icon', 'mihdan-elementor-yandex-maps' ),
+			'Garden'                    => __( 'Garden Icon', 'mihdan-elementor-yandex-maps' ),
+			'Government'                => __( 'Government Icon', 'mihdan-elementor-yandex-maps' ),
+			'Heart'                     => __( 'Heart Icon', 'mihdan-elementor-yandex-maps' ),
+			'Home'                      => __( 'Home Icon', 'mihdan-elementor-yandex-maps' ),
+			'Hotel'                     => __( 'Hotel Icon', 'mihdan-elementor-yandex-maps' ),
+			'Hydro'                     => __( 'Hydro Icon', 'mihdan-elementor-yandex-maps' ),
+			'Info'                      => __( 'Info Icon', 'mihdan-elementor-yandex-maps' ),
+			'Laundry'                   => __( 'Laundry Icon', 'mihdan-elementor-yandex-maps' ),
+			'Leisure'                   => __( 'Leisure Icon', 'mihdan-elementor-yandex-maps' ),
+			'MassTransit'               => __( 'MassTransit Icon', 'mihdan-elementor-yandex-maps' ),
+			'Medical'                   => __( 'Medical Icon', 'mihdan-elementor-yandex-maps' ),
+			'Money'                     => __( 'Money Icon', 'mihdan-elementor-yandex-maps' ),
+			'Mountain'                  => __( 'Mountain Icon', 'mihdan-elementor-yandex-maps' ),
+			'NightClub'                 => __( 'NightClub Icon', 'mihdan-elementor-yandex-maps' ),
+			'Observation'               => __( 'Observation Icon', 'mihdan-elementor-yandex-maps' ),
+			'Park'                      => __( 'Park Icon', 'mihdan-elementor-yandex-maps' ),
+			'Parking'                   => __( 'Parking Icon', 'mihdan-elementor-yandex-maps' ),
+			'Person'                    => __( 'Person Icon', 'mihdan-elementor-yandex-maps' ),
+			'Pocket'                    => __( 'Pocket Icon', 'mihdan-elementor-yandex-maps' ),
+			'Pool'                      => __( 'Pool Icon', 'mihdan-elementor-yandex-maps' ),
+			'Post'                      => __( 'Post Icon', 'mihdan-elementor-yandex-maps' ),
+			'Railway'                   => __( 'Railway Icon', 'mihdan-elementor-yandex-maps' ),
+			'RapidTransit'              => __( 'RapidTransit Icon', 'mihdan-elementor-yandex-maps' ),
+			'RepairShop'                => __( 'RepairShop Icon', 'mihdan-elementor-yandex-maps' ),
+			'Run'                       => __( 'Run Icon', 'mihdan-elementor-yandex-maps' ),
+			'Science'                   => __( 'Science Icon', 'mihdan-elementor-yandex-maps' ),
+			'Shopping'                  => __( 'Shopping Icon', 'mihdan-elementor-yandex-maps' ),
+			'Souvenirs'                 => __( 'Souvenirs Icon', 'mihdan-elementor-yandex-maps' ),
+			'Sport'                     => __( 'Sport Icon', 'mihdan-elementor-yandex-maps' ),
+			'Star'                      => __( 'Star Icon', 'mihdan-elementor-yandex-maps' ),
+			'Theater'                   => __( 'Theater Icon', 'mihdan-elementor-yandex-maps' ),
+			'Toilet'                    => __( 'Toilet Icon', 'mihdan-elementor-yandex-maps' ),
+			'Underpass'                 => __( 'Underpass Icon', 'mihdan-elementor-yandex-maps' ),
+			'Vegetation'                => __( 'Vegetation Icon', 'mihdan-elementor-yandex-maps' ),
+			'Video'                     => __( 'Video Icon', 'mihdan-elementor-yandex-maps' ),
+			'Waste'                     => __( 'Waste Icon', 'mihdan-elementor-yandex-maps' ),
+			'WaterPark'                 => __( 'WaterPark Icon', 'mihdan-elementor-yandex-maps' ),
+			'Waterway'                  => __( 'Waterway Icon', 'mihdan-elementor-yandex-maps' ),
+			'Worship'                   => __( 'Worship Icon', 'mihdan-elementor-yandex-maps' ),
+			'Zoo'                       => __( 'Zoo Icon', 'mihdan-elementor-yandex-maps' ),
+			'AirportCircle'             => __( 'Airport Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'AttentionCircle'           => __( 'Attention Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'AutoCircle'                => __( 'Auto Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'BarCircle'                 => __( 'Bar Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'BarberCircle'              => __( 'Barber Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'BeachCircle'               => __( 'Beach Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'BicycleCircle'             => __( 'Bicycle Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'Bicycle2Circle'            => __( 'Bicycle2 Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'BookCircle'                => __( 'Book Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'CarWashCircle'             => __( 'CarWash Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'ChristianCircle'           => __( 'Book Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'CinemaCircle'              => __( 'Cinema Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'CircusCircle'              => __( 'Circus Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'CourtCircle'               => __( 'Court Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'DeliveryCircle'            => __( 'Delivery Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'DiscountCircle'            => __( 'Discount Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'DogCircle'                 => __( 'Dog Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'EducationCircle'           => __( 'Education Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'EntertainmentCenterCircle' => __( 'EntertainmentCenter Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'FactoryCircle'             => __( 'Factory Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'FamilyCircle'              => __( 'Family Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'FashionCircle'             => __( 'Fashion Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'FoodCircle'                => __( 'Food Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'FuelStationCircle'         => __( 'FuelStation Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'GardenCircle'              => __( 'Garden Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'GovernmentCircle'          => __( 'Government Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'HeartCircle'               => __( 'Heart Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'HomeCircle'                => __( 'Home Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'HotelCircle'               => __( 'Hotel Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'HydroCircle'               => __( 'Hydro Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'InfoCircle'                => __( 'Info Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'LaundryCircle'             => __( 'Laundry Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'LeisureCircle'             => __( 'Leisure Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'MassTransitCircle'         => __( 'MassTransit Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'MedicalCircle'             => __( 'Medical Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'MoneyCircle'               => __( 'Money Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'MountainCircle'            => __( 'Mountain Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'NightClubCircle'           => __( 'NightClub Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'ObservationCircle'         => __( 'Observation Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'ParkCircle'                => __( 'Park Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'ParkingCircle'             => __( 'Parking Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'PersonCircle'              => __( 'Person Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'PocketCircle'              => __( 'Pocket Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'PoolCircle'                => __( 'Pool Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'PostCircle'                => __( 'Post Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'RailwayCircle'             => __( 'Railway Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'RapidTransitCircle'        => __( 'RapidTransit Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'RepairShopCircle'          => __( 'RepairShop Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'RunCircle'                 => __( 'Run Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'ScienceCircle'             => __( 'Science Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'ShoppingCircle'            => __( 'Shopping Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'SouvenirsCircle'           => __( 'Souvenirs Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'SportCircle'               => __( 'Sport Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'StarCircle'                => __( 'Star Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'TheaterCircle'             => __( 'Theater Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'ToiletCircle'              => __( 'Toilet Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'UnderpassCircle'           => __( 'Underpass Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'VegetationCircle'          => __( 'Vegetation Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'VideoCircle'               => __( 'Video Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'WasteCircle'               => __( 'Waste Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'WaterParkCircle'           => __( 'WaterPark Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'WaterwayCircle'            => __( 'Waterway Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'WorshipCircle'             => __( 'Worship Circle Icon', 'mihdan-elementor-yandex-maps' ),
+			'ZooCircle'                 => __( 'Zoo Circle Icon', 'mihdan-elementor-yandex-maps' ),
+		);
+	}
+
+	/**
+	 * Get default latitude.
+	 *
+	 * @return string
+	 */
+	public function get_default_lat() {
+		return $this->default_lat;
+	}
+
+	/**
+	 * Get default longitude.
+	 *
+	 * @return string
+	 */
+	public function get_default_lng() {
+		return $this->default_lng;
+	}
+
+	/**
+	 * Get icon colors array.
+	 *
+	 * @return array
+	 */
+	public function get_icon_colors() {
+		return $this->icon_colors;
+	}
+
+	/**
+	 * Get icon types array.
+	 *
+	 * @return array
+	 */
+	public function get_icon_types() {
+		return $this->icon_types;
+	}
 
 	/**
 	 * Retrieve heading widget name.
@@ -119,8 +359,8 @@ class Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Latitude', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::TEXT,
-				'placeholder' => '55.7522200',
-				'default'     => '55.7522200',
+				'placeholder' => $this->get_default_lat(),
+				'default'     => $this->get_default_lat(),
 				'dynamic'     => array(
 					'active' => true,
 				),
@@ -132,8 +372,8 @@ class Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Longitude', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::TEXT,
-				'placeholder' => '37.6155600',
-				'default'     => '37.6155600',
+				'placeholder' => $this->get_default_lng(),
+				'default'     => $this->get_default_lng(),
 				'dynamic'     => array(
 					'active' => true,
 				),
@@ -481,24 +721,7 @@ class Widget extends Widget_Base {
 			array(
 				'label'   => __( 'Cluster Color', 'mihdan-elementor-yandex-maps' ),
 				'type'    => Controls_Manager::SELECT,
-				'options' => array(
-					'blue'       => __( 'Blue', 'mihdan-elementor-yandex-maps' ),
-					'red'        => __( 'Red', 'mihdan-elementor-yandex-maps' ),
-					'darkOrange' => __( 'Dark Orange', 'mihdan-elementor-yandex-maps' ),
-					'night'      => __( 'Night', 'mihdan-elementor-yandex-maps' ),
-					'darkBlue'   => __( 'Dark Blue', 'mihdan-elementor-yandex-maps' ),
-					'pink'       => __( 'Pink', 'mihdan-elementor-yandex-maps' ),
-					'gray'       => __( 'Gray', 'mihdan-elementor-yandex-maps' ),
-					'brown'      => __( 'Brown', 'mihdan-elementor-yandex-maps' ),
-					'darkGreen'  => __( 'Dark Green', 'mihdan-elementor-yandex-maps' ),
-					'violet'     => __( 'Violet', 'mihdan-elementor-yandex-maps' ),
-					'black'      => __( 'Black', 'mihdan-elementor-yandex-maps' ),
-					'yellow'     => __( 'Yellow', 'mihdan-elementor-yandex-maps' ),
-					'green'      => __( 'Green', 'mihdan-elementor-yandex-maps' ),
-					'orange'     => __( 'Orange', 'mihdan-elementor-yandex-maps' ),
-					'lightBlue'  => __( 'Light Blue', 'mihdan-elementor-yandex-maps' ),
-					'olive'      => __( 'Olive', 'mihdan-elementor-yandex-maps' ),
-				),
+				'options' => $this->get_icon_colors(),
 				'default' => 'blue',
 			)
 		);
@@ -525,235 +748,257 @@ class Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'tabs',
-			array(
-				'label'       => __( 'Pin Item', 'mihdan-elementor-yandex-maps' ),
-				'type'        => Controls_Manager::REPEATER,
-				'default'     => array(
+		$this->start_controls_tabs(
+			'points_source'
+		);
+
+			$this->start_controls_tab(
+				'points_source_manual',
+				array(
+					'label' => __( 'Manual', 'mihdan-elementor-yandex-maps' ),
+				)
+			);
+
+				$this->add_control(
+					'tabs',
 					array(
-						'pin_notice'             => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
-						'point_lat'              => __( '55.7522200', 'mihdan-elementor-yandex-maps' ),
-						'point_lng'              => __( '37.6155600', 'mihdan-elementor-yandex-maps' ),
-						'icon_color'             => 'blue',
-						'icon_type'              => 'Circle',
-						'icon_caption'           => '',
-						'icon_content'           => '',
-						'hint_content'           => '',
-						'balloon_content_header' => __( 'Balloon Content Header Default', 'mihdan-elementor-yandex-maps' ),
-						'balloon_content_body'   => '',
-						'balloon_content_footer' => '',
-						'balloon_is_opened'      => 'no',
-					),
-				),
-				'fields'      => array(
+						'label'       => __( 'Pin Item', 'mihdan-elementor-yandex-maps' ),
+						'type'        => Controls_Manager::REPEATER,
+						'default'     => array(
+							array(
+								'pin_notice'             => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
+								'point_lat'              => $this->get_default_lat(),
+								'point_lng'              => $this->get_default_lng(),
+								'icon_color'             => 'blue',
+								'icon_type'              => 'Circle',
+								'icon_caption'           => '',
+								'icon_content'           => '',
+								'hint_content'           => '',
+								'balloon_content_header' => __( 'Balloon Content Header Default', 'mihdan-elementor-yandex-maps' ),
+								'balloon_content_body'   => '',
+								'balloon_content_footer' => '',
+								'balloon_is_opened'      => 'no',
+							),
+						),
+						'fields'      => array(
+							array(
+								'name'        => 'pin_notice',
+								'label'       => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
+								'type'        => Controls_Manager::RAW_HTML,
+								'raw'         => '<form onsubmit="mihdan_elementor_yandex_maps_find_pin_address( this, \'' . $this->get_id() . '\' );" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;" placeholder="' . __( 'Enter Search Address', 'mihdan-elementor-yandex-maps' ) . '" /><input type="submit" value="' . __( 'Search', 'mihdan-elementor-yandex-maps' ) . '" class="elementor-button elementor-button-default" onclick="mihdan_elementor_yandex_maps_find_pin_address( this, \'' . $this->get_id() . '\' )"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
+								'label_block' => true,
+							),
+							array(
+								'name'        => 'point_lat',
+								'label'       => __( 'Latitude', 'mihdan-elementor-yandex-maps' ),
+								'type'        => Controls_Manager::TEXT,
+								'default'     => $this->get_default_lat(),
+								'placeholder' => $this->get_default_lat(),
+								'dynamic'     => array(
+									'active' => true,
+								),
+							),
+							array(
+								'name'        => 'point_lng',
+								'label'       => __( 'Longitude', 'mihdan-elementor-yandex-maps' ),
+								'type'        => Controls_Manager::TEXT,
+								'default'     => $this->get_default_lng(),
+								'placeholder' => $this->get_default_lng(),
+								'dynamic'     => array(
+									'active' => true,
+								),
+							),
+							array(
+								'name'    => 'icon_color',
+								'label'   => __( 'Icon Color', 'mihdan-elementor-yandex-maps' ),
+								'type'    => Controls_Manager::SELECT,
+								'options' => $this->get_icon_colors(),
+								'default' => 'blue',
+							),
+							array(
+								// @link https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/option.presetStorage-docpage/
+								'name'    => 'icon_type',
+								'label'   => __( 'Icon Type', 'mihdan-elementor-yandex-maps' ),
+								'type'    => Controls_Manager::SELECT2,
+								'options' => $this->get_icon_types(),
+								'default' => 'Circle',
+							),
+							array(
+								'name'      => 'icon_image',
+								'label'     => __( 'Image', 'mihdan-elementor-yandex-maps' ),
+								'type'      => Controls_Manager::MEDIA,
+								'condition' => array(
+									'icon_type' => 'Custom',
+								),
+								'dynamic'   => array(
+									'active' => true,
+								),
+							),
+							array(
+								'name'        => 'icon_caption',
+								'label'       => __( 'Icon Caption', 'mihdan-elementor-yandex-maps' ),
+								'type'        => Controls_Manager::TEXT,
+								'default'     => '',
+								'label_block' => true,
+								'dynamic'     => array(
+									'active' => true,
+								),
+							),
+							array(
+								'name'        => 'icon_content',
+								'label'       => __( 'Icon Content', 'mihdan-elementor-yandex-maps' ),
+								'type'        => Controls_Manager::TEXT,
+								'default'     => '',
+								'label_block' => true,
+								'dynamic'     => array(
+									'active' => true,
+								),
+							),
+							array(
+								'name'        => 'hint_content',
+								'label'       => __( 'Hint Content', 'mihdan-elementor-yandex-maps' ),
+								'type'        => Controls_Manager::TEXT,
+								'default'     => '',
+								'label_block' => true,
+								'dynamic'     => array(
+									'active' => true,
+								),
+							),
+							array(
+								'name'        => 'balloon_content_header',
+								'label'       => __( 'Balloon Content Header', 'mihdan-elementor-yandex-maps' ),
+								'type'        => Controls_Manager::TEXT,
+								'default'     => __( 'Balloon Content Header Default', 'mihdan-elementor-yandex-maps' ),
+								'label_block' => true,
+								'dynamic'     => array(
+									'active' => true,
+								),
+							),
+							array(
+								'name'    => 'balloon_content_body',
+								'label'   => __( 'Balloon Content Body', 'mihdan-elementor-yandex-maps' ),
+								'type'    => Controls_Manager::WYSIWYG,
+								'default' => '',
+								'dynamic' => array(
+									'active' => true,
+								),
+							),
+							array(
+								'name'    => 'balloon_content_footer',
+								'label'   => __( 'Balloon Content Footer', 'mihdan-elementor-yandex-maps' ),
+								'type'    => Controls_Manager::TEXTAREA,
+								'default' => '',
+								'dynamic' => array(
+									'active' => true,
+								),
+							),
+							array(
+								'name'    => 'balloon_is_opened',
+								'label'   => __( 'Balloon Is Opened', 'mihdan-elementor-yandex-maps' ),
+								'type'    => Controls_Manager::SWITCHER,
+								'default' => 'no',
+							),
+						),
+						'title_field' => '{{{ balloon_content_header }}}',
+					)
+				);
+
+			$this->end_controls_tab(); // End manual tab.
+
+			$this->start_controls_tab(
+				'points_source_post_types',
+				array(
+					'label' => __( 'Post Type', 'mihdan-elementor-yandex-maps' ),
+				)
+			);
+
+				$this->add_control(
+					'points_source_post_type',
 					array(
-						'name'        => 'pin_notice',
-						'label'       => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
-						'type'        => Controls_Manager::RAW_HTML,
-						'raw'         => '<form onsubmit="mihdan_elementor_yandex_maps_find_pin_address( this, \'' . $this->get_id() . '\' );" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;" placeholder="' . __( 'Enter Search Address', 'mihdan-elementor-yandex-maps' ) . '" /><input type="submit" value="' . __( 'Search', 'mihdan-elementor-yandex-maps' ) . '" class="elementor-button elementor-button-default" onclick="mihdan_elementor_yandex_maps_find_pin_address( this, \'' . $this->get_id() . '\' )"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
-						'label_block' => true,
-					),
+						'label'   => __( 'Post Type', 'mihdan-elementor-yandex-maps' ),
+						'type'    => Controls_Manager::SELECT,
+						'options' => $this->get_public_post_types(),
+						'default' => 'post',
+						'dynamic' => array(
+							'active' => true,
+						),
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_limit',
 					array(
-						'name'        => 'point_lat',
+						'label'   => __( 'Limit', 'mihdan-elementor-yandex-maps' ),
+						'type'    => Controls_Manager::NUMBER,
+						'default' => 100,
+						'min'     => 1,
+						'max'     => 10000,
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_lat',
+					array(
 						'label'       => __( 'Latitude', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::TEXT,
-						'default'     => '55.7522200',
-						'placeholder' => '55.7522200',
+						'default'     => $this->get_default_lat(),
+						'placeholder' => $this->get_default_lat(),
 						'dynamic'     => array(
 							'active' => true,
 						),
-					),
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_lng',
 					array(
-						'name'        => 'point_lng',
 						'label'       => __( 'Longitude', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::TEXT,
-						'default'     => '37.6155600',
-						'placeholder' => '37.6155600',
+						'default'     => $this->get_default_lng(),
+						'placeholder' => $this->get_default_lng(),
 						'dynamic'     => array(
 							'active' => true,
 						),
-					),
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_icon_color',
 					array(
-						'name'    => 'icon_color',
 						'label'   => __( 'Icon Color', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::SELECT,
-						'options' => array(
-							'blue'       => __( 'Blue', 'mihdan-elementor-yandex-maps' ),
-							'red'        => __( 'Red', 'mihdan-elementor-yandex-maps' ),
-							'darkOrange' => __( 'Dark Orange', 'mihdan-elementor-yandex-maps' ),
-							'night'      => __( 'Night', 'mihdan-elementor-yandex-maps' ),
-							'darkBlue'   => __( 'Dark Blue', 'mihdan-elementor-yandex-maps' ),
-							'pink'       => __( 'Pink', 'mihdan-elementor-yandex-maps' ),
-							'gray'       => __( 'Gray', 'mihdan-elementor-yandex-maps' ),
-							'brown'      => __( 'Brown', 'mihdan-elementor-yandex-maps' ),
-							'darkGreen'  => __( 'Dark Green', 'mihdan-elementor-yandex-maps' ),
-							'violet'     => __( 'Violet', 'mihdan-elementor-yandex-maps' ),
-							'black'      => __( 'Black', 'mihdan-elementor-yandex-maps' ),
-							'yellow'     => __( 'Yellow', 'mihdan-elementor-yandex-maps' ),
-							'green'      => __( 'Green', 'mihdan-elementor-yandex-maps' ),
-							'orange'     => __( 'Orange', 'mihdan-elementor-yandex-maps' ),
-							'lightBlue'  => __( 'Light Blue', 'mihdan-elementor-yandex-maps' ),
-							'olive'      => __( 'Olive', 'mihdan-elementor-yandex-maps' ),
-						),
+						'options' => $this->get_icon_colors(),
 						'default' => 'blue',
-					),
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_icon_type',
 					array(
-						// @link https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/option.presetStorage-docpage/
-						'name'    => 'icon_type',
 						'label'   => __( 'Icon Type', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::SELECT2,
-						'options' => array(
-							''                          => __( 'Default Icon', 'mihdan-elementor-yandex-maps' ),
-							'Custom'                    => __( 'Custom', 'mihdan-elementor-yandex-maps' ),
-							'Stretchy'                  => __( 'Stretchy Icon', 'mihdan-elementor-yandex-maps' ),
-							'Dot'                       => __( 'Dot Icon', 'mihdan-elementor-yandex-maps' ),
-							'Circle'                    => __( 'Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'CircleDot'                 => __( 'Circle Dot Icon', 'mihdan-elementor-yandex-maps' ),
-							'Airport'                   => __( 'Airport Icon', 'mihdan-elementor-yandex-maps' ),
-							'Attention'                 => __( 'Attention Icon', 'mihdan-elementor-yandex-maps' ),
-							'Auto'                      => __( 'Auto Icon', 'mihdan-elementor-yandex-maps' ),
-							'Bar'                       => __( 'Bar Icon', 'mihdan-elementor-yandex-maps' ),
-							'Barber'                    => __( 'Barber Icon', 'mihdan-elementor-yandex-maps' ),
-							'Beach'                     => __( 'Beach Icon', 'mihdan-elementor-yandex-maps' ),
-							'Bicycle'                   => __( 'Bicycle Icon', 'mihdan-elementor-yandex-maps' ),
-							'Bicycle2'                  => __( 'Bicycle2 Icon', 'mihdan-elementor-yandex-maps' ),
-							'Book'                      => __( 'Book Icon', 'mihdan-elementor-yandex-maps' ),
-							'CarWash'                   => __( 'CarWash Icon', 'mihdan-elementor-yandex-maps' ),
-							'Christian'                 => __( 'Book Icon', 'mihdan-elementor-yandex-maps' ),
-							'Cinema'                    => __( 'Cinema Icon', 'mihdan-elementor-yandex-maps' ),
-							'Circus'                    => __( 'Circus Icon', 'mihdan-elementor-yandex-maps' ),
-							'Court'                     => __( 'Court Icon', 'mihdan-elementor-yandex-maps' ),
-							'Delivery'                  => __( 'Delivery Icon', 'mihdan-elementor-yandex-maps' ),
-							'Discount'                  => __( 'Discount Icon', 'mihdan-elementor-yandex-maps' ),
-							'Dog'                       => __( 'Dog Icon', 'mihdan-elementor-yandex-maps' ),
-							'Education'                 => __( 'Education Icon', 'mihdan-elementor-yandex-maps' ),
-							'EntertainmentCenter'       => __( 'EntertainmentCenter Icon', 'mihdan-elementor-yandex-maps' ),
-							'Factory'                   => __( 'Factory Icon', 'mihdan-elementor-yandex-maps' ),
-							'Family'                    => __( 'Family Icon', 'mihdan-elementor-yandex-maps' ),
-							'Fashion'                   => __( 'Fashion Icon', 'mihdan-elementor-yandex-maps' ),
-							'Food'                      => __( 'Food Icon', 'mihdan-elementor-yandex-maps' ),
-							'FuelStation'               => __( 'FuelStation Icon', 'mihdan-elementor-yandex-maps' ),
-							'Garden'                    => __( 'Garden Icon', 'mihdan-elementor-yandex-maps' ),
-							'Government'                => __( 'Government Icon', 'mihdan-elementor-yandex-maps' ),
-							'Heart'                     => __( 'Heart Icon', 'mihdan-elementor-yandex-maps' ),
-							'Home'                      => __( 'Home Icon', 'mihdan-elementor-yandex-maps' ),
-							'Hotel'                     => __( 'Hotel Icon', 'mihdan-elementor-yandex-maps' ),
-							'Hydro'                     => __( 'Hydro Icon', 'mihdan-elementor-yandex-maps' ),
-							'Info'                      => __( 'Info Icon', 'mihdan-elementor-yandex-maps' ),
-							'Laundry'                   => __( 'Laundry Icon', 'mihdan-elementor-yandex-maps' ),
-							'Leisure'                   => __( 'Leisure Icon', 'mihdan-elementor-yandex-maps' ),
-							'MassTransit'               => __( 'MassTransit Icon', 'mihdan-elementor-yandex-maps' ),
-							'Medical'                   => __( 'Medical Icon', 'mihdan-elementor-yandex-maps' ),
-							'Money'                     => __( 'Money Icon', 'mihdan-elementor-yandex-maps' ),
-							'Mountain'                  => __( 'Mountain Icon', 'mihdan-elementor-yandex-maps' ),
-							'NightClub'                 => __( 'NightClub Icon', 'mihdan-elementor-yandex-maps' ),
-							'Observation'               => __( 'Observation Icon', 'mihdan-elementor-yandex-maps' ),
-							'Park'                      => __( 'Park Icon', 'mihdan-elementor-yandex-maps' ),
-							'Parking'                   => __( 'Parking Icon', 'mihdan-elementor-yandex-maps' ),
-							'Person'                    => __( 'Person Icon', 'mihdan-elementor-yandex-maps' ),
-							'Pocket'                    => __( 'Pocket Icon', 'mihdan-elementor-yandex-maps' ),
-							'Pool'                      => __( 'Pool Icon', 'mihdan-elementor-yandex-maps' ),
-							'Post'                      => __( 'Post Icon', 'mihdan-elementor-yandex-maps' ),
-							'Railway'                   => __( 'Railway Icon', 'mihdan-elementor-yandex-maps' ),
-							'RapidTransit'              => __( 'RapidTransit Icon', 'mihdan-elementor-yandex-maps' ),
-							'RepairShop'                => __( 'RepairShop Icon', 'mihdan-elementor-yandex-maps' ),
-							'Run'                       => __( 'Run Icon', 'mihdan-elementor-yandex-maps' ),
-							'Science'                   => __( 'Science Icon', 'mihdan-elementor-yandex-maps' ),
-							'Shopping'                  => __( 'Shopping Icon', 'mihdan-elementor-yandex-maps' ),
-							'Souvenirs'                 => __( 'Souvenirs Icon', 'mihdan-elementor-yandex-maps' ),
-							'Sport'                     => __( 'Sport Icon', 'mihdan-elementor-yandex-maps' ),
-							'Star'                      => __( 'Star Icon', 'mihdan-elementor-yandex-maps' ),
-							'Theater'                   => __( 'Theater Icon', 'mihdan-elementor-yandex-maps' ),
-							'Toilet'                    => __( 'Toilet Icon', 'mihdan-elementor-yandex-maps' ),
-							'Underpass'                 => __( 'Underpass Icon', 'mihdan-elementor-yandex-maps' ),
-							'Vegetation'                => __( 'Vegetation Icon', 'mihdan-elementor-yandex-maps' ),
-							'Video'                     => __( 'Video Icon', 'mihdan-elementor-yandex-maps' ),
-							'Waste'                     => __( 'Waste Icon', 'mihdan-elementor-yandex-maps' ),
-							'WaterPark'                 => __( 'WaterPark Icon', 'mihdan-elementor-yandex-maps' ),
-							'Waterway'                  => __( 'Waterway Icon', 'mihdan-elementor-yandex-maps' ),
-							'Worship'                   => __( 'Worship Icon', 'mihdan-elementor-yandex-maps' ),
-							'Zoo'                       => __( 'Zoo Icon', 'mihdan-elementor-yandex-maps' ),
-							'AirportCircle'             => __( 'Airport Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'AttentionCircle'           => __( 'Attention Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'AutoCircle'                => __( 'Auto Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'BarCircle'                 => __( 'Bar Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'BarberCircle'              => __( 'Barber Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'BeachCircle'               => __( 'Beach Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'BicycleCircle'             => __( 'Bicycle Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'Bicycle2Circle'            => __( 'Bicycle2 Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'BookCircle'                => __( 'Book Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'CarWashCircle'             => __( 'CarWash Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'ChristianCircle'           => __( 'Book Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'CinemaCircle'              => __( 'Cinema Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'CircusCircle'              => __( 'Circus Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'CourtCircle'               => __( 'Court Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'DeliveryCircle'            => __( 'Delivery Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'DiscountCircle'            => __( 'Discount Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'DogCircle'                 => __( 'Dog Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'EducationCircle'           => __( 'Education Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'EntertainmentCenterCircle' => __( 'EntertainmentCenter Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'FactoryCircle'             => __( 'Factory Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'FamilyCircle'              => __( 'Family Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'FashionCircle'             => __( 'Fashion Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'FoodCircle'                => __( 'Food Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'FuelStationCircle'         => __( 'FuelStation Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'GardenCircle'              => __( 'Garden Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'GovernmentCircle'          => __( 'Government Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'HeartCircle'               => __( 'Heart Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'HomeCircle'                => __( 'Home Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'HotelCircle'               => __( 'Hotel Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'HydroCircle'               => __( 'Hydro Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'InfoCircle'                => __( 'Info Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'LaundryCircle'             => __( 'Laundry Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'LeisureCircle'             => __( 'Leisure Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'MassTransitCircle'         => __( 'MassTransit Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'MedicalCircle'             => __( 'Medical Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'MoneyCircle'               => __( 'Money Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'MountainCircle'            => __( 'Mountain Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'NightClubCircle'           => __( 'NightClub Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'ObservationCircle'         => __( 'Observation Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'ParkCircle'                => __( 'Park Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'ParkingCircle'             => __( 'Parking Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'PersonCircle'              => __( 'Person Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'PocketCircle'              => __( 'Pocket Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'PoolCircle'                => __( 'Pool Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'PostCircle'                => __( 'Post Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'RailwayCircle'             => __( 'Railway Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'RapidTransitCircle'        => __( 'RapidTransit Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'RepairShopCircle'          => __( 'RepairShop Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'RunCircle'                 => __( 'Run Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'ScienceCircle'             => __( 'Science Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'ShoppingCircle'            => __( 'Shopping Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'SouvenirsCircle'           => __( 'Souvenirs Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'SportCircle'               => __( 'Sport Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'StarCircle'                => __( 'Star Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'TheaterCircle'             => __( 'Theater Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'ToiletCircle'              => __( 'Toilet Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'UnderpassCircle'           => __( 'Underpass Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'VegetationCircle'          => __( 'Vegetation Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'VideoCircle'               => __( 'Video Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'WasteCircle'               => __( 'Waste Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'WaterParkCircle'           => __( 'WaterPark Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'WaterwayCircle'            => __( 'Waterway Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'WorshipCircle'             => __( 'Worship Circle Icon', 'mihdan-elementor-yandex-maps' ),
-							'ZooCircle'                 => __( 'Zoo Circle Icon', 'mihdan-elementor-yandex-maps' ),
-						),
+						'options' => $this->get_icon_types(),
 						'default' => 'Circle',
-					),
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_icon_image',
 					array(
-						'name'      => 'icon_image',
 						'label'     => __( 'Image', 'mihdan-elementor-yandex-maps' ),
 						'type'      => Controls_Manager::MEDIA,
 						'condition' => array(
-							'icon_type' => 'Custom',
+							'points_source_post_type_icon_type' => 'Custom',
 						),
 						'dynamic'   => array(
 							'active' => true,
 						),
-					),
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_icon_caption',
 					array(
-						'name'        => 'icon_caption',
 						'label'       => __( 'Icon Caption', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '',
@@ -761,9 +1006,12 @@ class Widget extends Widget_Base {
 						'dynamic'     => array(
 							'active' => true,
 						),
-					),
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_icon_content',
 					array(
-						'name'        => 'icon_content',
 						'label'       => __( 'Icon Content', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '',
@@ -771,9 +1019,12 @@ class Widget extends Widget_Base {
 						'dynamic'     => array(
 							'active' => true,
 						),
-					),
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_hint_content',
 					array(
-						'name'        => 'hint_content',
 						'label'       => __( 'Hint Content', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '',
@@ -781,9 +1032,12 @@ class Widget extends Widget_Base {
 						'dynamic'     => array(
 							'active' => true,
 						),
-					),
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_balloon_content_header',
 					array(
-						'name'        => 'balloon_content_header',
 						'label'       => __( 'Balloon Content Header', 'mihdan-elementor-yandex-maps' ),
 						'type'        => Controls_Manager::TEXT,
 						'default'     => __( 'Balloon Content Header Default', 'mihdan-elementor-yandex-maps' ),
@@ -791,35 +1045,71 @@ class Widget extends Widget_Base {
 						'dynamic'     => array(
 							'active' => true,
 						),
-					),
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_balloon_content_body',
 					array(
-						'name'    => 'balloon_content_body',
 						'label'   => __( 'Balloon Content Body', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::WYSIWYG,
 						'default' => '',
 						'dynamic' => array(
 							'active' => true,
 						),
-					),
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_balloon_content_footer',
 					array(
-						'name'    => 'balloon_content_footer',
 						'label'   => __( 'Balloon Content Footer', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::TEXTAREA,
 						'default' => '',
 						'dynamic' => array(
 							'active' => true,
 						),
-					),
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_show_post_thumbnail',
 					array(
-						'name'    => 'balloon_is_opened',
-						'label'   => __( 'Balloon Is Opened', 'mihdan-elementor-yandex-maps' ),
+						'label'   => __( 'Show Post Thumbnail', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::SWITCHER,
 						'default' => 'no',
-					),
-				),
-				'title_field' => '{{{ balloon_content_header }}}',
-			)
-		);
+					)
+				);
+
+				$this->add_control(
+					'points_source_post_type_show_post_permalink',
+					array(
+						'label'   => __( 'Show Post Permalink', 'mihdan-elementor-yandex-maps' ),
+						'type'    => Controls_Manager::SWITCHER,
+						'default' => 'no',
+					)
+				);
+
+			$this->end_controls_tab(); // End CPT tab.
+
+			$this->start_controls_tab(
+				'points_source_kml',
+				array(
+					'label' => __( 'KML', 'mihdan-elementor-yandex-maps' ),
+				)
+			);
+
+				$this->add_control(
+					'zalupa',
+					array(
+						'type' => Controls_Manager::RAW_HTML,
+						'raw'  => '<p>Ожидайте в следующей версии плагина. Помочь в его развитии вы всегда можете <a href="https://www.kobzarev.com/donate/" target="_blank">здесь</a>.</p>',
+					)
+				);
+
+			$this->end_controls_tab(); // End KML tab.
+
+		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 	}
@@ -844,6 +1134,61 @@ class Widget extends Widget_Base {
 			'clusterPreset' => sprintf( 'islands#%sClusterIcons', $settings['cluster_color'] ),
 			'features'      => array(),
 		);
+
+		/**
+		 * Откуда тянуть точки для карты: KML, CPT, ручками.
+		 */
+		if ( ! empty( $settings['points_source_post_type'] ) ) {
+			$args = array(
+				'post_type'      => $settings['points_source_post_type'],
+				'post_status'    => 'publish',
+				'no_found_rows'  => true,
+				'posts_per_page' => $settings['points_source_post_type_limit'],
+			);
+
+			$points = get_posts( $args );
+
+			if ( $points ) {
+				$i                = 0;
+				$settings['tabs'] = array();
+
+				foreach ( $points as $point ) {
+
+					$balloon_content_body   = $this->calculate_dynamic_content( 'points_source_post_type_balloon_content_body', $settings, $point->ID );
+					$balloon_content_footer = $this->calculate_dynamic_content( 'points_source_post_type_balloon_content_footer', $settings, $point->ID );
+					$icon_caption           = $this->calculate_dynamic_content( 'points_source_post_type_icon_caption', $settings, $point->ID );
+					$icon_content           = $this->calculate_dynamic_content( 'points_source_post_type_icon_content', $settings, $point->ID );
+					$hint_content           = $this->calculate_dynamic_content( 'points_source_post_type_hint_content', $settings, $point->ID );
+
+					if ( 'yes' === $settings['points_source_post_type_show_post_thumbnail'] ) {
+						$balloon_content_body = sprintf( '<img src="%s" width="280" />', get_the_post_thumbnail_url( $point->ID, 'small' ) ) . $balloon_content_body;
+					}
+
+					if ( 'yes' === $settings['points_source_post_type_show_post_permalink'] ) {
+						$balloon_content_footer = $balloon_content_footer . sprintf( '<a href="%s">Подробнее</a>', get_permalink( $point->ID ) );
+					}
+
+					$settings['tabs'][ $i ] = array(
+						'point_lat'              => $this->calculate_dynamic_content( 'points_source_post_type_lat', $settings, $point->ID ),
+						'point_lng'              => $this->calculate_dynamic_content( 'points_source_post_type_lng', $settings, $point->ID ),
+						'balloon_content_header' => $this->calculate_dynamic_content( 'points_source_post_type_balloon_content_header', $settings, $point->ID ),
+						'balloon_content_body'   => $balloon_content_body,
+						'balloon_content_footer' => $balloon_content_footer,
+						'icon_caption'           => $icon_caption,
+						'icon_content'           => $icon_content,
+						'hint_content'           => $hint_content,
+						'icon_color'             => $settings['points_source_post_type_icon_color'],
+						'icon_type'              => $settings['points_source_post_type_icon_type'],
+						'icon_image'             => $settings['points_source_post_type_icon_image'],
+						'balloon_is_opened'      => 'no',
+					);
+
+					$i ++;
+				}
+			}
+
+			wp_reset_postdata();
+		}
 
 		foreach ( $settings['tabs'] as $index => $item ) {
 			// Для старых версий.
@@ -883,7 +1228,8 @@ class Widget extends Widget_Base {
 					'hintContent'          => $item['hint_content'],
 					'balloonContentHeader' => $balloon_content_header,
 					'balloonContentFooter' => $item['balloon_content_footer'],
-					'balloonContentBody'   => htmlspecialchars( $balloon_content_body, ENT_QUOTES & ~ENT_COMPAT ),
+					//'balloonContentBody'   => htmlspecialchars( $balloon_content_body, ENT_QUOTES & ~ENT_COMPAT ),
+					'balloonContentBody'   => $balloon_content_body,
 				),
 				'options'    => array(
 					'preset'          => sprintf( 'islands#%s%sIcon', $item['icon_color'], $item['icon_type'] ),
@@ -894,6 +1240,7 @@ class Widget extends Widget_Base {
 				),
 			);
 		}
+
 
 		$classes = array(
 			'mihdan-elementor-yandex-maps',
@@ -938,6 +1285,81 @@ class Widget extends Widget_Base {
 		</script>
 		<div id="mihdan_elementor_yandex_map_<?php echo esc_attr( $this->get_id() ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" style="height: <?php echo esc_attr( $settings['height']['size'] ); ?><?php echo esc_attr( $settings['height']['unit'] ); ?>;"></div>
 		<?php
+	}
+
+	/**
+	 * Calculate dynamic conntent for key.
+	 *
+	 * @param string $key      Key name for search.
+	 * @param array  $settings Array of settings.
+	 * @param int    $post_id  Post ID.
+	 *
+	 * @return mixed|string
+	 */
+	private function calculate_dynamic_content( $key, $settings, $post_id ) {
+
+		if ( ! isset( $settings[ Manager::DYNAMIC_SETTING_KEY ][ $key ] ) ) {
+			return $settings[ $key ];
+		}
+
+		$settings = $settings[ Manager::DYNAMIC_SETTING_KEY ][ $key ];
+		$data     = Plugin::instance()->dynamic_tags->tag_text_to_tag_data( $settings );
+
+		switch ( $data['name'] ) {
+			case 'acf-text':
+				$value = get_field( explode( ':', $data['settings']['key'] )[0], $post_id );
+				break;
+			case 'post-custom-field':
+				$value = get_post_meta( $post_id, $data['settings']['custom_key'], true );
+				break;
+			case 'jet-post-custom-field':
+				$value = get_post_meta( $post_id, $data['settings']['meta_field'], true );
+				break;
+			case 'post-title':
+				$value = get_the_title( $post_id );
+				break;
+			case 'post-excerpt':
+				$value = get_the_excerpt( $post_id );
+				break;
+			default:
+				$value = $settings[ $key ];
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Get public post types.
+	 *
+	 * @param array $args Arguments for get_post_types().
+	 *
+	 * @return array
+	 */
+	private function get_public_post_types( $args = array() ) {
+		$post_type_args = array(
+			// Default is the value $public.
+			'show_in_nav_menus' => true,
+		);
+
+		// Keep for backwards compatibility.
+		if ( ! empty( $args['post_type'] ) ) {
+			$post_type_args['name'] = $args['post_type'];
+			unset( $args['post_type'] );
+		}
+
+		$post_type_args = wp_parse_args( $post_type_args, $args );
+
+		$_post_types = get_post_types( $post_type_args, 'objects' );
+
+		$post_types = array(
+			'' => __( 'Not select', 'mihdan-elementor-yandex-maps' ),
+		);
+
+		foreach ( $_post_types as $post_type => $object ) {
+			$post_types[ $post_type ] = $object->label;
+		}
+
+		return $post_types;
 	}
 }
 
