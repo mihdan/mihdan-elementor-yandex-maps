@@ -8,13 +8,12 @@
 namespace Mihdan\ElementorYandexMaps\Widget;
 
 use Elementor\Core\DynamicTags\Manager;
-use Elementor\Modules\DynamicTags\Module as TagsModule;
 use Elementor\Plugin;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+	exit;
 }
 
 /**
@@ -824,6 +823,18 @@ class Widget extends Widget_Base {
 								'default' => 'Circle',
 							),
 							array(
+								'name'      => 'icon_size',
+								'label'     => __( 'Icon Size', 'mihdan-elementor-yandex-maps' ),
+								'type'      => Controls_Manager::NUMBER,
+								'condition' => array(
+									'icon_type' => 'Custom',
+								),
+								'min'       => 16,
+								'max'       => 100,
+								'step'      => 2,
+								'default'   => 32,
+							),
+							array(
 								'name'      => 'icon_image',
 								'label'     => __( 'Image', 'mihdan-elementor-yandex-maps' ),
 								'type'      => Controls_Manager::MEDIA,
@@ -983,9 +994,24 @@ class Widget extends Widget_Base {
 				);
 
 				$this->add_control(
+					'points_source_post_type_icon_size',
+					array(
+						'label'     => __( 'Icon Size', 'mihdan-elementor-yandex-maps' ),
+						'type'      => Controls_Manager::NUMBER,
+						'condition' => array(
+							'points_source_post_type_icon_type' => 'Custom',
+						),
+						'min'       => 16,
+						'max'       => 100,
+						'step'      => 2,
+						'default'   => 32,
+					)
+				);
+
+				$this->add_control(
 					'points_source_post_type_icon_image',
 					array(
-						'label'     => __( 'Image', 'mihdan-elementor-yandex-maps' ),
+						'label'     => __( 'Icon Image', 'mihdan-elementor-yandex-maps' ),
 						'type'      => Controls_Manager::MEDIA,
 						'condition' => array(
 							'points_source_post_type_icon_type' => 'Custom',
@@ -1179,7 +1205,8 @@ class Widget extends Widget_Base {
 						'hint_content'           => $hint_content,
 						'icon_color'             => $settings['points_source_post_type_icon_color'],
 						'icon_type'              => $settings['points_source_post_type_icon_type'],
-						'icon_image'             => $settings['points_source_post_type_icon_image'],
+						'icon_image'             => $this->calculate_dynamic_content( 'points_source_post_type_icon_image', $settings, $point->ID ),
+						'icon_size'              => $settings['points_source_post_type_icon_size'],
 						'balloon_is_opened'      => 'no',
 					);
 
@@ -1206,10 +1233,9 @@ class Widget extends Widget_Base {
 
 			// Custom marker.
 			if ( $icon_image ) {
-				$icon_image_metadata = wp_get_attachment_metadata( $icon_image['id'] );
-				$icon_image_width    = $icon_image_metadata['width'];
-				$icon_image_height   = $icon_image_metadata['height'];
-				$icon_image_url      = $icon_image['url'];
+				$icon_image_width  = $item['icon_size'];
+				$icon_image_height = $item['icon_size'];
+				$icon_image_url    = $icon_image['url'];
 			}
 
 			$geo_json['features'][] = array(
@@ -1228,7 +1254,6 @@ class Widget extends Widget_Base {
 					'hintContent'          => $item['hint_content'],
 					'balloonContentHeader' => $balloon_content_header,
 					'balloonContentFooter' => $item['balloon_content_footer'],
-					//'balloonContentBody'   => htmlspecialchars( $balloon_content_body, ENT_QUOTES & ~ENT_COMPAT ),
 					'balloonContentBody'   => $balloon_content_body,
 				),
 				'options'    => array(
@@ -1320,6 +1345,12 @@ class Widget extends Widget_Base {
 				break;
 			case 'post-excerpt':
 				$value = get_the_excerpt( $post_id );
+				break;
+			case 'post-featured-image':
+				$value = array(
+					'url' => get_the_post_thumbnail_url( $post_id, 'thumbnail' ),
+					'id'  => get_post_thumbnail_id( $post_id ),
+				);
 				break;
 			default:
 				$value = $settings[ $key ];
