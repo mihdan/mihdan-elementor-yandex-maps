@@ -180,13 +180,13 @@
 
 							// Custom icon.
 							if ( Element.options.iconImage ) {
-								options.iconLayout    = 'default#image';
-								options.iconImageHref =  Element.options.iconImage;
+								options.iconLayout    = 'default#imageWithContent';
+								options.iconImageHref = Element.options.iconImage;
 								options.iconImageSize = [
 									parseInt( Element.options.iconImageWidth, 10 ),
 									parseInt( Element.options.iconImageHeight, 10 )
 								];
-							} else{
+							} else {
 								options.preset          = Element.options.preset;
 								options.balloonMaxWidth = parseInt( infowindow_max_width, 10 );
 							}
