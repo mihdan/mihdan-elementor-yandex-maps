@@ -4,7 +4,8 @@
     "keywords": ["wordpress", "plugin", "yandex", "maps", "mihdan", "elementor", "api"],
     "type": "wordpress-plugin",
     "require": {
-        "wptrt/admin-notices": "^1.0"
+      "wptrt/admin-notices": "^1.0",
+      "ext-json": "*"
     },
     "require-dev": {
       "squizlabs/php_codesniffer": "^3.0",
