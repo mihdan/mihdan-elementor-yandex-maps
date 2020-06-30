@@ -929,7 +929,7 @@ class Widget extends Widget_Base {
 						'label'   => __( 'Post Type', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::SELECT,
 						'options' => $this->get_public_post_types(),
-						'default' => 'post',
+						'default' => 'none',
 						'dynamic' => array(
 							'active' => true,
 						),
@@ -1164,7 +1164,7 @@ class Widget extends Widget_Base {
 		/**
 		 * Откуда тянуть точки для карты: KML, CPT, ручками.
 		 */
-		if ( ! empty( $settings['points_source_post_type'] ) ) {
+		if ( ! empty( $settings['points_source_post_type'] ) && 'none' !== $settings['points_source_post_type'] ) {
 			$args = array(
 				'post_type'      => $settings['points_source_post_type'],
 				'post_status'    => 'publish',
@@ -1305,7 +1305,7 @@ class Widget extends Widget_Base {
 				"disableRuler" : "<?php echo esc_attr( $settings['disable_ruler'] ); ?>",
 				"enableObjectManager" : "<?php echo esc_attr( $settings['enable_object_manager'] ); ?>",
 				"infoWindowMaxWidth" : "<?php echo esc_attr( $settings['infowindow_max_width'] ); ?>",
-				"locations" : <?php echo wp_json_encode( $geo_json ); ?>
+				"locations" : <?php echo wp_json_encode( $geo_json, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ); ?>
 			};
 		</script>
 		<div id="mihdan_elementor_yandex_map_<?php echo esc_attr( $this->get_id() ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" style="height: <?php echo esc_attr( $settings['height']['size'] ); ?><?php echo esc_attr( $settings['height']['unit'] ); ?>;"></div>
@@ -1383,7 +1383,7 @@ class Widget extends Widget_Base {
 		$_post_types = get_post_types( $post_type_args, 'objects' );
 
 		$post_types = array(
-			'' => __( 'Not select', 'mihdan-elementor-yandex-maps' ),
+			'none' => __( 'Not select', 'mihdan-elementor-yandex-maps' ),
 		);
 
 		foreach ( $_post_types as $post_type => $object ) {
