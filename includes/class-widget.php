@@ -1352,6 +1352,11 @@ class Widget extends Widget_Base {
 					'id'  => get_post_thumbnail_id( $post_id ),
 				);
 				break;
+			case 'pods-text':
+				list( $pod_name, $pod_id, $meta_key ) = explode( ':', $data['settings']['key'] );
+
+				$value = pods( $pod_name, $post_id )->field( $meta_key );
+				break;
 			default:
 				$value = $settings[ $key ];
 		}

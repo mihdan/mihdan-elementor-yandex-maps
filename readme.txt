@@ -30,6 +30,7 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 
 = 1.4.2 (30.06.2020) =
 * Fixed bug with manual inserting pins
+* Fixed bug with coordinates inserted via Pods Framework
 
 = 1.4.1 (16.06.2020) =
 * Added dynamic tag for icon image
