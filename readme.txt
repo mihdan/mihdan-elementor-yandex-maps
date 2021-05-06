@@ -5,7 +5,7 @@ Donate link: https://www.kobzarev.com/donate/
 Requires at least: 5.0
 Tested up to: 5.7
 Requires PHP: 5.6.20
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 
 Elementor Yandex Maps Widget
 
