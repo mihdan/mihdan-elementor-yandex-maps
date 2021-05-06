@@ -3,7 +3,7 @@ Contributors: mihdan
 Tags: elementor, yandex, maps, api, mihdan
 Donate link: https://www.kobzarev.com/donate/
 Requires at least: 5.0
-Tested up to: 5.6
+Tested up to: 5.7
 Requires PHP: 5.6.20
 Stable tag: 1.4.3
 
@@ -27,6 +27,12 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 Получить API-ключ можно в [Кабинете разработчика](https://developer.tech.yandex.ru/services/). Нажмите «Получить ключ», затем выберите сервис «JavaScript API и HTTP Геокодер» и заполните анкету — ваш API-ключ будет сразу готов к использованию.
 
 == Changelog ==
+
+= 1.4.4 (06.05.2021) =
+* Added support for WordPress 5.7+
+* Added support for Elementor 3.3+
+* Fixed bug with address searching
+* Code refactoring
 
 = 1.4.3 (29.01.2021) =
 * Added support for WordPress 5.6+
