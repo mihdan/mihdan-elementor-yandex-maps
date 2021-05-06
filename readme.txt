@@ -12,6 +12,8 @@ Elementor Yandex Maps Widget
 == Description ==
 SEO-friendly Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard Elementor text editor. And many more custom map options.
 
+[youtube https://www.youtube.com/watch?v=UYAeDlxz9xs]
+
 Based on the original [Elementor Google Map Extended](https://wordpress.org/plugins/extended-google-map-for-elementor/) plugin by InternetCSS.
 
 == Installation ==
