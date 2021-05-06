@@ -11,6 +11,7 @@ use Elementor\Core\DynamicTags\Manager;
 use Elementor\Settings;
 use Elementor\Plugin;
 use Elementor\Widgets_Manager;
+use Elementor\Controls_Manager;
 use WPTRT\AdminNotices\Notices;
 
 /**
@@ -117,7 +118,8 @@ class Main {
 		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'editor_scripts' ) );
 		add_action( 'elementor/frontend/after_enqueue_styles', array( $this, 'frontend_styles' ) );
 		add_action( 'elementor/frontend/after_register_scripts', array( $this, 'frontend_scripts' ) );
-		add_action( 'elementor/widgets/widgets_registered', array( $this, 'require_widgets' ) );
+		add_action( 'elementor/widgets/widgets_registered', array( $this, 'init_widget' ) );
+		//add_action( 'elementor/controls/controls_registered', array( $this, 'init_controls' ) );
 		//add_action( 'elementor/dynamic_tags/register_tags', array( $this, 'register_tags' ) );
 		add_filter( 'wp_resource_hints', array( $this, 'resource_hints' ), 10, 2 );
 
@@ -250,8 +252,19 @@ class Main {
 	 *
 	 * @param Widgets_Manager $widgets_manager Widgets_Manager instance.
 	 */
-	public function require_widgets( Widgets_Manager $widgets_manager ) {
-		$widgets_manager->register_widget_type( new Widget\Widget() );
+	public function init_widget( Widgets_Manager $widgets_manager ) {
+		$widgets_manager->register_widget_type( new Widget() );
+	}
+
+	/**
+	 * Register new Elementor controls.
+	 *
+	 * @access public
+	 *
+	 * @param Controls_Manager $widgets_manager Widgets_Manager instance.
+	 */
+	public function init_controls( Controls_Manager $widgets_manager ) {
+		//$widgets_manager->register_control( 'control-type-', new Controls() );
 	}
 
 	/**

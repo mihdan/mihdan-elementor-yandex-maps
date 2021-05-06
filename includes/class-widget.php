@@ -5,12 +5,13 @@
  * @package mihdan-elementor-yandex-maps
  */
 
-namespace Mihdan\ElementorYandexMaps\Widget;
+namespace Mihdan\ElementorYandexMaps;
 
 use Elementor\Core\DynamicTags\Manager;
 use Elementor\Plugin;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
+use Elementor\Repeater;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -331,7 +332,7 @@ class Widget extends Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		/**
 		 * Настройки карты
@@ -348,7 +349,7 @@ class Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
 				'type'        => Controls_Manager::RAW_HTML,
-				'raw'         => '<form onsubmit="return mihdan_elementor_yandex_maps_find_address( this );"><input type="search" style="margin-top:10px; margin-bottom:10px;" placeholder="' . __( 'Enter Search Address', 'mihdan-elementor-yandex-maps' ) . '" /><input type="submit" value="Search" class="elementor-button elementor-button-default"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
+				'raw'         => '<form onsubmit="return mihdan_elementor_yandex_maps_find_address( this );"><input type="search" style="margin-top:10px; margin-bottom:10px;" placeholder="' . __( 'Enter Search Address', 'mihdan-elementor-yandex-maps' ) . '" /><input type="submit" value="Search" class="elementor-button elementor-button-default"></form><div class="mihdan-elementor-yandex-maps-output-result"></div>',
 				'label_block' => true,
 			)
 		);
@@ -758,6 +759,183 @@ class Widget extends Widget_Base {
 				)
 			);
 
+				$pin_repeater = new Repeater();
+
+				$pin_repeater->add_control(
+					'pin_notice',
+					array(
+						'label' => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
+						'type'  => Controls_Manager::RAW_HTML,
+						'raw'   => sprintf(
+							'<form onsubmit="mihdan_elementor_yandex_maps_find_pin_address( this, \'%s\' );" action="javascript:void(0);"><input type="search" class="mihdan-elementor-yandex-maps-find-address" placeholder="%s" /><input type="submit" value="%s" class="elementor-button elementor-button-default"></form><div class="mihdan-elementor-yandex-maps-output-result"></div>',
+							$this->get_id(),
+							__( 'Enter Search Address', 'mihdan-elementor-yandex-maps' ),
+							__( 'Search', 'mihdan-elementor-yandex-maps' )
+						),
+					)
+				);
+
+				$pin_repeater->add_control(
+					'point_lat',
+					array(
+						'label'       => __( 'Latitude', 'mihdan-elementor-yandex-maps' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => $this->get_default_lat(),
+						'placeholder' => $this->get_default_lat(),
+						'dynamic'     => array(
+							'active' => true,
+						),
+					)
+				);
+
+				$pin_repeater->add_control(
+					'point_lng',
+					array(
+						'label'       => __( 'Longitude', 'mihdan-elementor-yandex-maps' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => $this->get_default_lng(),
+						'placeholder' => $this->get_default_lng(),
+						'dynamic'     => array(
+							'active' => true,
+						),
+					)
+				);
+
+				$pin_repeater->add_control(
+					'icon_color',
+					array(
+						'label'   => __( 'Icon Color', 'mihdan-elementor-yandex-maps' ),
+						'type'    => Controls_Manager::SELECT,
+						'options' => $this->get_icon_colors(),
+						'default' => 'blue',
+					)
+				);
+
+				$pin_repeater->add_control(
+					'icon_type',
+					array(
+						// @link https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/option.presetStorage-docpage/
+						'label'   => __( 'Icon Type', 'mihdan-elementor-yandex-maps' ),
+						'type'    => Controls_Manager::SELECT2,
+						'options' => $this->get_icon_types(),
+						'default' => 'Circle',
+					)
+				);
+
+				$pin_repeater->add_control(
+					'icon_size',
+					array(
+						'label'     => __( 'Icon Size', 'mihdan-elementor-yandex-maps' ),
+						'type'      => Controls_Manager::NUMBER,
+						'condition' => array(
+							'icon_type' => 'Custom',
+						),
+						'min'       => 16,
+						'max'       => 100,
+						'step'      => 2,
+						'default'   => 32,
+					)
+				);
+
+				$pin_repeater->add_control(
+					'icon_image',
+					array(
+						'label'     => __( 'Image', 'mihdan-elementor-yandex-maps' ),
+						'type'      => Controls_Manager::MEDIA,
+						'condition' => array(
+							'icon_type' => 'Custom',
+						),
+						'dynamic'   => array(
+							'active' => true,
+						),
+					)
+				);
+
+				$pin_repeater->add_control(
+					'icon_caption',
+					array(
+						'label'       => __( 'Icon Caption', 'mihdan-elementor-yandex-maps' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => '',
+						'label_block' => true,
+						'dynamic'     => array(
+							'active' => true,
+						),
+					)
+				);
+
+				$pin_repeater->add_control(
+					'icon_content',
+					array(
+						'label'       => __( 'Icon Content', 'mihdan-elementor-yandex-maps' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => '',
+						'label_block' => true,
+						'dynamic'     => array(
+							'active' => true,
+						),
+					)
+				);
+
+				$pin_repeater->add_control(
+					'hint_content',
+					array(
+						'label'       => __( 'Hint Content', 'mihdan-elementor-yandex-maps' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => '',
+						'label_block' => true,
+						'dynamic'     => array(
+							'active' => true,
+						),
+					)
+				);
+
+				$pin_repeater->add_control(
+					'balloon_content_header',
+					array(
+						'label'       => __( 'Balloon Content Header', 'mihdan-elementor-yandex-maps' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => __( 'Balloon Content Header Default', 'mihdan-elementor-yandex-maps' ),
+						'label_block' => true,
+						'dynamic'     => array(
+							'active' => true,
+						),
+					)
+				);
+
+				$pin_repeater->add_control(
+					'balloon_content_body',
+					array(
+						'label'   => __( 'Balloon Content Body', 'mihdan-elementor-yandex-maps' ),
+						'type'    => Controls_Manager::WYSIWYG,
+						'default' => '',
+						'dynamic' => array(
+							'active' => true,
+						),
+					)
+				);
+
+				$pin_repeater->add_control(
+					'balloon_content_footer',
+					array(
+						'label'   => __( 'Balloon Content Footer', 'mihdan-elementor-yandex-maps' ),
+						'type'    => Controls_Manager::TEXTAREA,
+						'default' => '',
+						'dynamic' => array(
+							'active' => true,
+						),
+					)
+				);
+
+				$pin_repeater->add_control(
+					'balloon_is_opened',
+					array(
+						'label'   => __( 'Balloon Is Opened', 'mihdan-elementor-yandex-maps' ),
+						'type'    => Controls_Manager::SWITCHER,
+						'default' => 'no',
+					)
+				);
+
 				$this->add_control(
 					'tabs',
 					array(
@@ -779,137 +957,7 @@ class Widget extends Widget_Base {
 								'balloon_is_opened'      => 'no',
 							),
 						),
-						'fields'      => array(
-							array(
-								'name'        => 'pin_notice',
-								'label'       => __( 'Find Latitude & Longitude', 'mihdan-elementor-yandex-maps' ),
-								'type'        => Controls_Manager::RAW_HTML,
-								'raw'         => '<form onsubmit="mihdan_elementor_yandex_maps_find_pin_address( this, \'' . $this->get_id() . '\' );" action="javascript:void(0);"><input type="text" id="eb-map-find-address" class="eb-map-find-address" style="margin-top:10px; margin-bottom:10px;" placeholder="' . __( 'Enter Search Address', 'mihdan-elementor-yandex-maps' ) . '" /><input type="submit" value="' . __( 'Search', 'mihdan-elementor-yandex-maps' ) . '" class="elementor-button elementor-button-default" onclick="mihdan_elementor_yandex_maps_find_pin_address( this, \'' . $this->get_id() . '\' )"></form><div id="eb-output-result" class="eb-output-result" style="margin-top:10px; line-height: 1.3; font-size: 12px;"></div>',
-								'label_block' => true,
-							),
-							array(
-								'name'        => 'point_lat',
-								'label'       => __( 'Latitude', 'mihdan-elementor-yandex-maps' ),
-								'type'        => Controls_Manager::TEXT,
-								'default'     => $this->get_default_lat(),
-								'placeholder' => $this->get_default_lat(),
-								'dynamic'     => array(
-									'active' => true,
-								),
-							),
-							array(
-								'name'        => 'point_lng',
-								'label'       => __( 'Longitude', 'mihdan-elementor-yandex-maps' ),
-								'type'        => Controls_Manager::TEXT,
-								'default'     => $this->get_default_lng(),
-								'placeholder' => $this->get_default_lng(),
-								'dynamic'     => array(
-									'active' => true,
-								),
-							),
-							array(
-								'name'    => 'icon_color',
-								'label'   => __( 'Icon Color', 'mihdan-elementor-yandex-maps' ),
-								'type'    => Controls_Manager::SELECT,
-								'options' => $this->get_icon_colors(),
-								'default' => 'blue',
-							),
-							array(
-								// @link https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/option.presetStorage-docpage/
-								'name'    => 'icon_type',
-								'label'   => __( 'Icon Type', 'mihdan-elementor-yandex-maps' ),
-								'type'    => Controls_Manager::SELECT2,
-								'options' => $this->get_icon_types(),
-								'default' => 'Circle',
-							),
-							array(
-								'name'      => 'icon_size',
-								'label'     => __( 'Icon Size', 'mihdan-elementor-yandex-maps' ),
-								'type'      => Controls_Manager::NUMBER,
-								'condition' => array(
-									'icon_type' => 'Custom',
-								),
-								'min'       => 16,
-								'max'       => 100,
-								'step'      => 2,
-								'default'   => 32,
-							),
-							array(
-								'name'      => 'icon_image',
-								'label'     => __( 'Image', 'mihdan-elementor-yandex-maps' ),
-								'type'      => Controls_Manager::MEDIA,
-								'condition' => array(
-									'icon_type' => 'Custom',
-								),
-								'dynamic'   => array(
-									'active' => true,
-								),
-							),
-							array(
-								'name'        => 'icon_caption',
-								'label'       => __( 'Icon Caption', 'mihdan-elementor-yandex-maps' ),
-								'type'        => Controls_Manager::TEXT,
-								'default'     => '',
-								'label_block' => true,
-								'dynamic'     => array(
-									'active' => true,
-								),
-							),
-							array(
-								'name'        => 'icon_content',
-								'label'       => __( 'Icon Content', 'mihdan-elementor-yandex-maps' ),
-								'type'        => Controls_Manager::TEXT,
-								'default'     => '',
-								'label_block' => true,
-								'dynamic'     => array(
-									'active' => true,
-								),
-							),
-							array(
-								'name'        => 'hint_content',
-								'label'       => __( 'Hint Content', 'mihdan-elementor-yandex-maps' ),
-								'type'        => Controls_Manager::TEXT,
-								'default'     => '',
-								'label_block' => true,
-								'dynamic'     => array(
-									'active' => true,
-								),
-							),
-							array(
-								'name'        => 'balloon_content_header',
-								'label'       => __( 'Balloon Content Header', 'mihdan-elementor-yandex-maps' ),
-								'type'        => Controls_Manager::TEXT,
-								'default'     => __( 'Balloon Content Header Default', 'mihdan-elementor-yandex-maps' ),
-								'label_block' => true,
-								'dynamic'     => array(
-									'active' => true,
-								),
-							),
-							array(
-								'name'    => 'balloon_content_body',
-								'label'   => __( 'Balloon Content Body', 'mihdan-elementor-yandex-maps' ),
-								'type'    => Controls_Manager::WYSIWYG,
-								'default' => '',
-								'dynamic' => array(
-									'active' => true,
-								),
-							),
-							array(
-								'name'    => 'balloon_content_footer',
-								'label'   => __( 'Balloon Content Footer', 'mihdan-elementor-yandex-maps' ),
-								'type'    => Controls_Manager::TEXTAREA,
-								'default' => '',
-								'dynamic' => array(
-									'active' => true,
-								),
-							),
-							array(
-								'name'    => 'balloon_is_opened',
-								'label'   => __( 'Balloon Is Opened', 'mihdan-elementor-yandex-maps' ),
-								'type'    => Controls_Manager::SWITCHER,
-								'default' => 'no',
-							),
-						),
+						'fields'      => $pin_repeater->get_controls(),
 						'title_field' => '{{{ balloon_content_header }}}',
 					)
 				);
