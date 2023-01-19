@@ -207,11 +207,17 @@
 
 							// Custom icon.
 							if ( Element.options.iconImage ) {
-								options.iconLayout    = 'default#imageWithContent';
-								options.iconImageHref = Element.options.iconImage;
-								options.iconImageSize = [
-									parseInt( Element.options.iconImageWidth, 10 ),
-									parseInt( Element.options.iconImageHeight, 10 )
+								const icon_size = parseInt( Element.options.iconImageWidth, 10 );
+
+								options.iconLayout      = 'default#imageWithContent';
+								options.iconImageHref   = Element.options.iconImage;
+								options.iconImageSize   = [
+									icon_size,
+									icon_size
+								];
+								options.iconImageOffset = [
+									-( icon_size / 2 ),
+									-( icon_size / 2 )
 								];
 							} else {
 								options.preset          = Element.options.preset;
