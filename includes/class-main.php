@@ -7,11 +7,9 @@
 
 namespace Mihdan\ElementorYandexMaps;
 
-use Elementor\Core\DynamicTags\Manager;
 use Elementor\Settings;
 use Elementor\Plugin;
 use Elementor\Widgets_Manager;
-use Elementor\Controls_Manager;
 use WPTRT\AdminNotices\Notices;
 
 /**
@@ -118,10 +116,9 @@ class Main {
 		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'editor_scripts' ) );
 		add_action( 'elementor/frontend/after_enqueue_styles', array( $this, 'frontend_styles' ) );
 		add_action( 'elementor/frontend/after_register_scripts', array( $this, 'frontend_scripts' ) );
-		add_action( 'elementor/widgets/widgets_registered', array( $this, 'init_widget' ) );
-		//add_action( 'elementor/controls/controls_registered', array( $this, 'init_controls' ) );
-		//add_action( 'elementor/dynamic_tags/register_tags', array( $this, 'register_tags' ) );
+		add_action( 'elementor/widgets/register', array( $this, 'init_widget' ) );
 		add_filter( 'wp_resource_hints', array( $this, 'resource_hints' ), 10, 2 );
+		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 10, 2 );
 
 		// Просьба оценить плагин.
 		add_action( 'admin_init', array( $this, 'admin_notice_star' ) );
@@ -132,6 +129,26 @@ class Main {
 	 */
 	public function i18n() {
 		load_plugin_textdomain( 'mihdan-elementor-yandex-maps' );
+	}
+
+	/**
+	 * Add plugin action links
+	 *
+	 * @param array  $actions Default actions.
+	 * @param string $plugin_file Plugin file.
+	 *
+	 * @return array
+	 */
+	public function add_settings_link( $actions, $plugin_file ) {
+		if ( MIHDAN_ELEMENTOR_YANDEX_MAPS_BASE_NAME === $plugin_file ) {
+			$actions[] = sprintf(
+				'<a href="%s">%s</a>',
+				admin_url( 'admin.php?page=elementor#tab-integrations' ),
+				esc_html__( 'Settings', 'mihdan-elementor-yandex-maps' )
+			);
+		}
+
+		return $actions;
 	}
 
 	/**
@@ -253,34 +270,7 @@ class Main {
 	 * @param Widgets_Manager $widgets_manager Widgets_Manager instance.
 	 */
 	public function init_widget( Widgets_Manager $widgets_manager ) {
-		$widgets_manager->register_widget_type( new Widget() );
-	}
-
-	/**
-	 * Register new Elementor controls.
-	 *
-	 * @access public
-	 *
-	 * @param Controls_Manager $widgets_manager Widgets_Manager instance.
-	 */
-	public function init_controls( Controls_Manager $widgets_manager ) {
-		//$widgets_manager->register_control( 'control-type-', new Controls() );
-	}
-
-	/**
-	 * Register custom tags.
-	 *
-	 * @param Manager $dynamic_tags Manager instance.
-	 */
-	public function register_tags( Manager $dynamic_tags ) {
-		$dynamic_tags->register_group(
-			'request-variables',
-			array(
-				'title' => 'Request Variables',
-			)
-		);
-
-		$dynamic_tags->register_tag( 'Mihdan\ElementorYandexMaps\ACF_Tag' );
+		$widgets_manager->register( new Widget() );
 	}
 
 	/**

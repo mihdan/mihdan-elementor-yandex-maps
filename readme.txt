@@ -5,7 +5,7 @@ Donate link: https://www.kobzarev.com/donate/
 Requires at least: 5.8
 Tested up to: 6.1
 Requires PHP: 7.4
-Stable tag: 1.4.5
+Stable tag: 1.5.0
 
 Elementor Yandex Maps Widget
 
@@ -29,6 +29,11 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 Получить API-ключ можно в [Кабинете разработчика](https://developer.tech.yandex.ru/services/). Нажмите «Получить ключ», затем выберите сервис «JavaScript API и HTTP Геокодер» и заполните анкету — ваш API-ключ будет сразу готов к использованию.
 
 == Changelog ==
+
+= 1.5.0 (19.01.2023) =
+* Added lazy loading for maps
+* Added a link to the settings page in the list of plugins
+* Code refactoring
 
 = 1.4.5 (24.12.2022) =
 * Added support for WordPress 6.1+

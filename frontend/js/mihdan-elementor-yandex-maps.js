@@ -47,13 +47,40 @@
 			var ns  = 'mihdan_elementor_yandex_maps_ns_' + map_id;
 			var map = 'mihdan_elementor_yandex_maps_map_' + map_id;
 
-			// Загружаем API.
-			var f = d.getElementsByTagName( 'script' )[0],
-				j = d.createElement( 'script' );
+			var loaded = false;
 
-			j.async = true;
-			j.src   = 'https://api-maps.yandex.ru/2.1/?lang=' + language + '_' + region + '&source=admin&apikey=' + api_key + '&onload=ymaps_ready_' + map_id + '&ns=' + ns;
-			f.parentNode.insertBefore( j, f );
+			// Ленивая загрузка API карт.
+			const lazyLoad = function ( e ) {
+
+				if ( loaded ) {
+					return;
+				}
+
+				const f = d.getElementsByTagName( 'script' )[0],
+					  j = d.createElement('script' );
+
+				j.async = true;
+				j.src   = 'https://api-maps.yandex.ru/2.1/?lang=' + language + '_' + region + '&source=admin&apikey=' + api_key + '&onload=ymaps_ready_' + map_id + '&ns=' + ns;
+				f.parentNode.insertBefore( j, f );
+
+				loaded = true;
+			}
+
+			const event_options = {
+				once: true,
+				passive: true,
+				capture: true
+			};
+
+			// Подключим API под действием пользователя.
+			document.addEventListener( 'scroll', lazyLoad, event_options );
+			document.addEventListener( 'mouseover', lazyLoad, event_options );
+			document.addEventListener( 'mousemove', lazyLoad, event_options );
+			document.addEventListener( 'touchstart', lazyLoad, event_options );
+			document.addEventListener( 'touchmove', lazyLoad, event_options );
+
+			// Фолбек загрузки карты, если юзер не сделал никаких событий.
+			setTimeout( lazyLoad, 5000 );
 
 			w['ymaps_ready_' + map_id] = function () {
 
@@ -225,10 +252,7 @@
 		'elementor/frontend/init',
 		function() {
 			elementorFrontend.hooks.addAction( 'frontend/element_ready/yandex-maps.default', map.init );
-			//elementorModules.frontend.handlers.hooks.Base.addAction( 'frontend/element_ready/yandex-maps.default', mihdan_elementor_yandex_maps );
 		}
 	);
 
 } )( window.jQuery, window, document );
-
-// eof;
