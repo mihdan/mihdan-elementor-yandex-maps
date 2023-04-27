@@ -3,9 +3,9 @@ Contributors: mihdan
 Tags: elementor, yandex, maps, api, mihdan
 Donate link: https://www.kobzarev.com/donate/
 Requires at least: 5.8
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 7.4
-Stable tag: 1.5.1
+Stable tag: 1.6.0
 
 Elementor Yandex Maps Widget
 
@@ -29,6 +29,13 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 Получить API-ключ можно в [Кабинете разработчика](https://developer.tech.yandex.ru/services/). Нажмите «Получить ключ», затем выберите сервис «JavaScript API и HTTP Геокодер» и заполните анкету — ваш API-ключ будет сразу готов к использованию.
 
 == Changelog ==
+
+= 1.6.0 (27.04.2023) =
+* Added support for WordPress 6.2+
+* Added support for Elementor 3.13+
+* Added support for Elementor Pro 3.13+
+* Added support for PHP 8+
+* Added the ability to insert shortcodes into the contents of a balloon (e.g., `[audio]`)
 
 = 1.5.1 (19.01.2023) =
 * Fixed a bug in displaying the custom marker

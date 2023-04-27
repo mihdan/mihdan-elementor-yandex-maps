@@ -192,15 +192,22 @@ class Main {
 	 * Enqueue scripts for frontend.
 	 */
 	public function frontend_scripts() {
+		wp_register_script(
+			'mihdan-elementor-yandex-maps',
+			plugins_url( '/frontend/js/mihdan-elementor-yandex-maps.js', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ),
+			array(),
+			MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION,
+			true
+		);
+
 		wp_localize_script(
-			'elementor-frontend',
+			'mihdan-elementor-yandex-maps',
 			'mihdan_elementor_yandex_maps_config',
 			array(
 				'plugin_url' => MIHDAN_ELEMENTOR_YANDEX_MAPS_URL,
 				'api_key'    => $this->api_key,
 			)
 		);
-		wp_register_script( 'mihdan-elementor-yandex-maps', plugins_url( '/frontend/js/mihdan-elementor-yandex-maps.js', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), array( 'elementor-frontend' ), MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION, true );
 	}
 
 	/**

@@ -56,8 +56,9 @@
 					return;
 				}
 
-				const f = d.getElementsByTagName( 'script' )[0],
-					  j = d.createElement('script' );
+				const
+					f = d.getElementsByTagName( 'script' )[0],
+					j = d.createElement( 'script' );
 
 				j.async = true;
 				j.src   = 'https://api-maps.yandex.ru/2.1/?lang=' + language + '_' + region + '&source=admin&apikey=' + api_key + '&onload=ymaps_ready_' + map_id + '&ns=' + ns;

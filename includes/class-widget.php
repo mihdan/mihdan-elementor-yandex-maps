@@ -320,7 +320,7 @@ class Widget extends Widget_Base {
 	 * @return array
 	 */
 	public function get_script_depends() {
-		return array( 'mihdan-elementor-yandex-maps-api', 'mihdan-elementor-yandex-maps' );
+		return array( 'mihdan-elementor-yandex-maps' );
 	}
 
 
@@ -1246,7 +1246,7 @@ class Widget extends Widget_Base {
 						'point_lat'              => $this->calculate_dynamic_content( 'points_source_post_type_lat', $settings, $point->ID ),
 						'point_lng'              => $this->calculate_dynamic_content( 'points_source_post_type_lng', $settings, $point->ID ),
 						'balloon_content_header' => $this->calculate_dynamic_content( 'points_source_post_type_balloon_content_header', $settings, $point->ID ),
-						'balloon_content_body'   => $balloon_content_body,
+						'balloon_content_body'   => apply_shortcodes( $balloon_content_body ),
 						'balloon_content_footer' => $balloon_content_footer,
 						'icon_caption'           => $icon_caption,
 						'icon_content'           => $icon_content,
@@ -1267,10 +1267,10 @@ class Widget extends Widget_Base {
 
 		foreach ( $settings['tabs'] as $index => $item ) {
 			// Для старых версий.
-			$point_lat              = ( isset( $item['pin_lat'] ) ) ? $item['pin_lat'] : $item['point_lat'];
-			$point_lng              = ( isset( $item['pin_lng'] ) ) ? $item['pin_lng'] : $item['point_lng'];
-			$balloon_content_header = ( isset( $item['pin_title'] ) ) ? $item['pin_title'] : $item['balloon_content_header'];
-			$balloon_content_body   = ( isset( $item['pin_content'] ) ) ? $item['pin_content'] : $item['balloon_content_body'];
+			$point_lat              = $item['pin_lat'] ?? $item['point_lat'];
+			$point_lng              = $item['pin_lng'] ?? $item['point_lng'];
+			$balloon_content_header = $item['pin_title'] ?? $item['balloon_content_header'];
+			$balloon_content_body   = $item['pin_content'] ?? $item['balloon_content_body'];
 			$icon_image             = ( 'Custom' === $item['icon_type'] && isset( $item['icon_image'] ) )
 				? $item['icon_image']
 				: '';
@@ -1302,7 +1302,7 @@ class Widget extends Widget_Base {
 					'hintContent'          => $item['hint_content'],
 					'balloonContentHeader' => $balloon_content_header,
 					'balloonContentFooter' => $item['balloon_content_footer'],
-					'balloonContentBody'   => $balloon_content_body,
+					'balloonContentBody'   => apply_shortcodes( $balloon_content_body ),
 				),
 				'options'    => array(
 					'preset'          => sprintf( 'islands#%s%sIcon', $item['icon_color'], $item['icon_type'] ),
