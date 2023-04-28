@@ -195,7 +195,7 @@ class Main {
 		wp_register_script(
 			'mihdan-elementor-yandex-maps',
 			plugins_url( '/frontend/js/mihdan-elementor-yandex-maps.js', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ),
-			array(),
+			array( 'jquery' ),
 			MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION,
 			true
 		);
