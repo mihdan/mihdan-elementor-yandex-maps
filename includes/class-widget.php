@@ -738,16 +738,6 @@ class Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'infowindow_max_width',
-			array(
-				'label'       => __( 'InfoWindow Max Width', 'mihdan-elementor-yandex-maps' ),
-				'type'        => Controls_Manager::TEXT,
-				'placeholder' => '300',
-				'default'     => '300',
-			)
-		);
-
 		$this->start_controls_tabs(
 			'points_source'
 		);
@@ -1186,6 +1176,37 @@ class Widget extends Widget_Base {
 		$this->end_controls_tabs();
 
 		$this->end_controls_section();
+
+		/**
+		 * Balloon Options.
+		 */
+		$this->start_controls_section(
+			'map_balloon',
+			array(
+				'label' => __( 'Balloon', 'mihdan-elementor-yandex-maps' ),
+			)
+		);
+
+		$this->add_control(
+			'infowindow_max_width',
+			array(
+				'label'       => __( 'Max Width', 'mihdan-elementor-yandex-maps' ),
+				'description' => __( 'Set the maximum width of the balloon', 'mihdan-elementor-yandex-maps' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => '300',
+				'default'     => '300',
+			)
+		);
+
+		$this->add_control(
+			'enable_balloon_panel',
+			array(
+				'label'       => __( 'Enable Balloon Panel', 'mihdan-elementor-yandex-maps' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Enable the ability to collapse the balloon into a panel on small screens', 'mihdan-elementor-yandex-maps' ),
+			)
+		);
 	}
 
 	/**
@@ -1353,6 +1374,7 @@ class Widget extends Widget_Base {
 				"disableRuler" : "<?php echo esc_attr( $settings['disable_ruler'] ); ?>",
 				"enableObjectManager" : "<?php echo esc_attr( $settings['enable_object_manager'] ); ?>",
 				"infoWindowMaxWidth" : "<?php echo esc_attr( $settings['infowindow_max_width'] ); ?>",
+				"enableBalloonPanel" : "<?php echo esc_attr( $settings['enable_balloon_panel'] ); ?>",
 				"locations" : <?php echo wp_json_encode( $geo_json, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ); ?>
 			};
 		</script>

@@ -40,6 +40,7 @@
 				disable_route_editor                 = config.disableRouteEditor,
 				disable_ruler                        = config.disableRuler,
 				enable_object_manager                = config.enableObjectManager,
+				enable_balloon_panel                 = config.enableBalloonPanel === 'yes',
 				infowindow_max_width                 = parseInt( config.infoWindowMaxWidth, 10 ),
 				controls                             = [];
 
@@ -186,9 +187,16 @@
 					var objectManager = new w[ ns ].ObjectManager(
 						{
 							clusterize: true,
-							preset: markersLocations.clusterPreset
+							preset: markersLocations.clusterPreset,
+							geoObjectBalloonMaxWidth: infowindow_max_width,
 						}
 					);
+
+					// Отключить схлопывание балуна в панель
+					// на маленьком экране.
+					if ( enable_balloon_panel === false ) {
+						objectManager.objects.options.set( 'balloonPanelMaxMapArea', 0 );
+					}
 
 					// После создания менеджера ему следует передать JSON-описание объектов.
 					objectManager.add( markersLocations );
@@ -198,6 +206,8 @@
 
 				} else {
 					/**
+					 * Метки без кластеров.
+					 *
 					 * @link https://tech.yandex.ru/maps/jsbox/2.1/icon_customImage
 					 * @link https://tech.yandex.ru/maps/jsapi/doc/2.1/dg/concepts/geoobjects-docpage/#geoobjects__icon-style
 					 */
@@ -221,8 +231,15 @@
 									-( icon_size / 2 )
 								];
 							} else {
-								options.preset          = Element.options.preset;
-								options.balloonMaxWidth = parseInt( infowindow_max_width, 10 );
+								options.preset = Element.options.preset;
+							}
+
+							options.balloonMaxWidth = infowindow_max_width;
+
+							// Отключить схлопывание балуна в панель
+							// на маленьком экране.
+							if ( enable_balloon_panel === false ) {
+								options.balloonPanelMaxMapArea = 0;
 							}
 
 							var placemark = new w[ ns ].Placemark(
