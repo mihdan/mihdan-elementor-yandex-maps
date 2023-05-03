@@ -185,7 +185,12 @@ class Main {
 	 * Enqueue styles for frontend.
 	 */
 	public function frontend_styles() {
-		wp_enqueue_style( 'mihdan-elementor-yandex-maps', plugins_url( '/frontend/css/mihdan-elementor-yandex-maps.css', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ), array(), MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION );
+		wp_enqueue_style(
+			'mihdan-elementor-yandex-maps',
+			plugins_url( '/frontend/css/mihdan-elementor-yandex-maps.css', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ),
+			array(),
+			filemtime( MIHDAN_ELEMENTOR_YANDEX_MAPS_DIR . '/frontend/css/mihdan-elementor-yandex-maps.css' )
+		);
 	}
 
 	/**

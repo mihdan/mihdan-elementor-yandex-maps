@@ -1,5 +1,5 @@
 .mihdan-elementor-yandex-maps {
-	height: 300px;
+	min-height: 300px;
 	background: #f2f2f2 url("../images/placeholder.svg") no-repeat center / 100px auto;
 	box-shadow: inset 0px 0px 60px 0px rgba(0,0,0,0.2);
 }

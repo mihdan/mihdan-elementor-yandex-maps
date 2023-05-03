@@ -381,36 +381,71 @@ class Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'zoom',
 			array(
-				'label'   => __( 'Zoom Level', 'mihdan-elementor-yandex-maps' ),
-				'type'    => Controls_Manager::SLIDER,
-				'default' => array(
-					'size' => 10,
+				'type'           => Controls_Manager::SLIDER,
+				'label'          => __( 'Zoom Level', 'mihdan-elementor-yandex-maps' ),
+				'dynamic'        => array(
+					'active' => true,
 				),
-				'range'   => array(
+				'range'          => array(
 					'px' => array(
 						'min' => 1,
 						'max' => 19,
 					),
 				),
+				'devices'        => array( 'desktop', 'tablet', 'mobile' ),
+				'default'        => array(
+					'size' => 10,
+				),
+				'tablet_default' => array(
+					'size' => 10,
+				),
+				'mobile_default' => array(
+					'size' => 10,
+				),
 			)
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'height',
 			array(
-				'label'   => __( 'Height', 'mihdan-elementor-yandex-maps' ),
-				'type'    => Controls_Manager::SLIDER,
-				'range'   => array(
-					'px' => array(
-						'min' => 100,
-						'max' => 1440,
+				'type'           => Controls_Manager::SLIDER,
+				'label'          => __( 'Height', 'mihdan-elementor-yandex-maps' ),
+				'dynamic'        => array(
+					'active' => true,
+				),
+				'range'          => array(
+					'px'   => array(
+						'min' => 300,
+						'max' => 1400,
+					),
+					'vmin' => array(
+						'min' => 1,
+						'max' => 100,
+					),
+					'vmax' => array(
+						'min' => 1,
+						'max' => 100,
 					),
 				),
-				'default' => array(
+				'size_units'     => array( 'px', 'vw', 'vh', 'vmin', 'vmax', 'custom' ),
+				'devices'        => array( 'desktop', 'tablet', 'mobile' ),
+				'default'        => array(
 					'size' => 300,
+					'unit' => 'px',
+				),
+				'tablet_default' => array(
+					'size' => 400,
+					'unit' => 'px',
+				),
+				'mobile_default' => array(
+					'size' => 500,
+					'unit' => 'px',
+				),
+				'selectors'      => array(
+					'{{WRAPPER}} .mihdan-elementor-yandex-maps' => 'height: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -1220,10 +1255,6 @@ class Widget extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		if ( 0 === absint( $settings['zoom']['size'] ) ) {
-			$settings['zoom']['size'] = 10;
-		}
-
 		$geo_json = array(
 			'type'          => 'FeatureCollection',
 			'clusterPreset' => sprintf( 'islands#%sClusterIcons', $settings['cluster_color'] ),
@@ -1352,7 +1383,9 @@ class Widget extends Widget_Base {
 				"region" : "<?php echo esc_attr( $settings['map_region'] ); ?>",
 				"lat" : "<?php echo esc_attr( $settings['map_lat'] ); ?>",
 				"lng" : "<?php echo esc_attr( $settings['map_lng'] ); ?>",
-				"zoom" : "<?php echo esc_attr( $settings['zoom']['size'] ); ?>",
+				"zoomDesktop" : "<?php echo esc_attr( $settings['zoom']['size'] ?? 10 ); ?>",
+				"zoomTablet" : "<?php echo esc_attr( $settings['zoom_tablet']['size'] ?? 10 ); ?>",
+				"zoomMobile" : "<?php echo esc_attr( $settings['zoom_mobile']['size'] ?? 10 ); ?>",
 				"type" : "<?php echo esc_attr( $settings['map_type'] ); ?>",
 				"rulerControl" : "<?php echo esc_attr( $settings['ruler_control'] ); ?>",
 				"searchControl" : "<?php echo esc_attr( $settings['search_control'] ); ?>",
@@ -1378,7 +1411,7 @@ class Widget extends Widget_Base {
 				"locations" : <?php echo wp_json_encode( $geo_json, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ); ?>
 			};
 		</script>
-		<div id="mihdan_elementor_yandex_map_<?php echo esc_attr( $this->get_id() ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" style="height: <?php echo esc_attr( $settings['height']['size'] ); ?><?php echo esc_attr( $settings['height']['unit'] ); ?>;"></div>
+		<div id="mihdan_elementor_yandex_map_<?php echo esc_attr( $this->get_id() ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"></div>
 		<?php
 	}
 

@@ -1,21 +1,25 @@
 ( function( $, w, d ) {
 	'use strict';
 	var map = {
-		unset: function ( arr ) {
-			arr.filter(
-				function( i ) {
-					return i !== 'b';
-				}
-			);
-		},
 		init: function ( $scope, $ ) {
+			const $body = $( 'body' );
+
+			let device = $body.data( 'elementor-device-mode' ) || 'desktop';
+
+			let capitalizeFirstLetter = function ( string ) {
+				return string.charAt(0).toUpperCase() + string.slice(1);
+			}
+
+			device = capitalizeFirstLetter( device );
 
 			var $map   = $scope.find( '.mihdan-elementor-yandex-maps' ),
 				map_id = $map.attr( 'id' ).substr( 28 ),
 				config = w[ 'mihdan_elementor_yandex_map_' + map_id ];
 
 			var	mapType                              = config.type,
-				zoom                                 = config.zoom,
+				zoomDesktop                                 = config.zoomDesktop,
+				zoomTablet                           = config.zoomTablet,
+				zoomMobile                           = config.zoomMobile,
 				api_key                              = w.mihdan_elementor_yandex_maps_config.api_key,
 				map_lat                              = config.lat,
 				map_lng                              = config.lng,
@@ -130,7 +134,7 @@
 					$map.attr( 'id' ),
 					{
 						center: [ parseFloat( map_lat ), parseFloat( map_lng ) ],
-						zoom: zoom,
+						zoom: eval( 'zoom' + device ),
 						type: 'yandex#' + mapType,
 						controls: controls
 					},
