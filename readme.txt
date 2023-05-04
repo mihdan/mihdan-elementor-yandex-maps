@@ -5,7 +5,7 @@ Donate link: https://www.kobzarev.com/donate/
 Requires at least: 5.8
 Tested up to: 6.2
 Requires PHP: 7.4
-Stable tag: 1.6.4
+Stable tag: 1.6.5
 
 Elementor Yandex Maps Widget
 
@@ -29,6 +29,11 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 Получить API-ключ можно в [Кабинете разработчика](https://developer.tech.yandex.ru/services/). Нажмите «Получить ключ», затем выберите сервис «JavaScript API и HTTP Геокодер» и заполните анкету — ваш API-ключ будет сразу готов к использованию.
 
 == Changelog ==
+
+= 1.6.5 (05.05.2023) =
+* Disabled lazy loading of the map in edit mode
+* Fixed a bug when calculating desktop breakpoint
+* Code refactoring
 
 = 1.6.4 (04.05.2023) =
 * Fixed a bug when calculating custom breakpoints

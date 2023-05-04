@@ -1389,11 +1389,14 @@ class Widget extends Widget_Base {
 		}
 
 		// Отзывчивый масштаб карты.
-		$zoom = [];
+		$zoom = [
+			'desktop' => $settings['zoom']['size'],
+		];
 
 		foreach ( $breakpoints as $breakpoint_id => $breakpoint_data ) {
-			if ( ! empty( $settings[ $breakpoint_id ] ) ) {
-				$zoom[ $breakpoint_id ] = $settings[ $breakpoint_id ]['size'];
+
+			if ( ! empty( $settings[ 'zoom_' . $breakpoint_id ] ) ) {
+				$zoom[ $breakpoint_id ] = $settings[ 'zoom_' . $breakpoint_id ]['size'];
 			} else {
 				$zoom[ $breakpoint_id ] = 10;
 			}
@@ -1401,41 +1404,44 @@ class Widget extends Widget_Base {
 
 		// Генерируем конфиг для JS.
 		$config = [
-			'id'=> $this->get_id(),
-			'language' => $settings['map_language'],
-			'region' => $settings['map_region'],
-			'lat' => $settings['map_lat'],
-			'lng' => $settings['map_lng'],
-			'zoom' => $zoom,
-			'type' => $settings['map_type'],
-			'rulerControl' => $settings['ruler_control'],
-			'searchControl' => $settings['search_control'],
-			'trafficControl' => $settings['traffic_control'],
-			'traffitypeSelectorcControl' => $settings['type_selector'],
-			'zoomControl' => $settings['zoom_control'],
-			'geolocationControl' => $settings['geolocation_control'],
-			'routeEditor' => $settings['route_editor'],
-			'fullscreenControl' => $settings['fullscreen_control'],
-			'routeButtonControl' => $settings['route_button_control'],
-			'routePanelControl' => $settings['route_panel_control'],
-			'disableScrollZoom' => $settings['disable_scroll_zoom'],
-			'disableDblClickZoom' => $settings['disable_dbl_click_zoom'],
-			'disableDrag' => $settings['disable_drag'],
-			'disableLeftMouseButtonMagnifier' => $settings['disable_left_mouse_button_magnifier'],
+			'id'                               => $this->get_id(),
+			'language'                         => $settings['map_language'],
+			'region'                           => $settings['map_region'],
+			'lat'                              => $settings['map_lat'],
+			'lng'                              => $settings['map_lng'],
+			'zoom'                             => $zoom,
+			'type'                             => $settings['map_type'],
+			'rulerControl'                     => $settings['ruler_control'],
+			'searchControl'                    => $settings['search_control'],
+			'trafficControl'                   => $settings['traffic_control'],
+			'traffitypeSelectorcControl'       => $settings['type_selector'],
+			'zoomControl'                      => $settings['zoom_control'],
+			'geolocationControl'               => $settings['geolocation_control'],
+			'routeEditor'                      => $settings['route_editor'],
+			'fullscreenControl'                => $settings['fullscreen_control'],
+			'routeButtonControl'               => $settings['route_button_control'],
+			'routePanelControl'                => $settings['route_panel_control'],
+			'disableScrollZoom'                => $settings['disable_scroll_zoom'],
+			'disableDblClickZoom'              => $settings['disable_dbl_click_zoom'],
+			'disableDrag'                      => $settings['disable_drag'],
+			'disableLeftMouseButtonMagnifier'  => $settings['disable_left_mouse_button_magnifier'],
 			'disableRightMouseButtonMagnifier' => $settings['disable_right_mouse_button_magnifier'],
-			'disableMultiTouch' => $settings['disable_multi_touch'],
-			'disableRouteEditor' => $settings['disable_route_editor'],
-			'disableRuler' => $settings['disable_ruler'],
-			'enableObjectManager' => $settings['enable_object_manager'],
-			'infoWindowMaxWidth' => $settings['infowindow_max_width'],
-			'enableBalloonPanel' => $settings['enable_balloon_panel'],
-			'locations' => $geo_json,
+			'disableMultiTouch'                => $settings['disable_multi_touch'],
+			'disableRouteEditor'               => $settings['disable_route_editor'],
+			'disableRuler'                     => $settings['disable_ruler'],
+			'enableObjectManager'              => $settings['enable_object_manager'],
+			'infoWindowMaxWidth'               => $settings['infowindow_max_width'],
+			'enableBalloonPanel'               => $settings['enable_balloon_panel'],
+			'locations'                        => $geo_json,
 		];
 		?>
 		<script>
 			var mihdan_elementor_yandex_map_<?php echo esc_attr( $this->get_id() ); ?> = <?php echo wp_json_encode( $config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ); ?>;
 		</script>
-		<div id="mihdan_elementor_yandex_map_<?php echo esc_attr( $this->get_id() ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"></div>
+		<div
+			id="mihdan_elementor_yandex_map_<?php echo esc_attr( $this->get_id() ); ?>"
+			class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"
+		></div>
 		<?php
 	}
 

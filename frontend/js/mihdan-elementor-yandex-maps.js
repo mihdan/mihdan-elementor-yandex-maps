@@ -4,10 +4,11 @@
 		init: function ( $scope, $ ) {
 
 			let
-				$map                                 = $scope.find('.mihdan-elementor-yandex-maps'),
-				map_id                               = $map.attr('id').substr(28),
-				config                               = w['mihdan_elementor_yandex_map_' + map_id],
+				$map                                 = $scope.find( '.mihdan-elementor-yandex-maps' ),
+				map_id                               = $scope.data('id'),
+				config                               = w[ 'mihdan_elementor_yandex_map_' + map_id ],
 				device                               = w.elementorFrontend.getCurrentDeviceMode() || 'desktop',
+				timeout                              = w.elementorFrontend.isEditMode() ? 100 : 5000,
 				mapType                              = config.type,
 				zoom                                 = config.zoom,
 				api_key                              = w.mihdan_elementor_yandex_maps_config.api_key,
@@ -35,7 +36,7 @@
 				disable_ruler                        = config.disableRuler,
 				enable_object_manager                = config.enableObjectManager,
 				enable_balloon_panel                 = config.enableBalloonPanel === 'yes',
-				infowindow_max_width                 = parseInt(config.infoWindowMaxWidth, 10),
+				infowindow_max_width                 = parseInt( config.infoWindowMaxWidth, 10 ),
 				controls                             = [],
 				ns                                   = 'mihdan_elementor_yandex_maps_ns_' + map_id, // Неймспейс для карты.
 				map                                  = 'mihdan_elementor_yandex_maps_map_' + map_id,
@@ -49,10 +50,20 @@
 				}
 
 				const
+					script_id = 'mihdan_elementor_yandex_maps_script_' + map_id,
+					script = document.getElementById( script_id );
+
+				// Скрипт уже подгружен для этой карты.
+				if ( script ) {
+					script.parentNode.removeChild( script );
+				}
+
+				const
 					f = d.getElementsByTagName( 'script' )[0],
 					j = d.createElement( 'script' );
 
 				j.async = true;
+				j.id    = script_id;
 				j.src   = 'https://api-maps.yandex.ru/2.1/?lang=' + language + '_' + region + '&source=admin&apikey=' + api_key + '&onload=ymaps_ready_' + map_id + '&ns=' + ns;
 				f.parentNode.insertBefore( j, f );
 
@@ -73,7 +84,7 @@
 			document.addEventListener( 'touchmove', lazyLoad, event_options );
 
 			// Фолбек загрузки карты, если юзер не сделал никаких событий.
-			setTimeout( lazyLoad, 5000 );
+			setTimeout( lazyLoad, timeout );
 
 			w['ymaps_ready_' + map_id] = function () {
 
@@ -121,7 +132,7 @@
 					$map.attr( 'id' ),
 					{
 						center: [ parseFloat( map_lat ), parseFloat( map_lng ) ],
-						zoom: zoom[ device ] || 10,
+						zoom: parseInt( zoom[ device ] || 10 ),
 						type: 'yandex#' + mapType,
 						controls: controls
 					},
