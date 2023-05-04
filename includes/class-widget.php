@@ -333,7 +333,6 @@ class Widget extends Widget_Base {
 	 * @access protected
 	 */
 	protected function register_controls() {
-
 		/**
 		 * Настройки карты
 		 */
@@ -384,70 +383,82 @@ class Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'zoom',
 			array(
-				'type'           => Controls_Manager::SLIDER,
-				'label'          => __( 'Zoom Level', 'mihdan-elementor-yandex-maps' ),
-				'dynamic'        => array(
+				'type'                 => Controls_Manager::SLIDER,
+				'label'                => __( 'Zoom Level', 'mihdan-elementor-yandex-maps' ),
+				'dynamic'              => array(
 					'active' => true,
 				),
-				'range'          => array(
+				'range'                => array(
 					'px' => array(
 						'min' => 1,
 						'max' => 19,
 					),
 				),
-				'devices'        => array( 'desktop', 'tablet', 'mobile' ),
-				'default'        => array(
-					'size' => 10,
-				),
-				'tablet_default' => array(
-					'size' => 10,
-				),
-				'mobile_default' => array(
-					'size' => 10,
-				),
+				'default'              => [ 'size' => 10 ],
+				'tablet_default'       => [ 'size' => 10 ],
+				'tablet_extra_default' => [ 'size' => 10 ],
+				'mobile_default'       => [ 'size' => 10 ],
+				'mobile_extra_default' => [ 'size' => 10 ],
+				'laptop_default'       => [ 'size' => 10 ],
+				'widescreen_default'   => [ 'size' => 10 ],
 			)
 		);
 
 		$this->add_responsive_control(
 			'height',
-			array(
-				'type'           => Controls_Manager::SLIDER,
-				'label'          => __( 'Height', 'mihdan-elementor-yandex-maps' ),
-				'dynamic'        => array(
+			[
+				'type'                 => Controls_Manager::SLIDER,
+				'label'                => __( 'Height', 'mihdan-elementor-yandex-maps' ),
+				'dynamic'              => [
 					'active' => true,
-				),
-				'range'          => array(
-					'px'   => array(
+				],
+				'range'                => [
+					'px'   => [
 						'min' => 300,
 						'max' => 1400,
-					),
-					'vmin' => array(
+					],
+					'vmin' => [
 						'min' => 1,
 						'max' => 100,
-					),
-					'vmax' => array(
+					],
+					'vmax' => [
 						'min' => 1,
 						'max' => 100,
-					),
-				),
-				'size_units'     => array( 'px', 'vw', 'vh', 'vmin', 'vmax', 'custom' ),
-				'devices'        => array( 'desktop', 'tablet', 'mobile' ),
-				'default'        => array(
+					],
+				],
+				'size_units'           => [ 'px', 'vw', 'vh', 'vmin', 'vmax', 'custom' ],
+				'default'              => [
 					'size' => 300,
 					'unit' => 'px',
-				),
-				'tablet_default' => array(
+				],
+				'tablet_default'       => [
 					'size' => 400,
 					'unit' => 'px',
-				),
-				'mobile_default' => array(
-					'size' => 500,
+				],
+				'tablet_extra_default' => [
+					'size' => 300,
 					'unit' => 'px',
-				),
-				'selectors'      => array(
+				],
+				'mobile_default'       => [
+					'size' => 400,
+					'unit' => 'px',
+				],
+				'mobile_extra_default' => [
+					'size' => 300,
+					'unit' => 'px',
+				],
+				'laptop_default'       => [
+					'size' => 400,
+					'unit' => 'px',
+				],
+				'widescreen_default'   => [
+					'size' => 600,
+					'unit' => 'px',
+				],
+				'selectors'            => [
 					'{{WRAPPER}} .mihdan-elementor-yandex-maps' => 'height: {{SIZE}}{{UNIT}};',
-				),
-			)
+				],
+			]
 		);
 
 		$this->add_control(
@@ -1253,7 +1264,8 @@ class Widget extends Widget_Base {
 	 * @access protected
 	 */
 	protected function render() {
-		$settings = $this->get_settings_for_display();
+		$breakpoints = Plugin::$instance->breakpoints->get_active_breakpoints();
+		$settings    = $this->get_settings_for_display();
 
 		$geo_json = array(
 			'type'          => 'FeatureCollection',
@@ -1375,41 +1387,53 @@ class Widget extends Widget_Base {
 		if ( 'none' !== $settings['map_filter'] ) {
 			$classes[] = 'mihdan-elementor-yandex-maps_filter_' . $settings['map_filter'];
 		}
+
+		// Отзывчивый масштаб карты.
+		$zoom = [];
+
+		foreach ( $breakpoints as $breakpoint_id => $breakpoint_data ) {
+			if ( ! empty( $settings[ $breakpoint_id ] ) ) {
+				$zoom[ $breakpoint_id ] = $settings[ $breakpoint_id ]['size'];
+			} else {
+				$zoom[ $breakpoint_id ] = 10;
+			}
+		}
+
+		// Генерируем конфиг для JS.
+		$config = [
+			'id'=> $this->get_id(),
+			'language' => $settings['map_language'],
+			'region' => $settings['map_region'],
+			'lat' => $settings['map_lat'],
+			'lng' => $settings['map_lng'],
+			'zoom' => $zoom,
+			'type' => $settings['map_type'],
+			'rulerControl' => $settings['ruler_control'],
+			'searchControl' => $settings['search_control'],
+			'trafficControl' => $settings['traffic_control'],
+			'traffitypeSelectorcControl' => $settings['type_selector'],
+			'zoomControl' => $settings['zoom_control'],
+			'geolocationControl' => $settings['geolocation_control'],
+			'routeEditor' => $settings['route_editor'],
+			'fullscreenControl' => $settings['fullscreen_control'],
+			'routeButtonControl' => $settings['route_button_control'],
+			'routePanelControl' => $settings['route_panel_control'],
+			'disableScrollZoom' => $settings['disable_scroll_zoom'],
+			'disableDblClickZoom' => $settings['disable_dbl_click_zoom'],
+			'disableDrag' => $settings['disable_drag'],
+			'disableLeftMouseButtonMagnifier' => $settings['disable_left_mouse_button_magnifier'],
+			'disableRightMouseButtonMagnifier' => $settings['disable_right_mouse_button_magnifier'],
+			'disableMultiTouch' => $settings['disable_multi_touch'],
+			'disableRouteEditor' => $settings['disable_route_editor'],
+			'disableRuler' => $settings['disable_ruler'],
+			'enableObjectManager' => $settings['enable_object_manager'],
+			'infoWindowMaxWidth' => $settings['infowindow_max_width'],
+			'enableBalloonPanel' => $settings['enable_balloon_panel'],
+			'locations' => $geo_json,
+		];
 		?>
 		<script>
-			var mihdan_elementor_yandex_map_<?php echo esc_attr( $this->get_id() ); ?> = {
-				"id" : "<?php echo esc_attr( $this->get_id() ); ?>",
-				"language" : "<?php echo esc_attr( $settings['map_language'] ); ?>",
-				"region" : "<?php echo esc_attr( $settings['map_region'] ); ?>",
-				"lat" : "<?php echo esc_attr( $settings['map_lat'] ); ?>",
-				"lng" : "<?php echo esc_attr( $settings['map_lng'] ); ?>",
-				"zoomDesktop" : "<?php echo esc_attr( $settings['zoom']['size'] ?? 10 ); ?>",
-				"zoomTablet" : "<?php echo esc_attr( $settings['zoom_tablet']['size'] ?? 10 ); ?>",
-				"zoomMobile" : "<?php echo esc_attr( $settings['zoom_mobile']['size'] ?? 10 ); ?>",
-				"type" : "<?php echo esc_attr( $settings['map_type'] ); ?>",
-				"rulerControl" : "<?php echo esc_attr( $settings['ruler_control'] ); ?>",
-				"searchControl" : "<?php echo esc_attr( $settings['search_control'] ); ?>",
-				"trafficControl" : "<?php echo esc_attr( $settings['traffic_control'] ); ?>",
-				"typeSelector" : "<?php echo esc_attr( $settings['type_selector'] ); ?>",
-				"zoomControl" : "<?php echo esc_attr( $settings['zoom_control'] ); ?>",
-				"geolocationControl" : "<?php echo esc_attr( $settings['geolocation_control'] ); ?>",
-				"routeEditor" : "<?php echo esc_attr( $settings['route_editor'] ); ?>",
-				"fullscreenControl" : "<?php echo esc_attr( $settings['fullscreen_control'] ); ?>",
-				"routeButtonControl" : "<?php echo esc_attr( $settings['route_button_control'] ); ?>",
-				"routePanelControl" : "<?php echo esc_attr( $settings['route_panel_control'] ); ?>",
-				"disableScrollZoom" : "<?php echo esc_attr( $settings['disable_scroll_zoom'] ); ?>",
-				"disableDblClickZoom" : "<?php echo esc_attr( $settings['disable_dbl_click_zoom'] ); ?>",
-				"disableDrag" : "<?php echo esc_attr( $settings['disable_drag'] ); ?>",
-				"disableLeftMouseButtonMagnifier" : "<?php echo esc_attr( $settings['disable_left_mouse_button_magnifier'] ); ?>",
-				"disableRightMouseButtonMagnifier" : "<?php echo esc_attr( $settings['disable_right_mouse_button_magnifier'] ); ?>",
-				"disableMultiTouch" : "<?php echo esc_attr( $settings['disable_multi_touch'] ); ?>",
-				"disableRouteEditor" : "<?php echo esc_attr( $settings['disable_route_editor'] ); ?>",
-				"disableRuler" : "<?php echo esc_attr( $settings['disable_ruler'] ); ?>",
-				"enableObjectManager" : "<?php echo esc_attr( $settings['enable_object_manager'] ); ?>",
-				"infoWindowMaxWidth" : "<?php echo esc_attr( $settings['infowindow_max_width'] ); ?>",
-				"enableBalloonPanel" : "<?php echo esc_attr( $settings['enable_balloon_panel'] ); ?>",
-				"locations" : <?php echo wp_json_encode( $geo_json, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ); ?>
-			};
+			var mihdan_elementor_yandex_map_<?php echo esc_attr( $this->get_id() ); ?> = <?php echo wp_json_encode( $config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ); ?>;
 		</script>
 		<div id="mihdan_elementor_yandex_map_<?php echo esc_attr( $this->get_id() ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"></div>
 		<?php

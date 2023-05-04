@@ -2,24 +2,14 @@
 	'use strict';
 	var map = {
 		init: function ( $scope, $ ) {
-			const $body = $( 'body' );
 
-			let device = $body.data( 'elementor-device-mode' ) || 'desktop';
-
-			let capitalizeFirstLetter = function ( string ) {
-				return string.charAt(0).toUpperCase() + string.slice(1);
-			}
-
-			device = capitalizeFirstLetter( device );
-
-			var $map   = $scope.find( '.mihdan-elementor-yandex-maps' ),
-				map_id = $map.attr( 'id' ).substr( 28 ),
-				config = w[ 'mihdan_elementor_yandex_map_' + map_id ];
-
-			var	mapType                              = config.type,
-				zoomDesktop                                 = config.zoomDesktop,
-				zoomTablet                           = config.zoomTablet,
-				zoomMobile                           = config.zoomMobile,
+			let
+				$map                                 = $scope.find('.mihdan-elementor-yandex-maps'),
+				map_id                               = $map.attr('id').substr(28),
+				config                               = w['mihdan_elementor_yandex_map_' + map_id],
+				device                               = w.elementorFrontend.getCurrentDeviceMode() || 'desktop',
+				mapType                              = config.type,
+				zoom                                 = config.zoom,
 				api_key                              = w.mihdan_elementor_yandex_maps_config.api_key,
 				map_lat                              = config.lat,
 				map_lng                              = config.lng,
@@ -45,14 +35,11 @@
 				disable_ruler                        = config.disableRuler,
 				enable_object_manager                = config.enableObjectManager,
 				enable_balloon_panel                 = config.enableBalloonPanel === 'yes',
-				infowindow_max_width                 = parseInt( config.infoWindowMaxWidth, 10 ),
-				controls                             = [];
-
-			// Неймспейс для карты.
-			var ns  = 'mihdan_elementor_yandex_maps_ns_' + map_id;
-			var map = 'mihdan_elementor_yandex_maps_map_' + map_id;
-
-			var loaded = false;
+				infowindow_max_width                 = parseInt(config.infoWindowMaxWidth, 10),
+				controls                             = [],
+				ns                                   = 'mihdan_elementor_yandex_maps_ns_' + map_id, // Неймспейс для карты.
+				map                                  = 'mihdan_elementor_yandex_maps_map_' + map_id,
+				loaded                               = false;
 
 			// Ленивая загрузка API карт.
 			const lazyLoad = function ( e ) {
@@ -134,7 +121,7 @@
 					$map.attr( 'id' ),
 					{
 						center: [ parseFloat( map_lat ), parseFloat( map_lng ) ],
-						zoom: eval( 'zoom' + device ),
+						zoom: zoom[ device ] || 10,
 						type: 'yandex#' + mapType,
 						controls: controls
 					},
@@ -276,7 +263,7 @@
 	};
 
 	// Make sure you run this code under Elementor..
-	$( window ).on(
+	$( w ).on(
 		'elementor/frontend/init',
 		function() {
 			elementorFrontend.hooks.addAction( 'frontend/element_ready/yandex-maps.default', map.init );

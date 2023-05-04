@@ -201,7 +201,7 @@ class Main {
 			'mihdan-elementor-yandex-maps',
 			plugins_url( '/frontend/js/mihdan-elementor-yandex-maps.js', MIHDAN_ELEMENTOR_YANDEX_MAPS_FILE ),
 			array( 'jquery' ),
-			MIHDAN_ELEMENTOR_YANDEX_MAPS_VERSION,
+			filemtime( MIHDAN_ELEMENTOR_YANDEX_MAPS_DIR . '/frontend/js/mihdan-elementor-yandex-maps.js' ),
 			true
 		);
 

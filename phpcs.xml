@@ -4,7 +4,9 @@
 
     <config name="installed_paths" value="vendor/wp-coding-standards/wpcs" />
 
-    <rule ref="WordPress" />
+    <rule ref="WordPress">
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
+	</rule>
     <!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties -->
 
     <exclude-pattern>*/vendor/*</exclude-pattern>
