@@ -661,6 +661,16 @@ class Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'enable_save_map',
+			array(
+				'label'       => __( 'Enable map saving', 'mihdan-elementor-yandex-maps' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Enables the ability to save the current map state and share a link to it', 'mihdan-elementor-yandex-maps' ),
+			)
+		);
+
+		$this->add_control(
 			'disable_scroll_zoom',
 			array(
 				'label'       => __( 'Disable Scroll Zoom', 'mihdan-elementor-yandex-maps' ),
@@ -1421,6 +1431,7 @@ class Widget extends Widget_Base {
 			'fullscreenControl'                => $settings['fullscreen_control'],
 			'routeButtonControl'               => $settings['route_button_control'],
 			'routePanelControl'                => $settings['route_panel_control'],
+			'enableSaveMap'                    => $settings['enable_save_map'],
 			'disableScrollZoom'                => $settings['disable_scroll_zoom'],
 			'disableDblClickZoom'              => $settings['disable_dbl_click_zoom'],
 			'disableDrag'                      => $settings['disable_drag'],

@@ -26,6 +26,7 @@
 				fullscreen_control                   = config.fullscreenControl,
 				route_button_control                 = config.routeButtonControl,
 				route_panel_control                  = config.routePanelControl,
+				enable_save_map                      = config.enableSaveMap,
 				disable_scroll_zoom                  = config.disableScrollZoom,
 				disable_dbl_click_zoom               = config.disableDblClickZoom,
 				disable_drag                         = config.disableDrag,
@@ -140,6 +141,8 @@
 						searchControlProvider: 'yandex#search'
 					}
 				);
+
+				let lastOpenedBalloon = false;
 
 				// Отключить прокрутку колесом мыши
 				if ( 'yes' === disable_scroll_zoom ) {
@@ -268,6 +271,82 @@
 							}
 						}
 					);
+				}
+
+				/**
+				 * Получает значение параметра name из адресной строки браузера.
+				 * @param {string} name Имя параметра для поиска.
+				 * @param location
+				 * @returns {string|boolean}
+				 */
+				const getParam = function ( name, location ) {
+					location = location || window.location.hash;
+					const res = location.match( new RegExp( '[#&]' + name + '=([^&]*)', 'i' ) );
+					return ( res && res[1] ? res[1] : false );
+				}
+
+				/**
+				 * Передача параметров, описывающих состояние карты, в адресную строку браузера.
+				 */
+				const setLocationHash = function () {
+					var params = [
+						'type=' + w[ map ].getType().split( '#' )[1],
+						'center=' + w[ map ].getCenter(),
+						'zoom=' + w[ map ].getZoom()
+					];
+
+					if ( w[ map ].balloon.isOpen() ) {
+						params.push( 'open=' +  lastOpenedBalloon );
+					}
+
+					window.location.hash = params.join( '&' );
+				}
+
+				/**
+				 * Установка состояния карты в соответствии с переданными в адресной строке браузера параметрами.
+				 */
+				const setMapStateByHash = function () {
+					const hashType = getParam( 'type' ),
+						  hashCenter = getParam( 'center' ),
+						  hashZoom   = getParam( 'zoom' ),
+						  open       = getParam( 'open' );
+
+					if (hashType) {
+						w[ map ].setType('yandex#' + hashType);
+					}
+					if (hashCenter) {
+						w[ map ].setCenter(hashCenter.split(','));
+					}
+					if (hashZoom) {
+						w[ map ].setZoom(hashZoom);
+					}
+					if (open) {
+						/*markersLocations.each(function (geoObj) {
+							var id = geoObj.properties.get('myId');
+							if (id == open) {
+								geoObj.balloon.open();
+
+							}
+						});*/
+					}
+				}
+
+				// Включить сохранение карты.
+				if ( 'yes' === enable_save_map ) {
+					w[ map ].events.add(
+						[ 'boundschange', 'typechange', 'balloonclose' ],
+						setLocationHash
+					);
+
+					// markersLocations.events.add(
+					// 	['balloonopen'],
+					// 	function (e) {
+					// 		lastOpenedBalloon = e.get( 'target' ).properties.get( 'myId' );
+					// 		setLocationHash();
+					// 	}
+					// );
+
+					setMapStateByHash();
 				}
 			};
 		}
