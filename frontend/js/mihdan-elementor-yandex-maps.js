@@ -5,7 +5,7 @@
 
 			let
 				$map                                 = $scope.find( '.mihdan-elementor-yandex-maps' ),
-				map_id                               = $scope.data('id'),
+				map_id                               = $map.data('map_id'),
 				config                               = w[ 'mihdan_elementor_yandex_map_' + map_id ],
 				device                               = w.elementorFrontend.getCurrentDeviceMode() || 'desktop',
 				timeout                              = w.elementorFrontend.isEditMode() ? 100 : 5000,

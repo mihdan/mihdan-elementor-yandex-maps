@@ -1274,6 +1274,8 @@ class Widget extends Widget_Base {
 	 * @access protected
 	 */
 	protected function render() {
+		$map_id = $this->get_map_id();
+
 		$breakpoints = Plugin::$instance->breakpoints->get_active_breakpoints();
 		$settings    = $this->get_settings_for_display();
 
@@ -1414,7 +1416,7 @@ class Widget extends Widget_Base {
 
 		// Генерируем конфиг для JS.
 		$config = [
-			'id'                               => $this->get_id(),
+			'id'                               => $map_id,
 			'language'                         => $settings['map_language'],
 			'region'                           => $settings['map_region'],
 			'lat'                              => $settings['map_lat'],
@@ -1447,10 +1449,11 @@ class Widget extends Widget_Base {
 		];
 		?>
 		<script>
-			var mihdan_elementor_yandex_map_<?php echo esc_attr( $this->get_id() ); ?> = <?php echo wp_json_encode( $config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ); ?>;
+			var mihdan_elementor_yandex_map_<?php echo esc_attr( $map_id ); ?> = <?php echo wp_json_encode( $config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ); ?>;
 		</script>
 		<div
-			id="mihdan_elementor_yandex_map_<?php echo esc_attr( $this->get_id() ); ?>"
+			id="mihdan_elementor_yandex_map_<?php echo esc_attr( $map_id ); ?>"
+			data-map_id="<?php echo esc_attr( $map_id ); ?>"
 			class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"
 		></div>
 		<?php
@@ -1540,6 +1543,15 @@ class Widget extends Widget_Base {
 		}
 
 		return $post_types;
+	}
+
+	/**
+	 * Генерирует уникальный идентификатор карты.
+	 *
+	 * @return string
+	 */
+	private function get_map_id(): string {
+		return str_replace( '.', '', uniqid( '', true ) );
 	}
 }
 
