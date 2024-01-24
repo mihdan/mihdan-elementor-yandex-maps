@@ -1,3 +1,10 @@
+/**
+ * Frontend for maps.
+ *
+ * @author Mikhail Kobzarev <mikhail@kobzarev.com>
+ * @package mihdan-elementor-yandex-maps
+ */
+
 ( function( $, w, d ) {
 	'use strict';
 	var map = {
@@ -5,8 +12,8 @@
 
 			let
 				$map                                 = $scope.find( '.mihdan-elementor-yandex-maps' ),
-				map_id                               = $map.data('map_id'),
-				config                               = w[ 'mihdan_elementor_yandex_map_' + map_id ],
+				map_id                               = $map.data( 'map_id' ),
+				config                               = $map.data( 'map_config' ),
 				device                               = w.elementorFrontend.getCurrentDeviceMode() || 'desktop',
 				timeout                              = w.elementorFrontend.isEditMode() ? 100 : 5000,
 				mapType                              = config.type,
@@ -44,7 +51,7 @@
 				loaded                               = false;
 
 			// Ленивая загрузка API карт.
-			const lazyLoad = function ( e ) {
+			const lazyLoad = function () {
 
 				if ( loaded ) {
 					return;
@@ -52,7 +59,7 @@
 
 				const
 					script_id = 'mihdan_elementor_yandex_maps_script_' + map_id,
-					script = document.getElementById( script_id );
+					script    = document.getElementById( script_id );
 
 				// Скрипт уже подгружен для этой карты.
 				if ( script ) {
@@ -69,7 +76,7 @@
 				f.parentNode.insertBefore( j, f );
 
 				loaded = true;
-			}
+			};
 
 			const event_options = {
 				once: true,
@@ -218,7 +225,7 @@
 					 */
 					$.each(
 						markersLocations.features,
-						function ( index, Element, content ) {
+						function ( index, Element ) {
 							var options = {};
 
 							// Custom icon.
@@ -275,15 +282,16 @@
 
 				/**
 				 * Получает значение параметра name из адресной строки браузера.
+				 *
 				 * @param {string} name Имя параметра для поиска.
 				 * @param location
 				 * @returns {string|boolean}
 				 */
 				const getParam = function ( name, location ) {
-					location = location || window.location.hash;
+					location  = location || window.location.hash;
 					const res = location.match( new RegExp( '[#&]' + name + '=([^&]*)', 'i' ) );
 					return ( res && res[1] ? res[1] : false );
-				}
+				};
 
 				/**
 				 * Передача параметров, описывающих состояние карты, в адресную строку браузера.
@@ -296,29 +304,29 @@
 					];
 
 					if ( w[ map ].balloon.isOpen() ) {
-						params.push( 'open=' +  lastOpenedBalloon );
+						params.push( 'open=' + lastOpenedBalloon );
 					}
 
 					window.location.hash = params.join( '&' );
-				}
+				};
 
 				/**
 				 * Установка состояния карты в соответствии с переданными в адресной строке браузера параметрами.
 				 */
 				const setMapStateByHash = function () {
-					const hashType = getParam( 'type' ),
+					const hashType   = getParam( 'type' ),
 						  hashCenter = getParam( 'center' ),
 						  hashZoom   = getParam( 'zoom' ),
 						  open       = getParam( 'open' );
 
 					if (hashType) {
-						w[ map ].setType('yandex#' + hashType);
+						w[ map ].setType( 'yandex#' + hashType );
 					}
 					if (hashCenter) {
-						w[ map ].setCenter(hashCenter.split(','));
+						w[ map ].setCenter( hashCenter.split( ',' ) );
 					}
 					if (hashZoom) {
-						w[ map ].setZoom(hashZoom);
+						w[ map ].setZoom( hashZoom );
 					}
 					if (open) {
 						/*markersLocations.each(function (geoObj) {
@@ -329,7 +337,7 @@
 							}
 						});*/
 					}
-				}
+				};
 
 				// Включить сохранение карты.
 				if ( 'yes' === enable_save_map ) {
@@ -337,14 +345,6 @@
 						[ 'boundschange', 'typechange', 'balloonclose' ],
 						setLocationHash
 					);
-
-					// markersLocations.events.add(
-					// 	['balloonopen'],
-					// 	function (e) {
-					// 		lastOpenedBalloon = e.get( 'target' ).properties.get( 'myId' );
-					// 		setLocationHash();
-					// 	}
-					// );
 
 					setMapStateByHash();
 				}

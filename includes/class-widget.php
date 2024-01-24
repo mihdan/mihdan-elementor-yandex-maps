@@ -1447,15 +1447,18 @@ class Widget extends Widget_Base {
 			'enableBalloonPanel'               => $settings['enable_balloon_panel'],
 			'locations'                        => $geo_json,
 		];
+
+		$this->add_render_attribute(
+			'map',
+			[
+				'id'              => 'mihdan_elementor_yandex_map_' . esc_attr( $map_id ),
+				'data-map_id'     => esc_attr( $map_id ),
+				'data-map_config' => wp_json_encode( $config, JSON_UNESCAPED_UNICODE ),
+				'class'           => esc_attr( implode( ' ', $classes ) ),
+			]
+		);
 		?>
-		<script>
-			var mihdan_elementor_yandex_map_<?php echo esc_attr( $map_id ); ?> = <?php echo wp_json_encode( $config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ); ?>;
-		</script>
-		<div
-			id="mihdan_elementor_yandex_map_<?php echo esc_attr( $map_id ); ?>"
-			data-map_id="<?php echo esc_attr( $map_id ); ?>"
-			class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"
-		></div>
+		<div <?php $this->print_render_attribute_string( 'map' ); ?>></div>
 		<?php
 	}
 
