@@ -5,7 +5,7 @@ Donate link: https://www.kobzarev.com/donate/
 Requires at least: 5.8
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 1.6.7
+Stable tag: 1.6.9
 
 Elementor Yandex Maps Widget
 
@@ -30,10 +30,16 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 
 == Changelog ==
 
-= 1.6.7 (21.03.2024) =
+= 1.6.9 (21.03.2024) =
 * Added support for Elementor 3.20+
 * Added support for Elementor Pro 3.20+
 * Added the ability to completely disable lazy map loading
+
+= 1.6.8 (24.01.2024) =
+* Added ability to automatic reinitialize maps after Ajax-requests
+
+= 1.6.7 (23.01.2024) =
+* Added the ability to use a map in Loop Builder
 
 = 1.6.6 (07.12.2023) =
 * Added support for WordPress 6.4+
