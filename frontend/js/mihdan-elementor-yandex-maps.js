@@ -35,6 +35,7 @@
 				disable_multi_touch                  = config.disableMultiTouch,
 				disable_route_editor                 = config.disableRouteEditor,
 				disable_ruler                        = config.disableRuler,
+				disable_lazy_load                    = config.disableLazyLoad,
 				enable_object_manager                = config.enableObjectManager,
 				enable_balloon_panel                 = config.enableBalloonPanel === 'yes',
 				infowindow_max_width                 = parseInt( config.infoWindowMaxWidth, 10 ),
@@ -42,6 +43,12 @@
 				ns                                   = 'mihdan_elementor_yandex_maps_ns_' + map_id, // Неймспейс для карты.
 				map                                  = 'mihdan_elementor_yandex_maps_map_' + map_id,
 				loaded                               = false;
+
+			// Отключает ленивую загрузку карты,
+			// когда карта в шапке сайта или на фоне секции.
+			if ( disable_lazy_load === 'yes' ) {
+				timeout = 0;
+			}
 
 			// Ленивая загрузка API карт.
 			const lazyLoad = function ( e ) {

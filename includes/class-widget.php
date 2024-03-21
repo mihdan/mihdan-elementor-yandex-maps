@@ -750,6 +750,16 @@ class Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'disable_lazy_load',
+			array(
+				'label'       => __( 'Disable Lazy Load', 'mihdan-elementor-yandex-maps' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'description' => __( 'Completely disable lazy loading of map', 'mihdan-elementor-yandex-maps' ),
+			)
+		);
+
 		$this->end_controls_section();
 
 		/**
@@ -1440,6 +1450,7 @@ class Widget extends Widget_Base {
 			'disableMultiTouch'                => $settings['disable_multi_touch'],
 			'disableRouteEditor'               => $settings['disable_route_editor'],
 			'disableRuler'                     => $settings['disable_ruler'],
+			'disableLazyLoad'                  => $settings['disable_lazy_load'],
 			'enableObjectManager'              => $settings['enable_object_manager'],
 			'infoWindowMaxWidth'               => $settings['infowindow_max_width'],
 			'enableBalloonPanel'               => $settings['enable_balloon_panel'],
