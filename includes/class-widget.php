@@ -3,6 +3,7 @@
  * Виджет карты
  *
  * @package mihdan-elementor-yandex-maps
+ * @link https://developers.elementor.com/docs/editor-controls/conditional-display/
  */
 
 namespace Mihdan\ElementorYandexMaps;
@@ -12,6 +13,7 @@ use Elementor\Plugin;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
+use Exception;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -56,7 +58,7 @@ class Widget extends Widget_Base {
 	 * @param array $data Data.
 	 * @param null  $args Arguments.
 	 *
-	 * @throws \Exception Exception.
+	 * @throws Exception Exception.
 	 */
 	public function __construct( $data = array(), $args = null ) {
 		parent::__construct( $data, $args );
@@ -1027,18 +1029,48 @@ class Widget extends Widget_Base {
 				)
 			);
 
+				// Получаем все зарегистрированные типы записей.
+				$post_types = Utils::get_public_post_types();
+
 				$this->add_control(
 					'points_source_post_type',
 					array(
 						'label'   => __( 'Post Type', 'mihdan-elementor-yandex-maps' ),
 						'type'    => Controls_Manager::SELECT,
-						'options' => $this->get_public_post_types(),
+						'options' =>
+							array_merge(
+								[
+									'none' => __( 'Not select', 'mihdan-elementor-yandex-maps' ),
+								],
+								$post_types
+							),
 						'default' => 'none',
-						'dynamic' => array(
-							'active' => true,
-						),
 					)
 				);
+
+				// Для каждого типа записей находим привязанные таксономии.
+				foreach ( $post_types as $post_type_slug => $post_type_name ) {
+
+					$taxonomies = Utils::get_taxonomies( $post_type_slug );
+
+					// Для каждой таксономии создаем список
+					// со множественным выбором термов.
+					foreach ( $taxonomies as $taxonomy_slug => $taxonomy_name ) {
+						$this->add_control(
+							'points_source_post_type_taxonomy_' . $taxonomy_slug,
+							array(
+								'label'     => $taxonomy_name,
+								'type'      => Controls_Manager::SELECT2,
+								'options'   => Utils::get_terms( $taxonomy_slug ),
+								'default'   => 'none',
+								'multiple'  => true,
+								'condition' => [
+									'points_source_post_type' => $post_type_slug,
+								],
+							)
+						);
+					}
+				}
 
 				$this->add_control(
 					'points_source_post_type_limit',
@@ -1304,7 +1336,26 @@ class Widget extends Widget_Base {
 				'post_status'    => 'publish',
 				'no_found_rows'  => true,
 				'posts_per_page' => $settings['points_source_post_type_limit'],
+				'tax_query'      => [],
 			);
+
+			// Фильтр по выбранному терму указанной таксономии.
+			$terms = Utils::array_keys_by_regex( $settings, '/points_source_post_type_taxonomy_/' );
+
+			foreach ( $terms as $taxonomy => $term ) {
+				if ( ! is_array( $term ) ) {
+					continue;
+				}
+
+				// phpcs:ignore Detected usage of tax_query, possible slow query.
+				$args['tax_query'][] =
+					[
+						'taxonomy' => str_replace( 'points_source_post_type_taxonomy_', '', $taxonomy ),
+						'terms'    => array_map( 'intval', $term ),
+					];
+			}
+
+			$args = apply_filters( 'mihdan_elementor_yandex_maps_posts_args', $args, $map_id );
 
 			$points = get_posts( $args );
 
@@ -1400,7 +1451,6 @@ class Widget extends Widget_Base {
 			);
 		}
 
-
 		$classes = array(
 			'mihdan-elementor-yandex-maps',
 		);
@@ -1455,7 +1505,7 @@ class Widget extends Widget_Base {
 			'disableLazyLoad'                  => $settings['disable_lazy_load'],
 			'enableObjectManager'              => $settings['enable_object_manager'],
 			'infoWindowMaxWidth'               => $settings['infowindow_max_width'],
-			'enableBalloonPanel'               => $settings['enable_balloon_panel'],
+			'enableBalloonPanel'               => $settings['enable_balloon_panel'] ?? 'no',
 			'locations'                        => $geo_json,
 		];
 
@@ -1523,40 +1573,6 @@ class Widget extends Widget_Base {
 		}
 
 		return $value;
-	}
-
-	/**
-	 * Get public post types.
-	 *
-	 * @param array $args Arguments for get_post_types().
-	 *
-	 * @return array
-	 */
-	private function get_public_post_types( $args = array() ) {
-		$post_type_args = array(
-			// Default is the value $public.
-			'show_in_nav_menus' => true,
-		);
-
-		// Keep for backwards compatibility.
-		if ( ! empty( $args['post_type'] ) ) {
-			$post_type_args['name'] = $args['post_type'];
-			unset( $args['post_type'] );
-		}
-
-		$post_type_args = wp_parse_args( $post_type_args, $args );
-
-		$_post_types = get_post_types( $post_type_args, 'objects' );
-
-		$post_types = array(
-			'none' => __( 'Not select', 'mihdan-elementor-yandex-maps' ),
-		);
-
-		foreach ( $_post_types as $post_type => $object ) {
-			$post_types[ $post_type ] = $object->label;
-		}
-
-		return $post_types;
 	}
 
 	/**
