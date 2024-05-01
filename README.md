@@ -1,4 +1,4 @@
-# Mihdan: Elementor Yandex Maps
+# Yandex Maps for Elementor
 
 Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard [Elementor](https://www.kobzarev.com/r/elementor/) text editor. And many more custom map options.
 
@@ -6,17 +6,17 @@ Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map
 @mihdan
 
 ## Requirements
-- WordPress: 4.6+
+- WordPress: 5.6+
 - Tested up to: 4.9.6
-- Requires PHP: 5.6
-- Stable tag: 1.3.2
+- Requires PHP: 7.4
+- Stable tag: 1.6.11
 
 ## Installation
 1. `git clone https://github.com/mihdan/mihdan-elementor-yandex-maps.git mihdan-elementor-yandex-maps`
 2. `composer install --no-dev`
 3. Visit Dashboard > Plugins
-4. Activate Mihdan: Elementor Yandex Maps from your Plugins page.
-5. [Optional] Configure Mihdan: Elementor Yandex Maps settings.
+4. Activate Yandex Maps for Elementor from your Plugins page.
+5. [Optional] Configure Yandex Maps for Elementor settings.
 
 ## Screenshots
 1. ![Map appearance](https://raw.githubusercontent.com/mihdan/mihdan-elementor-yandex-maps/master/.wordpress-org/screenshot-1.png)

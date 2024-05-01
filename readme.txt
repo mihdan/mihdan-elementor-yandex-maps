@@ -1,16 +1,18 @@
 === Mihdan: Elementor Yandex Maps ===
 Contributors: mihdan
 Tags: elementor, yandex, maps, api, mihdan
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.kobzarev.com/donate/
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 1.6.10
+Stable tag: 1.6.11
 
-Elementor Yandex Maps Widget
+Yandex Maps widget for Elementor
 
 == Description ==
-SEO-friendly Elementor Yandex Maps Widget. Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard Elementor text editor. And many more custom map options.
+SEO-friendly Yandex Maps widget for Elementor. Easily add multiple address pins onto the same map with support for different map types (Road Map/Satellite/Hybrid/Terrain) and custom map style. Freely edit info window content of your pins with the standard Elementor text editor. And many more custom map options.
 
 [youtube https://www.youtube.com/watch?v=UYAeDlxz9xs]
 
@@ -18,9 +20,9 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 
 == Installation ==
 1. Visit ‘Plugins > Add New’
-2. Search for ‘Mihdan: Elementor Yandex Maps’
-3. Activate Mihdan: Elementor Yandex Maps from your Plugins page.
-4. [Optional] Configure Mihdan: Elementor Yandex Maps settings.
+2. Search for ‘Yandex Maps for Elementor’
+3. Activate Yandex Maps for Elementor from your Plugins page.
+4. [Optional] Configure Yandex Maps for Elementor settings.
 
 == Frequently Asked Questions ==
 
@@ -29,6 +31,12 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 Получить API-ключ можно в [Кабинете разработчика](https://developer.tech.yandex.ru/services/). Нажмите «Получить ключ», затем выберите сервис «JavaScript API и HTTP Геокодер» и заполните анкету — ваш API-ключ будет сразу готов к использованию.
 
 == Changelog ==
+
+= 1.6.11 (01.05.2024) =
+* Fixed link to the plugin settings page
+* Added support for Elementor 3.21+
+* Added support for Elementor Pro 3.21+
+* Hard dependency on Elementor plugin has been added to the plugin
 
 = 1.6.10 (12.04.2024) =
 * Added the ability to filter pins by the terms of the selected taxonomy

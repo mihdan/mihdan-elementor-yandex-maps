@@ -143,7 +143,7 @@ class Main {
 		if ( MIHDAN_ELEMENTOR_YANDEX_MAPS_BASE_NAME === $plugin_file ) {
 			$actions[] = sprintf(
 				'<a href="%s">%s</a>',
-				admin_url( 'admin.php?page=elementor#tab-integrations' ),
+				admin_url( 'admin.php?page=elementor-settings#tab-integrations' ),
 				esc_html__( 'Settings', 'mihdan-elementor-yandex-maps' )
 			);
 		}
