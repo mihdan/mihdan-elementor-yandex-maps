@@ -101,6 +101,10 @@
 			// Фолбек загрузки карты, если юзер не сделал никаких событий.
 			setTimeout( lazyLoad, timeout );
 
+			if (w['ymaps_ready_' + map_id]) {
+				return;
+			}
+
 			w['ymaps_ready_' + map_id] = function () {
 
 				if ( 'yes' === ruler_control ) {

@@ -4,10 +4,10 @@ Tags: elementor, yandex, maps, api, mihdan
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.kobzarev.com/donate/
-Requires at least: 5.8
-Tested up to: 6.5
+Requires at least: 6.6
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.6.11
+Stable tag: 1.7.0
 
 Yandex Maps widget for Elementor
 
@@ -31,6 +31,12 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 Получить API-ключ можно в [Кабинете разработчика](https://developer.tech.yandex.ru/services/). Нажмите «Получить ключ», затем выберите сервис «JavaScript API и HTTP Геокодер» и заполните анкету — ваш API-ключ будет сразу готов к использованию.
 
 == Changelog ==
+
+= 1.7.0 (12.10.2025) =
+* Added support for WordPress 6.8+
+* Added support for Elementor 3.32+
+* Added support for Elementor Pro 3.32+
+* Fixed: Cannot read properties of undefined (reading 'desktop')
 
 = 1.6.11 (01.05.2024) =
 * Fixed link to the plugin settings page

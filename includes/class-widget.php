@@ -1016,7 +1016,7 @@ class Widget extends Widget_Base {
 							),
 						),
 						'fields'      => $pin_repeater->get_controls(),
-						'title_field' => '{{{ balloon_content_header }}}',
+						'title_field' => '{{ balloon_content_header }}',
 					)
 				);
 
@@ -1382,12 +1382,12 @@ class Widget extends Widget_Base {
 					$settings['tabs'][ $i ] = array(
 						'point_lat'              => $this->calculate_dynamic_content( 'points_source_post_type_lat', $settings, $point->ID ),
 						'point_lng'              => $this->calculate_dynamic_content( 'points_source_post_type_lng', $settings, $point->ID ),
-						'balloon_content_header' => $this->calculate_dynamic_content( 'points_source_post_type_balloon_content_header', $settings, $point->ID ),
-						'balloon_content_body'   => apply_shortcodes( $balloon_content_body ),
-						'balloon_content_footer' => $balloon_content_footer,
-						'icon_caption'           => $icon_caption,
-						'icon_content'           => $icon_content,
-						'hint_content'           => $hint_content,
+						'balloon_content_header' => wp_kses_post( $this->calculate_dynamic_content( 'points_source_post_type_balloon_content_header', $settings, $point->ID ) ),
+						'balloon_content_body'   => wp_kses_post( apply_shortcodes( $balloon_content_body ) ),
+						'balloon_content_footer' => wp_kses_post( $balloon_content_footer ),
+						'icon_caption'           => wp_kses_post( $icon_caption ),
+						'icon_content'           => wp_kses_post( $icon_content ),
+						'hint_content'           => wp_kses_post( $hint_content ),
 						'icon_color'             => $settings['points_source_post_type_icon_color'],
 						'icon_type'              => $settings['points_source_post_type_icon_type'],
 						'icon_image'             => $this->calculate_dynamic_content( 'points_source_post_type_icon_image', $settings, $point->ID ),
@@ -1434,12 +1434,12 @@ class Widget extends Widget_Base {
 					),
 				),
 				'properties' => array(
-					'iconCaption'          => $item['icon_caption'],
-					'iconContent'          => $item['icon_content'],
-					'hintContent'          => $item['hint_content'],
-					'balloonContentHeader' => $balloon_content_header,
-					'balloonContentFooter' => $item['balloon_content_footer'],
-					'balloonContentBody'   => apply_shortcodes( $balloon_content_body ),
+					'iconCaption'          => wp_kses_post( $item['icon_caption'] ),
+					'iconContent'          => wp_kses_post( $item['icon_content'] ),
+					'hintContent'          => wp_kses_post( $item['hint_content'] ),
+					'balloonContentHeader' => wp_kses_post( $balloon_content_header ),
+					'balloonContentFooter' => wp_kses_post( $item['balloon_content_footer'] ),
+					'balloonContentBody'   => wp_kses_post( apply_shortcodes( $balloon_content_body ) ),
 				),
 				'options'    => array(
 					'preset'          => sprintf( 'islands#%s%sIcon', $item['icon_color'], $item['icon_type'] ),
