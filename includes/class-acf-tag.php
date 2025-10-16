@@ -69,6 +69,6 @@ class ACF_Tag extends Tag {
 			$value = $sum / $count;
 		}
 
-		echo $value;
+		echo wp_kses_post( $value );
 	}
 }

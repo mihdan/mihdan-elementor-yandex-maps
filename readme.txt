@@ -1,4 +1,4 @@
-=== Mihdan: Elementor Yandex Maps ===
+=== Maps from Yandex for Elementor ===
 Contributors: mihdan
 Tags: elementor, yandex, maps, api, mihdan
 License: GPL v2 or later
@@ -7,7 +7,7 @@ Donate link: https://www.kobzarev.com/donate/
 Requires at least: 6.6
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 
 Yandex Maps widget for Elementor
 
@@ -20,9 +20,9 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 
 == Installation ==
 1. Visit ‘Plugins > Add New’
-2. Search for ‘Yandex Maps for Elementor’
-3. Activate Yandex Maps for Elementor from your Plugins page.
-4. [Optional] Configure Yandex Maps for Elementor settings.
+2. Search for ‘Maps from Yandex for Elementor’
+3. Activate Maps from Yandex for Elementor from your Plugins page.
+4. [Optional] Configure Maps from Yandex for Elementor settings.
 
 == Frequently Asked Questions ==
 
@@ -31,6 +31,9 @@ Based on the original [Elementor Google Map Extended](https://wordpress.org/plug
 Получить API-ключ можно в [Кабинете разработчика](https://developer.tech.yandex.ru/services/). Нажмите «Получить ключ», затем выберите сервис «JavaScript API и HTTP Геокодер» и заполните анкету — ваш API-ключ будет сразу готов к использованию.
 
 == Changelog ==
+
+= 1.7.1 (16.10.2025) =
+* Removed unused functions
 
 = 1.7.0 (12.10.2025) =
 * Added support for WordPress 6.8+

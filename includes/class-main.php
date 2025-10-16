@@ -107,9 +107,6 @@ class Main {
 	 * Hooks initialization.
 	 */
 	public function init_hooks() {
-
-		add_action( 'plugins_loaded', array( $this, 'i18n' ) );
-
 		// Add Plugin actions.
 		add_action( 'elementor/init', array( $this, 'register_category' ) );
 		add_action( 'elementor/admin/after_create_settings/elementor', array( $this, 'register_settings' ) );
@@ -122,13 +119,6 @@ class Main {
 
 		// Просьба оценить плагин.
 		add_action( 'admin_init', array( $this, 'admin_notice_star' ) );
-	}
-
-	/**
-	 * Load Plugin Textdomain.
-	 */
-	public function i18n() {
-		load_plugin_textdomain( 'mihdan-elementor-yandex-maps' );
 	}
 
 	/**
